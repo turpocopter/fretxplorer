@@ -48,6 +48,24 @@ const settingsReducer = (state = initialState, action) => {
           : { ...el }
       );
       return { ...state, tuning: newTuningDown };
+    case actionTypes.TUNE_UP_ALL:
+      return {
+        ...state,
+        tuning: state.tuning.map((s) => ({
+          ...s,
+          note: s.note === 11 ? 0 : s.note + 1,
+          octave: s.note === 11 ? s.octave + 1 : s.octave,
+        })),
+      };
+    case actionTypes.TUNE_DOWN_ALL:
+      return {
+        ...state,
+        tuning: state.tuning.map((s) => ({
+          ...s,
+          note: s.note === 0 ? 11 : s.note - 1,
+          octave: s.note === 0 ? s.octave - 1 : s.octave,
+        })),
+      };
     case actionTypes.SET_TUNING_PRESET:
       const newTuningPreset = state.tuning.map((el) => {
         const newStringPreset = action.tuning.find(

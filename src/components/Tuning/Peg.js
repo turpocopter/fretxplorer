@@ -19,6 +19,23 @@ const useStyles = makeStyles((theme) => ({
     "&$active": {
       color: theme.palette.secondary.main,
     },
+    "&::before": {
+      content: (isLinked) => isLinked && `''`,
+      display: "block",
+      position: "absolute",
+      width: 1,
+      height: 47,
+      backgroundColor: "#ccc",
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      margin: "auto",
+      zIndex: -1,
+    },
+    "& div": {
+      backgroundColor: "#f8f7f9",
+    },
   },
   tuneBtn: {
     display: "block",
@@ -43,20 +60,21 @@ const Peg = ({
   onClickPeg,
   isActive,
   isOpen,
+  isLinked,
   stringId,
   tuneUp,
   tuneDown,
   tuneUpDisabled,
   tuneDownDisabled,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles(isLinked);
 
   const pegClasses = [classes.peg];
   if (isOpen) pegClasses.push(classes.open);
   if (isActive) pegClasses.push(classes.active);
   return (
     <div className={pegClasses.join(" ")}>
-      {isOpen && (
+      {isOpen && !isLinked && (
         <button
           className={classes.tuneBtn}
           onClick={() => tuneDown(stringId)}
@@ -66,7 +84,7 @@ const Peg = ({
         </button>
       )}
       <div onClick={onClickPeg}>{getNoteName(tuning.n, useFlats)}</div>
-      {isOpen && (
+      {isOpen && !isLinked && (
         <button
           className={classes.tuneBtn}
           onClick={() => tuneUp(stringId)}

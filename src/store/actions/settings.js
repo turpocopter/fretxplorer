@@ -33,6 +33,18 @@ export const tuneDownString = (stringId) => {
   };
 };
 
+export const tuneUpAll = () => {
+  return {
+    type: actionTypes.TUNE_UP_ALL,
+  };
+};
+
+export const tuneDownAll = () => {
+  return {
+    type: actionTypes.TUNE_DOWN_ALL,
+  };
+};
+
 export const setTuningPreset = (tuning) => {
   return {
     type: actionTypes.SET_TUNING_PRESET,

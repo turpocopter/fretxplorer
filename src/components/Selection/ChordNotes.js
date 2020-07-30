@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 import withMidiSounds from "hoc/withMidiSounds";
 import useNotes from "hooks/noteNames";
-import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+//import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => {
@@ -24,9 +25,30 @@ const useStyles = makeStyles((theme) => {
     noteName: {},
     playChord: {
       display: "inline-block",
-      fontSize: "2.2em",
-      lineHeight: 1,
-      verticalAlign: "bottom",
+      fontSize: 21,
+      width: 25,
+      zIndex: 0,
+      textAlign: "center",
+      position: "relative",
+      "&::before": {
+        content: `''`,
+        position: "absolute",
+        display: "block",
+        height: 25,
+        width: 25,
+        backgroundColor: "#F8F7F9",
+        zIndex: -1,
+        borderRadius: "50%",
+        border: "2.4px solid black",
+        top: 0,
+        left: 0,
+      },
+      "&$active": {
+        color: theme.palette.secondary.main,
+        "&::before": {
+          borderColor: theme.palette.secondary.main,
+        },
+      },
     },
     interval: {
       color: "#aaa",
@@ -107,7 +129,7 @@ const ChordNotes = ({
         }
         onClick={onChordListen}
       >
-        <PlayCircleOutlineIcon fontSize='inherit' />
+        <PlayArrowIcon fontSize='inherit' />
       </li>
     </ul>
   );

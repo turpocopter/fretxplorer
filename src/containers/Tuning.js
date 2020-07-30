@@ -12,6 +12,9 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import CancelIcon from "@material-ui/icons/Cancel";
 import LinkIcon from "@material-ui/icons/Link";
 import LinkOffIcon from "@material-ui/icons/LinkOff";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -96,6 +99,67 @@ const useStyles = makeStyles((theme) => ({
       top: 0,
       left: 0,
     },
+    "&$active": {
+      color: theme.palette.secondary.main,
+      "&::before": {
+        borderColor: theme.palette.secondary.main,
+      },
+    },
+  },
+  playBtnOpen: {
+    position: "absolute",
+    fontSize: 21,
+    width: 25,
+    zIndex: 0,
+    textAlign: "center",
+    top: 85,
+    left: -14,
+    "&::before": {
+      content: `''`,
+      position: "absolute",
+      display: "block",
+      height: 25,
+      width: 25,
+      backgroundColor: "#F8F7F9",
+      zIndex: -1,
+      borderRadius: "50%",
+      border: "2.4px solid black",
+      top: 0,
+      left: 0,
+    },
+    "&$active": {
+      color: theme.palette.secondary.main,
+      "&::before": {
+        borderColor: theme.palette.secondary.main,
+      },
+    },
+  },
+  tuneBtnWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    position: "relative",
+    zIndex: 0,
+    "&::before": {
+      content: `''`,
+      position: "absolute",
+      top: 12,
+      zIndex: -1,
+      height: 1,
+      width: 182,
+      backgroundColor: "#ccc",
+    },
+  },
+  tuneBtn: {
+    display: "block",
+    color: "#222",
+    border: "none",
+    margin: 0,
+    padding: 0,
+    background: "#f8f7f9",
+    outline: "none",
+    "&:disabled": {
+      color: "#ccc",
+    },
   },
   active: {},
 }));
@@ -111,6 +175,7 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
   const [activePeg, setActivePeg] = useState(null);
   const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const onTuneUpString = (stringId) => {
     setPreset("");
@@ -119,6 +184,14 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
   const onTuneDownString = (stringId) => {
     setPreset("");
     return dispatch(actions.tuneDownString(stringId));
+  };
+  const onTuneUpAll = () => {
+    setPreset("");
+    return dispatch(actions.tuneUpAll());
+  };
+  const onTuneDownAll = () => {
+    setPreset("");
+    return dispatch(actions.tuneDownAll());
   };
   const onClickPeg = (stringId, note, octave) => {
     if (!activePeg) {
@@ -129,8 +202,9 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
       }, 1000);
     }
   };
-  const onClickFork = () => {
+  const onClickPlay = () => {
     if (!activePeg) {
+      setIsPlaying(true);
       playMelody(
         tuning.map((el) => ({ n: el.note, o: el.octave })),
         1,
@@ -146,6 +220,7 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
           clearInterval(intervalID);
           setTimeout(() => {
             setActivePeg(null);
+            setIsPlaying(false);
           }, 1000);
         }
       }, 1000);
@@ -155,6 +230,13 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
     setPreset(id);
     return dispatch(actions.setTuningPreset(tuning));
   };
+  const isGlobalTuningEnabled = (isDown = false) =>
+    tuning.every((el) =>
+      isDown
+        ? el.reference - getNoteVal(el.note, el.octave) < 9
+        : getNoteVal(el.note, el.octave) - el.reference < 9
+    );
+
   const pegList = tuning.map((el) => (
     <Peg
       key={el.stringId}
@@ -175,16 +257,35 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
   ));
   const wrapperClasses = [classes.tuning];
   const pegsClasses = [classes.pegs];
+  const playBtnClasses = [classes.playBtnOpen];
+  const linkStringsClasses = [classes.linkStrings];
   if (isOpen) {
     wrapperClasses.push(classes.active);
     pegsClasses.push(classes.active);
   }
+  if (isPlaying) {
+    playBtnClasses.push(classes.active);
+  }
+  if (isLinked) {
+    linkStringsClasses.push(classes.active);
+  }
   return (
     <div className={wrapperClasses.join(" ")}>
       {isOpen && <Presets preset={preset} selectPreset={onSelectPreset} />}
+      {isOpen && isLinked && (
+        <div className={classes.tuneBtnWrapper}>
+          <button
+            className={classes.tuneBtn}
+            onClick={onTuneDownAll}
+            disabled={!isGlobalTuningEnabled(true)}
+          >
+            <RemoveCircleIcon />
+          </button>
+        </div>
+      )}
       <div className={pegsClasses.join(" ")}>
         {!isOpen && (
-          <div className={classes.forkWrapper} onClick={onClickFork}>
+          <div className={classes.forkWrapper} onClick={onClickPlay}>
             <img className={classes.fork} src={fork} alt='Tuning' />
           </div>
         )}
@@ -195,22 +296,36 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
           </div>
         )}
       </div>
-      {isOpen && (
-        <div className={classes.discard} onClick={() => setIsOpen(false)}>
-          <CancelIcon fontSize='inherit' />
+      {isOpen && isLinked && (
+        <div className={classes.tuneBtnWrapper}>
+          <button
+            className={classes.tuneBtn}
+            onClick={onTuneUpAll}
+            disabled={!isGlobalTuningEnabled()}
+          >
+            <AddCircleIcon />
+          </button>
         </div>
       )}
       {isOpen && (
-        <div
-          className={classes.linkStrings}
-          onClick={() => setIsLinked(!isLinked)}
-        >
-          {isLinked ? (
-            <LinkOffIcon fontSize='inherit' />
-          ) : (
-            <LinkIcon fontSize='inherit' />
-          )}
-        </div>
+        <>
+          <div className={classes.discard} onClick={() => setIsOpen(false)}>
+            <CancelIcon fontSize='inherit' />
+          </div>
+          <div className={playBtnClasses.join(" ")} onClick={onClickPlay}>
+            <PlayArrowIcon fontSize='inherit' />
+          </div>
+          <div
+            className={linkStringsClasses.join(" ")}
+            onClick={() => setIsLinked(!isLinked)}
+          >
+            {isLinked ? (
+              <LinkOffIcon fontSize='inherit' />
+            ) : (
+              <LinkIcon fontSize='inherit' />
+            )}
+          </div>
+        </>
       )}
     </div>
   );

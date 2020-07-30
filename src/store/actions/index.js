@@ -24,5 +24,7 @@ export {
   toggleNotesIntervals,
   tuneUpString,
   tuneDownString,
+  tuneUpAll,
+  tuneDownAll,
   setTuningPreset,
 } from "./settings";

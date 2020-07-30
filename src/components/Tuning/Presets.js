@@ -55,7 +55,7 @@ const tuningPresets = [
         ],
       },
       {
-        id: "DADBGE",
+        id: "DADGBE",
         name: "Drop D",
         tuning: [
           { stringId: 6, note: 2, octave: 2 },
@@ -116,7 +116,7 @@ const tuningPresets = [
           { stringId: 4, note: 0, octave: 3 },
           { stringId: 3, note: 7, octave: 3 },
           { stringId: 2, note: 0, octave: 4 },
-          { stringId: 1, note: 4, octave: 4 },
+          { stringId: 1, note: 3, octave: 4 },
         ],
       },
       {
@@ -410,7 +410,7 @@ const tuningPresets = [
       },
       {
         id: "DGCGCD",
-        name: "Rain Song",
+        name: "The Rain Song",
         tuning: [
           { stringId: 6, note: 2, octave: 2 },
           { stringId: 5, note: 7, octave: 2 },
@@ -445,11 +445,15 @@ const Presets = ({ preset, selectPreset }) => {
     ];
   });
   const onChangePreset = (e) => {
-    const cat = tuningPresets.find(
-      (cat) => cat.cat_name === e.currentTarget.dataset.cat
-    );
-    const preset = cat.tunings.find((tuning) => tuning.id === e.target.value);
-    selectPreset(preset.id, preset.tuning);
+    if (e.currentTarget.dataset.hasOwnProperty("cat")) {
+      const cat = tuningPresets.find(
+        (cat) => cat.cat_name === e.currentTarget.dataset.cat
+      );
+      const preset = cat.tunings.find((tuning) => tuning.id === e.target.value);
+      selectPreset(preset.id, preset.tuning);
+    } else {
+      e.preventDefault();
+    }
   };
   return (
     <div className={classes.wrapper}>
