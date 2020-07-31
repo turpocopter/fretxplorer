@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     "&$active": {
       borderRadius: 10,
       border: `3px solid ${theme.palette.gray.light}`,
-      maxWidth: 273,
+      width: 273,
       paddingBottom: 8,
       margin: "0 auto",
     },
@@ -164,14 +164,20 @@ const useStyles = makeStyles((theme) => ({
   active: {},
 }));
 
-const Tuning = ({ playNote, playMelody, getNoteVal, cancelSound }) => {
+const Tuning = ({
+  playNote,
+  playMelody,
+  getNoteVal,
+  cancelSound,
+  alwaysOpen,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const tuning = useSelector((state) => state.settings.tuning);
   const useFlats = useSelector((state) => state.settings.useFlats);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
   const { getNoteName } = useNoteNames(noteNaming);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(alwaysOpen);
   const [activePeg, setActivePeg] = useState(null);
   const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
@@ -319,9 +325,11 @@ const Tuning = ({ playNote, playMelody, getNoteVal, cancelSound }) => {
       )}
       {isOpen && (
         <>
-          <div className={classes.discard} onClick={() => setIsOpen(false)}>
-            <CancelIcon fontSize='inherit' />
-          </div>
+          {!alwaysOpen && (
+            <div className={classes.discard} onClick={() => setIsOpen(false)}>
+              <CancelIcon fontSize='inherit' />
+            </div>
+          )}
           <div className={playBtnClasses.join(" ")} onClick={onClickPlay}>
             <PlayArrowIcon fontSize='inherit' />
           </div>

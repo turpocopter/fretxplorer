@@ -4,7 +4,7 @@ import MIDISounds from "midi-sounds-react";
 
 const WithMidiSounds = (WrappedComponent) => {
   return (props) => {
-    const INSTRUMENT_ID = 256; // ac: 256 -> 273, jazz: 274->285
+    const INSTRUMENT_ID = 270; // ou 262 ??
     let midiSounds = null;
 
     const getNoteVal = (note, octave) => note + 12 * (octave + 1);

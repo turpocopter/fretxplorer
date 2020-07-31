@@ -36,8 +36,23 @@ export const computeDisplayName = (
   if (semitonesDelta > 2) semitonesDelta -= 12;
   else if (semitonesDelta < -2) semitonesDelta += 12;
   let alteration = "";
-  if (semitonesDelta >= 0) alteration = "#".repeat(semitonesDelta);
-  else alteration = "♭".repeat(Math.abs(semitonesDelta));
+  switch (semitonesDelta) {
+    case 2:
+      alteration = "𝄪";
+      break;
+    case 1:
+      alteration = "#";
+      break;
+    case -1:
+      alteration = "♭";
+      break;
+    case -2:
+      alteration = "𝄫";
+      break;
+    default:
+  }
+  /*if (semitonesDelta >= 0) alteration = "#".repeat(semitonesDelta);
+  else alteration = "♭".repeat(Math.abs(semitonesDelta));*/
   return { id: noteName, alt: alteration };
 };
 
@@ -52,8 +67,23 @@ export const computeDisplayInterval = (degree, semitonesFromRoot) => {
   const semitonesDelta =
     semitonesFromRoot - INTERVALS.indexOf(degree > 7 ? degree - 7 : degree);
   let alteration = "";
-  if (semitonesDelta >= 0) alteration = "#".repeat(semitonesDelta);
-  else alteration = "♭".repeat(Math.abs(semitonesDelta));
+  switch (semitonesDelta) {
+    case 2:
+      alteration = "𝄪";
+      break;
+    case 1:
+      alteration = "#";
+      break;
+    case -1:
+      alteration = "♭";
+      break;
+    case -2:
+      alteration = "𝄫";
+      break;
+    default:
+  }
+  /*if (semitonesDelta >= 0) alteration = "#".repeat(semitonesDelta);
+  else alteration = "♭".repeat(Math.abs(semitonesDelta));*/
   return alteration + degree;
 };
 

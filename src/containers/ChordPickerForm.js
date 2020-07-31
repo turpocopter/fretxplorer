@@ -80,8 +80,7 @@ const ChordPickerForm = () => {
   const onToggleFlats = () => dispatch(actions.toggleFlats(noteNaming));
   const onPickChord = () => dispatch(actions.updateChordName(tmpChordName));
 
-  const rootName =
-    getNoteName(rootNote, useFlats) + (noteNaming === "letters" ? "" : " ");
+  const rootName = getNoteName(rootNote, useFlats);
 
   return (
     <div className={classes.paper}>

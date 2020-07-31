@@ -12,9 +12,9 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const ChordGuesser = () => {
+const About = () => {
   const classes = useStyles();
-  return <div className={classes.root}>Coming ... sometime ^^'</div>;
+  return <div className={classes.root}>Coming soon...</div>;
 };
 
-export default ChordGuesser;
+export default About;

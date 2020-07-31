@@ -1,9 +1,9 @@
 import * as actionTypes from "./actionTypes";
 
-export const updateMode = (mode) => {
+export const updateNamingConvention = (convention) => {
   return {
-    type: actionTypes.UPDATE_MODE,
-    mode,
+    type: actionTypes.UPDATE_NAMING_CONVENTION,
+    convention,
   };
 };
 

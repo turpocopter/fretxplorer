@@ -16,8 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Welcome = React.lazy(() => {
-  //return import("pages/Welcome/Welcome");
-  return import("components/Navigation/SignInSide");
+  return import("pages/Welcome");
 });
 const ChordPicker = React.lazy(() => {
   return import("pages/ChordPicker");
@@ -30,6 +29,9 @@ const ChordGuesser = React.lazy(() => {
 });
 const Settings = React.lazy(() => {
   return import("pages/Settings");
+});
+const About = React.lazy(() => {
+  return import("pages/About");
 });
 const Login = React.lazy(() => {
   return import("pages/Login");
@@ -57,9 +59,11 @@ function App(props) {
           <Route path='/settings' exact>
             <Settings />
           </Route>
+          <Route path='/about' exact>
+            <About />
+          </Route>
           <Redirect to='/' />
         </Suspense>
-        {/*<p>{props.isAuthenticated ? "connecté" : "pas connecté"}</p>*/}
       </Layout>
     </div>
   );

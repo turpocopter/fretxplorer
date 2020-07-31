@@ -19,7 +19,7 @@ export {
   discardChord,
 } from "./notePicker";
 export {
-  updateMode,
+  updateNamingConvention,
   toggleHands,
   toggleNotesIntervals,
   tuneUpString,

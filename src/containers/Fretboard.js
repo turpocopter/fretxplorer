@@ -42,7 +42,7 @@ const Fretboard = (props) => {
         showIntervals={showIntervals}
         toggleNotesIntervals={onToggleNotesIntervals}
       />
-      <Tuning />
+      <Tuning alwaysOpen={false} />
       <div className={classes.fretboardWrapper}>
         <div className={classes.fretboardInner}>
           <FretMarkerList nbFrets={16} />

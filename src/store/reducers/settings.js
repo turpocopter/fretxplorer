@@ -10,18 +10,16 @@ const defaultTuning = [
 ];
 
 const initialState = {
-  mode: "",
   noteNaming: "letters", // could also be latin, maybe latin_fr later...
   leftHanded: false,
   showIntervals: false, // show intervals instead of note names
-  nbStrings: 6,
   tuning: [...defaultTuning],
 };
 
 const settingsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.UPDATE_MODE:
-      return { ...state, mode: action.mode };
+    case actionTypes.UPDATE_NAMING_CONVENTION:
+      return { ...state, noteNaming: action.convention };
     case actionTypes.TOGGLE_HANDS:
       return { ...state, leftHanded: !state.leftHanded };
     case actionTypes.TOGGLE_NOTES_INTERVALS:

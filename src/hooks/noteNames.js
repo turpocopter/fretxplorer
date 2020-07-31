@@ -3,8 +3,7 @@ import { INTERVALS } from "../utility/common";
 export default (namingConvention = "letters") => {
   const NOTE_NAMES = {
     letters: ["C", "D", "E", "F", "G", "A", "B"],
-    latin: ["Do", "Re", "Mi", "Fa", "Sol", "La", "Ti"],
-    latin_fr: ["Do", "Ré", "Mi", "Fa", "Sol", "La", "Si"],
+    latin: ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"],
   };
 
   /**
