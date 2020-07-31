@@ -24,28 +24,19 @@ const seventhList = {
         hasNote(selected, 5, 4)) &&
       (hasNote(selected, 7, 5) ||
         hasNote(selected, 6, 5) ||
-        hasNote(
-          selected,
-          8,
-          5
-        )) /* && !( hasNote(selected,10,7) || hasNote(selected,11,7) || hasNote(selected,9,7) ) */,
+        hasNote(selected, 8, 5)),
     nameChord: () => null,
   },
   major: {
     semitonesFromRoot: 11,
     isAvailable: (selected) =>
-      (hasNote(selected, 4, 3) ||
-        hasNote(selected, 3, 3) ||
-        hasNote(selected, 2, 2) ||
-        hasNote(selected, 5, 4)) &&
-      (hasNote(selected, 7, 5) ||
-        hasNote(
-          selected,
-          8,
-          5
-        )) /* && !( hasNote(selected,10,7) || hasNote(selected,11,7) || hasNote(selected,9,7) ) */,
+      (hasNote(selected, 3, 3) && !hasNote(selected, 6, 5)) ||
+      (hasNote(selected, 4, 3) && !hasNote(selected, 6, 5)) ||
+      hasNote(selected, 2, 2) ||
+      hasNote(selected, 5, 4),
     nameChord: (selected) => {
       if (hasNote(selected, 8, 5)) return "+<sup>M7</sup>";
+      //else if (hasNote(selected, 4, 3) && hasNote(selected, 6, 5)) return "M7♭5";
       else if (hasNote(selected, 4, 3)) return "M7";
       else if (hasNote(selected, 5, 4)) return "M7sus4";
       else if (hasNote(selected, 2, 2)) return "M7sus2";
@@ -56,21 +47,19 @@ const seventhList = {
     semitonesFromRoot: 10,
     isAvailable: (selected) =>
       hasNote(selected, 3, 3) ||
-      ((hasNote(selected, 4, 3) ||
-        hasNote(selected, 2, 2) ||
-        hasNote(selected, 5, 4)) &&
-        (hasNote(selected, 7, 5) || hasNote(selected, 8, 5))),
+      hasNote(selected, 4, 3) ||
+      hasNote(selected, 2, 2) ||
+      hasNote(selected, 5, 4),
 
-    /* && !( hasNote(selected,10,7) || hasNote(selected,11,7) || hasNote(selected,9,7) ) */ nameChord: (
-      selected
-    ) => {
+    nameChord: (selected) => {
       if (hasNote(selected, 8, 5)) return "+7";
+      else if (hasNote(selected, 3, 3) && hasNote(selected, 6, 5))
+        return "<sup>ø</sup>7";
+      else if (hasNote(selected, 4, 3) && hasNote(selected, 6, 5)) return "7♭5";
       else if (hasNote(selected, 4, 3)) return "7";
+      else if (hasNote(selected, 3, 3)) return "m7";
       else if (hasNote(selected, 5, 4)) return "7sus4";
       else if (hasNote(selected, 2, 2)) return "7sus2";
-      else if (hasNote(selected, 3, 3) && hasNote(selected, 6, 5))
-        return "<sup>ø7</sup>";
-      else if (hasNote(selected, 3, 3)) return "m7";
     },
   },
   diminished: {
@@ -78,7 +67,7 @@ const seventhList = {
     isAvailable: (selected) =>
       hasNote(selected, 3, 3) && hasNote(selected, 6, 5),
     nameChord: (selected) => {
-      return "<sup>o7</sup>";
+      return "<sup>o</sup>7";
     },
   },
 };
@@ -103,8 +92,9 @@ const SeventhForm = (props) => {
     updateSeventh(seventh, seventhList[seventh].semitonesFromRoot);
   };
 
-  const filteredSeventhList = Object.keys(seventhList).map((key) =>
-    seventhList[key].isAvailable(selected) ? (
+  const filteredSeventhList = Object.keys(seventhList)
+    .filter((key) => seventhList[key].isAvailable(selected))
+    .map((key) => (
       <MenuItem key={key} value={key}>
         {key}
         {seventhList[key].semitonesFromRoot !== null ? (
@@ -119,31 +109,32 @@ const SeventhForm = (props) => {
           ""
         )}
       </MenuItem>
-    ) : null
-  );
+    ));
   return (
-    <div>
-      <FormControl variant='outlined' className={classes.formControl}>
-        <TextField
-          variant='outlined'
-          id='seventh-note'
-          select
-          label='Seventh note'
-          className={classes.textField}
-          value={seventh}
-          onChange={handleSeventh}
-          SelectProps={{
-            className: classes.select,
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          margin='normal'
-        >
-          {filteredSeventhList}
-        </TextField>
-      </FormControl>
-    </div>
+    filteredSeventhList.length > 0 && (
+      <div>
+        <FormControl variant='outlined' className={classes.formControl}>
+          <TextField
+            variant='outlined'
+            id='seventh-note'
+            select
+            label='Seventh note'
+            className={classes.textField}
+            value={seventh}
+            onChange={handleSeventh}
+            SelectProps={{
+              className: classes.select,
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            margin='normal'
+          >
+            {filteredSeventhList}
+          </TextField>
+        </FormControl>
+      </div>
+    )
   );
 };
 

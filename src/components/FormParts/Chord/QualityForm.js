@@ -56,6 +56,13 @@ const chordQualities = {
       { semitonesFromRoot: 7, degree: 5 },
     ],
   },
+  "major ♭5": {
+    symbol: "♭5",
+    notes: [
+      { semitonesFromRoot: 4, degree: 3 },
+      { semitonesFromRoot: 6, degree: 5 },
+    ],
+  },
   powerchord: {
     symbol: "5",
     notes: [{ semitonesFromRoot: 7, degree: 5 }],
