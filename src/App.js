@@ -6,6 +6,15 @@ import { Route, withRouter, Redirect } from "react-router-dom";
 import Layout from "hoc/Layout";
 import Spinner from "components/UI/Spinner";
 
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.main,
+    minHeight: "100vh",
+  },
+}));
+
 const Welcome = React.lazy(() => {
   //return import("pages/Welcome/Welcome");
   return import("components/Navigation/SignInSide");
@@ -24,13 +33,9 @@ const Login = React.lazy(() => {
 });
 
 function App(props) {
-  /*const dispatch = useDispatch();
-  const mode = useSelector((state) => state.settings.mode);
-  const onUpdateMode = (mode) => {
-    return dispatch(actions.updateMode(mode));
-  };*/
+  const classes = useStyles();
   return (
-    <div style={{ backgroundColor: "#f8f7f9", minHeight: "100vh" }}>
+    <div className={classes.root}>
       <Layout>
         <Suspense fallback={<Spinner />}>
           <Route path='/login' render={() => <Login />} />

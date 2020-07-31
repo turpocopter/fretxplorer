@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     zIndex: 1,
     width: "2.6em",
-    color: "#999",
+    color: theme.palette.gray.main,
     "&$open": {
-      color: "#222",
+      color: theme.palette.gray.dark,
       fontWeight: 500,
     },
     "&$active": {
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
       position: "absolute",
       width: 1,
       height: 47,
-      backgroundColor: "#ccc",
+      backgroundColor: theme.palette.gray.light,
       top: 0,
       bottom: 0,
       left: 0,
@@ -34,19 +34,19 @@ const useStyles = makeStyles((theme) => ({
       zIndex: -1,
     },
     "& div": {
-      backgroundColor: "#f8f7f9",
+      backgroundColor: theme.palette.background.main,
     },
   },
   tuneBtn: {
     display: "block",
-    color: "#222",
+    color: theme.palette.gray.dark,
     border: "none",
     margin: 0,
     padding: 0,
     background: "transparent",
     outline: "none",
     "&:disabled": {
-      color: "#ccc",
+      color: theme.palette.gray.light,
     },
   },
   open: {},

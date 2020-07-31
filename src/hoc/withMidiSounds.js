@@ -52,6 +52,10 @@ const WithMidiSounds = (WrappedComponent) => {
       onPlayMelody(notes, speed, true, notesNeedTranslation);
     };
 
+    const onCancel = () => {
+      if (midiSounds) midiSounds.cancelQueue();
+    };
+
     return (
       <>
         <WrappedComponent
@@ -60,6 +64,7 @@ const WithMidiSounds = (WrappedComponent) => {
           playMelody={onPlayMelody}
           playChord={onPlayChord}
           getNoteVal={getNoteVal}
+          cancelSound={onCancel}
         />
         <div style={{ display: "none" }}>
           <MIDISounds

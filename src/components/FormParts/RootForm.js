@@ -19,12 +19,6 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     width: 120,
   },
-  textField: {
-    /*fontFamily: `"Gothic A1", sans-serif`,*/
-  },
-  select: {
-    /*fontFamily: `"Gothic A1", sans-serif`,*/
-  },
 }));
 
 const RootForm = (props) => {

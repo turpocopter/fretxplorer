@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   select: {
     fontSize: "0.95em",
     "& span": {
-      color: "#999",
+      color: theme.palette.gray.main,
       fontSize: "0.9em",
     },
   },
@@ -27,12 +27,16 @@ const useStyles = makeStyles((theme) => ({
   menu: {
     fontSize: "0.95em",
   },
-  group: { fontSize: "1em", textAlign: "center", color: "#999" },
+  group: {
+    fontSize: "1em",
+    textAlign: "center",
+    color: theme.palette.gray.main,
+  },
   option: {
     fontSize: "1em",
     minHeight: 34,
     "& span": {
-      color: "#999",
+      color: theme.palette.gray.main,
       fontSize: "0.9em",
     },
   },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     "&$active": {
       borderRadius: 10,
-      border: "3px solid #ccc",
+      border: `3px solid ${theme.palette.gray.light}`,
       maxWidth: 273,
       paddingBottom: 8,
       margin: "0 auto",
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
       height: 19,
       width: 19,
-      backgroundColor: "#F8F7F9",
+      backgroundColor: theme.palette.background.main,
       top: 6,
       left: 4,
       zIndex: -1,
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
       height: 25,
       width: 25,
-      backgroundColor: "#F8F7F9",
+      backgroundColor: theme.palette.background.main,
       zIndex: -1,
       borderRadius: "50%",
       border: "2.4px solid black",
@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
       height: 25,
       width: 25,
-      backgroundColor: "#F8F7F9",
+      backgroundColor: theme.palette.background.main,
       zIndex: -1,
       borderRadius: "50%",
       border: "2.4px solid black",
@@ -146,25 +146,25 @@ const useStyles = makeStyles((theme) => ({
       zIndex: -1,
       height: 1,
       width: 182,
-      backgroundColor: "#ccc",
+      backgroundColor: theme.palette.gray.light,
     },
   },
   tuneBtn: {
     display: "block",
-    color: "#222",
+    color: theme.palette.gray.dark,
     border: "none",
     margin: 0,
     padding: 0,
-    background: "#f8f7f9",
+    background: theme.palette.background.main,
     outline: "none",
     "&:disabled": {
-      color: "#ccc",
+      color: theme.palette.gray.light,
     },
   },
   active: {},
 }));
 
-const Tuning = ({ playNote, playMelody, getNoteVal }) => {
+const Tuning = ({ playNote, playMelody, getNoteVal, cancelSound }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const tuning = useSelector((state) => state.settings.tuning);
@@ -176,6 +176,16 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
   const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  let intervalID = null;
+
+  /*
+  useEffect(() => {
+    return () => {
+      if (intervalID) clearInterval(intervalID);
+      cancelSound();
+    };
+  }, [cancelSound, intervalID]);
+  */
 
   const onTuneUpString = (stringId) => {
     setPreset("");
@@ -213,7 +223,7 @@ const Tuning = ({ playNote, playMelody, getNoteVal }) => {
       );
       let stringCounter = 6;
       setActivePeg(6);
-      const intervalID = setInterval(() => {
+      intervalID = setInterval(() => {
         stringCounter--;
         setActivePeg(stringCounter);
         if (stringCounter === 1) {

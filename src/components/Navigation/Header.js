@@ -46,9 +46,6 @@ const Header = ({ toggleDrawer }) => {
       >
         <MenuIcon />
       </IconButton>
-      {/*<Typography variant='h6' className={classes.title}>
-          Chord picker
-  </Typography>*/}
     </Toolbar>
   );
 };

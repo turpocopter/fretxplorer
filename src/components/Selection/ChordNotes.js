@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import withMidiSounds from "hoc/withMidiSounds";
 import useNotes from "hooks/noteNames";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-//import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => {
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => {
         display: "block",
         height: 25,
         width: 25,
-        backgroundColor: "#F8F7F9",
+        backgroundColor: theme.palette.background.main,
         zIndex: -1,
         borderRadius: "50%",
         border: "2.4px solid black",
@@ -63,6 +62,7 @@ const useStyles = makeStyles((theme) => {
 const ChordNotes = ({
   playNote,
   playChord,
+  cancelSound,
   selectedWithValues,
   namingConvention,
 }) => {
@@ -71,6 +71,14 @@ const ChordNotes = ({
   const { translateNote } = useNotes(namingConvention);
   const [activeNote, setActiveNote] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  let intervalID = null;
+
+  useEffect(() => {
+    return () => {
+      if (intervalID) clearInterval(intervalID);
+      cancelSound();
+    };
+  }, [cancelSound, intervalID]);
 
   const notes = selectedWithValues.map((el, i) => {
     return (
@@ -104,7 +112,7 @@ const ChordNotes = ({
       playChord(midiValues, speed);
       setActiveNote(0);
       let noteCounter = 0;
-      const intervalID = setInterval(() => {
+      intervalID = setInterval(() => {
         noteCounter++;
         setActiveNote(noteCounter);
         if (noteCounter === notes.length - 1) {
