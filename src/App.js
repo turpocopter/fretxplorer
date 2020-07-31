@@ -28,6 +28,9 @@ const ScalePicker = React.lazy(() => {
 const ChordGuesser = React.lazy(() => {
   return import("pages/ChordGuesser");
 });
+const Settings = React.lazy(() => {
+  return import("pages/Settings");
+});
 const Login = React.lazy(() => {
   return import("pages/Login");
 });
@@ -50,6 +53,9 @@ function App(props) {
           </Route>
           <Route path='/chordguesser' exact>
             <ChordGuesser />
+          </Route>
+          <Route path='/settings' exact>
+            <Settings />
           </Route>
           <Redirect to='/' />
         </Suspense>
