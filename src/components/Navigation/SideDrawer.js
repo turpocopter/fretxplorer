@@ -44,7 +44,7 @@ const SideDrawer = (props) => {
         >
           <ListItemText primary='Pick a Scale' />
         </ListItem>
-        <ListItem
+        {/*<ListItem
           button
           component={NavLink}
           to='/chordguesser'
@@ -52,7 +52,7 @@ const SideDrawer = (props) => {
           onClick={props.toggle(false)}
         >
           <ListItemText primary='Name a Chord' />
-        </ListItem>
+        </ListItem>*/}
       </List>
       <Divider />
       <List>

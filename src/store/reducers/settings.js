@@ -19,8 +19,10 @@ const initialState = {
 const settingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.UPDATE_NAMING_CONVENTION:
+      localStorage.setItem("fretxplorerNoteNaming", action.convention);
       return { ...state, noteNaming: action.convention };
     case actionTypes.TOGGLE_HANDS:
+      localStorage.setItem("fretxplorerLeftHanded", !state.leftHanded);
       return { ...state, leftHanded: !state.leftHanded };
     case actionTypes.TOGGLE_NOTES_INTERVALS:
       return { ...state, showIntervals: !state.showIntervals };
@@ -34,6 +36,7 @@ const settingsReducer = (state = initialState, action) => {
             }
           : { ...el }
       );
+      localStorage.setItem("fretxplorerTuning", JSON.stringify(newTuningUp));
       return { ...state, tuning: newTuningUp };
     case actionTypes.TUNE_DOWN_STRING:
       const newTuningDown = state.tuning.map((el) =>
@@ -45,24 +48,32 @@ const settingsReducer = (state = initialState, action) => {
             }
           : { ...el }
       );
+      localStorage.setItem("fretxplorerTuning", JSON.stringify(newTuningDown));
       return { ...state, tuning: newTuningDown };
     case actionTypes.TUNE_UP_ALL:
+      const newTuningUpAll = state.tuning.map((s) => ({
+        ...s,
+        note: s.note === 11 ? 0 : s.note + 1,
+        octave: s.note === 11 ? s.octave + 1 : s.octave,
+      }));
+      localStorage.setItem("fretxplorerTuning", JSON.stringify(newTuningUpAll));
       return {
         ...state,
-        tuning: state.tuning.map((s) => ({
-          ...s,
-          note: s.note === 11 ? 0 : s.note + 1,
-          octave: s.note === 11 ? s.octave + 1 : s.octave,
-        })),
+        tuning: newTuningUpAll,
       };
     case actionTypes.TUNE_DOWN_ALL:
+      const newTuningDownAll = state.tuning.map((s) => ({
+        ...s,
+        note: s.note === 0 ? 11 : s.note - 1,
+        octave: s.note === 0 ? s.octave - 1 : s.octave,
+      }));
+      localStorage.setItem(
+        "fretxplorerTuning",
+        JSON.stringify(newTuningDownAll)
+      );
       return {
         ...state,
-        tuning: state.tuning.map((s) => ({
-          ...s,
-          note: s.note === 0 ? 11 : s.note - 1,
-          octave: s.note === 0 ? s.octave - 1 : s.octave,
-        })),
+        tuning: newTuningDownAll,
       };
     case actionTypes.SET_TUNING_PRESET:
       const newTuningPreset = state.tuning.map((el) => {
@@ -75,7 +86,21 @@ const settingsReducer = (state = initialState, action) => {
           octave: newStringPreset.octave,
         };
       });
+      localStorage.setItem(
+        "fretxplorerTuning",
+        JSON.stringify(newTuningPreset)
+      );
       return { ...state, tuning: newTuningPreset };
+    case actionTypes.CHECK_LOCAL_SETTINGS:
+      const localNoteNaming = localStorage.getItem("fretxplorerNoteNaming");
+      const localLeftHanded = localStorage.getItem("fretxplorerLeftHanded");
+      const localTuning = localStorage.getItem("fretxplorerTuning");
+      return {
+        ...state,
+        noteNaming: localNoteNaming || state.noteNaming,
+        leftHanded: localLeftHanded || state.leftHanded,
+        tuning: localTuning ? JSON.parse(localTuning) : state.tuning,
+      };
     default:
       return state;
   }

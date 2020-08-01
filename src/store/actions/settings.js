@@ -51,3 +51,9 @@ export const setTuningPreset = (tuning) => {
     tuning,
   };
 };
+
+export const checkLocalSettings = () => {
+  return {
+    type: actionTypes.CHECK_LOCAL_SETTINGS,
+  };
+};

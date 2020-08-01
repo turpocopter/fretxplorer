@@ -1,7 +1,7 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Route, withRouter, Redirect } from "react-router-dom";
-//import { useDispatch, useSelector } from "react-redux";
-//import * as actions from "store/actions";
+import { useDispatch } from "react-redux";
+import * as actions from "store/actions";
 
 import Layout from "hoc/Layout";
 import Spinner from "components/UI/Spinner";
@@ -39,6 +39,10 @@ const Login = React.lazy(() => {
 
 function App(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actions.checkLocalSettings());
+  }, [dispatch]);
   return (
     <div className={classes.root}>
       <Layout>

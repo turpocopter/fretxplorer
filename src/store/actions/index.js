@@ -27,4 +27,5 @@ export {
   tuneUpAll,
   tuneDownAll,
   setTuningPreset,
+  checkLocalSettings,
 } from "./settings";
