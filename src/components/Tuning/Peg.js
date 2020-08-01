@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "column nowrap",
     position: "relative",
     zIndex: 1,
+    order: 1,
     width: "2.6em",
     color: theme.palette.gray.main,
     "&$open": {

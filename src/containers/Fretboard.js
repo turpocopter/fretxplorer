@@ -30,6 +30,7 @@ const Fretboard = (props) => {
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const selectedNotes = useSelector((state) => state.notePicker.selected);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
+  const isLeftHanded = useSelector((state) => state.settings.leftHanded);
   const tuning = useSelector((state) => state.settings.tuning);
   const showIntervals = useSelector((state) => state.settings.showIntervals);
   const onToggleNotesIntervals = () => {
@@ -54,6 +55,7 @@ const Fretboard = (props) => {
             nbFrets={16}
             noteNaming={noteNaming}
             playNote={props.playNote}
+            isLeftHanded={isLeftHanded}
           />
         </div>
       </div>

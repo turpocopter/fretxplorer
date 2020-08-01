@@ -12,12 +12,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: (props) =>
       props.position > 0 ? "#5f4035" : "transparent",
     backgroundImage: (props) => {
-      if (
-        props.position > 0 &&
-        (props.stringId === 1 || props.stringId === 6)
-      ) {
+      if (props.position > 0 && (props.order === 1 || props.order === 6)) {
         return `linear-gradient(${
-          props.stringId === 1 ? -90 : 90
+          props.order === 1 ? 90 : -90
         }deg, rgba(0,0,0,0.05), transparent)`;
       }
       return null;
@@ -33,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
       left: 0,
       width: "100%",
       backgroundImage: (props) =>
-        props.stringId === 1 || props.stringId === 6
+        props.order === 1 || props.order === 6
           ? `linear-gradient(${
-              props.stringId === 1 ? -90 : 90
+              props.order === 1 ? 90 : -90
             }deg, #9d8c64 0%,#c0ac87 50%)`
           : null,
       borderBottom: "1px solid #917f5f",
@@ -75,11 +72,11 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "0.25em",
     background: (props) => {
-      switch (props.stringId) {
+      switch (props.order) {
         case 1:
-          return "linear-gradient(90deg, transparent 0%, transparent 70%, rgb(90, 90, 90) 100%), linear-gradient(0deg, rgb(140, 140, 140) 0%, white 35%, white 65%, rgb(140, 140, 140) 100%)";
-        case 6:
           return "linear-gradient(-90deg, transparent 0%, transparent 70%, rgb(90, 90, 90) 100%), linear-gradient(0deg, rgb(140, 140, 140) 0%, white 35%, white 65%, rgb(140, 140, 140) 100%)";
+        case 6:
+          return "linear-gradient(90deg, transparent 0%, transparent 70%, rgb(90, 90, 90) 100%), linear-gradient(0deg, rgb(140, 140, 140) 0%, white 35%, white 65%, rgb(140, 140, 140) 100%)";
         default:
           return "linear-gradient(0deg, rgb(140, 140, 140) 0%, white 35%, white 65%, rgb(140, 140, 140) 100%)";
       }

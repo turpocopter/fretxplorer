@@ -28,18 +28,21 @@ const useStyles = makeStyles((theme) => ({
       margin: "0 auto",
     },
   },
-  pegs: {
+  pegs: (props) => ({
     display: "flex",
-    flexFlow: "row nowrap",
+    flexFlow: `${
+      props.isLeftHanded && !props.doNotFlipOver ? "row-reverse" : "row"
+    } nowrap`,
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
     "&$active": {
       color: "black",
     },
-  },
+  }),
   forkWrapper: {
     display: "inline-flex",
+    order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 10 : 0),
   },
   fork: {
     height: 20,
@@ -54,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 19,
     borderRadius: "50%",
     marginLeft: 10,
+    order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
   },
   playBtn: {
     display: "inline-flex",
@@ -170,18 +174,20 @@ const Tuning = ({
   getNoteVal,
   cancelSound,
   alwaysOpen,
+  doNotFlipOver,
 }) => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const tuning = useSelector((state) => state.settings.tuning);
   const useFlats = useSelector((state) => state.settings.useFlats);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
+  const isLeftHanded = useSelector((state) => state.settings.leftHanded);
   const { getNoteName } = useNoteNames(noteNaming);
   const [isOpen, setIsOpen] = useState(alwaysOpen);
   const [activePeg, setActivePeg] = useState(null);
   const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const classes = useStyles({ doNotFlipOver, isLeftHanded });
   let intervalID = null;
 
   /*

@@ -58,6 +58,7 @@ const String = (props) => {
     nbFrets,
     noteNaming,
     playNote,
+    order,
   } = props;
   const { translateNote } = useNoteNames(noteNaming);
 
@@ -85,6 +86,7 @@ const String = (props) => {
         octave={octave}
         playNote={playNote}
         stringId={name}
+        order={order}
       />
     );
   });

@@ -102,7 +102,7 @@ const Settings = () => {
         </label>
       </div>
       <div className={classes.tuningContainer}>
-        <Tuning alwaysOpen={true} />
+        <Tuning alwaysOpen={true} doNotFlipOver={true} />
       </div>
     </div>
   );
