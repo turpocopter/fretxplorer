@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-import { Route, withRouter, Redirect } from "react-router-dom";
+import { Route, withRouter, Redirect, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "store/actions";
 
@@ -45,30 +45,43 @@ function App(props) {
   }, [dispatch]);
   return (
     <div className={classes.root}>
-      <Layout>
+      <Route exact path='/'>
         <Suspense fallback={<Spinner />}>
-          <Route path='/login' render={() => <Login />} />
           <Route path='/' exact>
             <Welcome />
           </Route>
-          <Route path='/chordpicker' exact>
-            <ChordPicker />
-          </Route>
-          <Route path='/scalepicker' exact>
-            <ScalePicker />
-          </Route>
-          <Route path='/chordguesser' exact>
-            <ChordGuesser />
-          </Route>
-          <Route path='/settings' exact>
-            <Settings />
-          </Route>
-          <Route path='/about' exact>
-            <About />
-          </Route>
-          <Redirect to='/' />
         </Suspense>
-      </Layout>
+      </Route>
+      <Route
+        path={[
+          "/chordpicker",
+          "/scalepicker",
+          "/chordguesser",
+          "/settings",
+          "/about",
+        ]}
+      >
+        <Layout>
+          <Suspense fallback={<Spinner />}>
+            <Route path='/chordpicker' exact>
+              <ChordPicker />
+            </Route>
+            <Route path='/scalepicker' exact>
+              <ScalePicker />
+            </Route>
+            <Route path='/chordguesser' exact>
+              <ChordGuesser />
+            </Route>
+            <Route path='/settings' exact>
+              <Settings />
+            </Route>
+            <Route path='/about' exact>
+              <About />
+            </Route>
+          </Suspense>
+        </Layout>
+      </Route>
+      <Redirect to='/' />
     </div>
   );
 }
