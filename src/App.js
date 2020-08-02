@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-import { Route, withRouter, Redirect, Switch } from "react-router-dom";
+import { Route, withRouter, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "store/actions";
 
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.main,
     minHeight: "100vh",
   },
+  active: {},
 }));
 
 const Welcome = React.lazy(() => {
@@ -32,9 +33,6 @@ const Settings = React.lazy(() => {
 });
 const About = React.lazy(() => {
   return import("pages/About");
-});
-const Login = React.lazy(() => {
-  return import("pages/Login");
 });
 
 function App(props) {

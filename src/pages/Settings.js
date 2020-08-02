@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => {
     tuningContainer: {
       marginTop: theme.spacing(2),
     },
+    active: {},
   };
 });
 
@@ -55,6 +56,8 @@ const Settings = () => {
   const dispatch = useDispatch();
   const isLatin = useSelector((state) => state.settings.noteNaming === "latin");
   const leftHanded = useSelector((state) => state.settings.leftHanded);
+  console.log("this is LH in settings", leftHanded);
+  console.log("typeof LH", typeof leftHanded);
 
   const onToggleHands = () => {
     return dispatch(actions.toggleHands());
@@ -94,7 +97,7 @@ const Settings = () => {
         <label className={classes.flatSwitch}>
           <span className={classes.switchLabel}>Left-handed</span>
           <Switch
-            checked={!leftHanded}
+            checked={leftHanded === false}
             onChange={onToggleHands}
             color='default'
           />
