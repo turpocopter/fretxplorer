@@ -6,6 +6,7 @@ import ChordNotes from "components/Selection/ChordNotes";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme) => {
       alignItems: "center",
       borderBottom: "1px solid #ddd",
       backgroundColor: theme.palette.background.main,
+      [theme.breakpoints.up("sm")]: {
+        paddingBottom: theme.spacing(3),
+      },
     },
     chordHeader: {
       width: "100%",
@@ -34,6 +38,7 @@ const Chord = () => {
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
   const classes = useStyles();
+  const tabletOrBigger = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   const rootNoteValue = rootNote + (rootNote >= 4 ? 36 : 48); // on la veut à la 3è octave de la librairie (ou 4è si entre C et D#)
   const selectedWithValues = selected.map((el) => ({
@@ -58,7 +63,7 @@ const Chord = () => {
         <Button
           variant='contained'
           color='primary'
-          size='small'
+          size={tabletOrBigger ? "medium" : "small"}
           onClick={onDiscardChord}
         >
           Pick Another

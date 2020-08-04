@@ -5,7 +5,6 @@ import ChordPickerForm from "containers/ChordPickerForm";
 import Fretboard from "containers/Fretboard";
 import Chord from "containers/Chord";
 import { makeStyles } from "@material-ui/core/styles";
-import { clearConfig } from "dompurify";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -23,6 +22,9 @@ const useStyles = makeStyles((theme) => {
         bottom: -24,
         left: 0,
         backgroundImage: `linear-gradient(180deg, ${theme.palette.background.main}, transparent)`,
+      },
+      [theme.breakpoints.up("sm")]: {
+        top: 95,
       },
     },
     fretboardContainer: {

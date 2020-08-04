@@ -26,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
       width: "18.8em",
       paddingBottom: 8,
       margin: "0 auto",
+      [theme.breakpoints.up("sm")]: {
+        margin: "12px auto",
+      },
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: "12px auto",
     },
   },
   pegs: (props) => ({
@@ -48,6 +54,11 @@ const useStyles = makeStyles((theme) => ({
     height: 20,
     marginRight: 8,
     marginLeft: 5,
+    [theme.breakpoints.up("sm")]: {
+      height: 25,
+      marginRight: 9,
+      marginLeft: 6,
+    },
   },
   settings: {
     display: "inline-block",
@@ -58,6 +69,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
     marginLeft: 10,
     order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
+    [theme.breakpoints.up("sm")]: {
+      height: 29,
+      width: 29,
+      fontSize: 21,
+    },
   },
   playBtn: {
     display: "inline-flex",
@@ -80,6 +96,11 @@ const useStyles = makeStyles((theme) => ({
       left: 4,
       zIndex: -1,
       borderRadius: "50%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      top: -23,
+      right: -19,
+      fontSize: 34,
     },
   },
   linkStrings: {

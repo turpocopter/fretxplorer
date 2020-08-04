@@ -12,6 +12,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     marginBottom: 8,
     justifyContent: "space-between",
+    [theme.breakpoints.up("sm")]: {
+      position: "sticky",
+      top: 0,
+      backgroundColor: theme.palette.background.main,
+      marginBottom: 0,
+      paddingBottom: 8,
+      zIndex: 200,
+    },
   },
   logo: {
     marginLeft: -16,

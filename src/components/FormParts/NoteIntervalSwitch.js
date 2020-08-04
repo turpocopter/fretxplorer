@@ -3,9 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Switch from "@material-ui/core/Switch";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "center",
+    [theme.breakpoints.up("sm")]: {
+      marginTop: "8px",
+    },
   },
   flatSwitch: {
     fontSize: "0.9em",
@@ -15,6 +18,9 @@ const useStyles = makeStyles(() => ({
     marginBottom: 8,
     marginTop: 0,
     minWidth: 120,
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "1em",
+    },
   },
 }));
 

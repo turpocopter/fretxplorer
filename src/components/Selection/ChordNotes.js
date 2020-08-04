@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => {
       margin: 0,
       listStyleType: "none",
       fontSize: "0.9em",
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "1em",
+      },
     },
     note: {
       display: "inline-block",
@@ -51,6 +54,7 @@ const useStyles = makeStyles((theme) => {
       [theme.breakpoints.up("sm")]: {
         fontSize: 25,
         width: 29,
+        marginLeft: 8,
         "&::before": {
           height: 29,
           width: 29,
