@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   "@global": {
     html: {
-      [theme.breakpoints.up("sm")]: {
+      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
         fontSize: "140%",
       },
     },

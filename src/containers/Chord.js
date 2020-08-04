@@ -28,6 +28,12 @@ const useStyles = makeStyles((theme) => {
       justifyContent: "space-between",
     },
     title: {},
+    button: {
+      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+        position: "relative",
+        top: 30,
+      },
+    },
   };
 });
 
@@ -61,6 +67,7 @@ const Chord = () => {
           dangerouslySetInnerHTML={{ __html: sanitize(chordName) }}
         />
         <Button
+          className={classes.button}
           variant='contained'
           color='primary'
           size={tabletOrBigger ? "medium" : "small"}

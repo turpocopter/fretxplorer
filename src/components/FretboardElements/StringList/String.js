@@ -5,7 +5,7 @@ import Fret from "./Fret";
 
 import useNoteNames from "hooks/noteNames";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   string: {
     width: "2.6em",
     position: "relative",
@@ -22,6 +22,9 @@ const useStyles = makeStyles(() => ({
       background:
         "linear-gradient(90deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
       zIndex: 1,
+      [theme.breakpoints.up("sm")]: {
+        top: 20,
+      },
     },
     "&:nth-child(5)::before": {
       width: 1.3,

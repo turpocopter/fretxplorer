@@ -13,11 +13,22 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       flexFlow: "column nowrap",
       justifyContent: "center",
+      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+        flexFlow: "row nowrap",
+        justifyContent: "space-between",
+      },
     },
     logo: {
       width: "100%",
       "& img": {
         width: "100%",
+      },
+      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+        display: "flex",
+        flexFlow: "column nowrap",
+        justifyContent: "center",
+        width: "45%",
+        maxWidth: 500,
       },
     },
     buttons: {
@@ -28,22 +39,30 @@ const useStyles = makeStyles((theme) => {
         paddingTop: theme.spacing(16),
         paddingBottom: theme.spacing(32),
       },
+      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+        flexGrow: 1,
+        paddingTop: 0,
+        paddingBottom: 0,
+        display: "flex",
+        flexFlow: "column nowrap",
+        justifyContent: "center",
+      },
     },
     buttonWrapper: {
       margin: theme.spacing(2),
-      [theme.breakpoints.up("sm")]: {
-        margin: theme.spacing(2),
+      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+        margin: theme.spacing(1),
       },
     },
     button: {
       minWidth: "15em",
-      [theme.breakpoints.up("sm")]: {
+      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         fontSize: "1.2em",
       },
     },
     separator: {
       marginTop: theme.spacing(4),
-      [theme.breakpoints.up("sm")]: {
+      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         marginTop: theme.spacing(8),
       },
     },
