@@ -17,203 +17,240 @@ import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  tuning: {
-    position: "relative",
-    "&$active": {
-      borderRadius: 10,
-      border: `3px solid ${theme.palette.gray.light}`,
-      width: "18.8em",
-      paddingBottom: 8,
-      margin: "0 auto",
-      [theme.breakpoints.up("sm")]: {
-        margin: "12px auto",
+const useStyles = makeStyles((theme) => {
+  let tuningTablet = { margin: "12px auto" };
+  let forkTablet;
+  let settingsTablet;
+  let discardTablet;
+  let linkStringsTablet;
+  let playBtnOpenTablet;
+  let tuneBtnWrapperTablet;
+  return {
+    tuning: {
+      position: "relative",
+      "&$active": {
+        borderRadius: 10,
+        border: `3px solid ${theme.palette.gray.light}`,
+        width: "18.8em",
+        paddingBottom: 8,
+        margin: "0 auto",
+        [`${theme.breakpoints.up(
+          "sm"
+        )} and (orientation: portrait)`]: tuningTablet,
+        [`${theme.breakpoints.up(
+          "md"
+        )} and (orientation: landscape)`]: tuningTablet,
       },
+      [theme.breakpoints.up("sm")]: tuningTablet,
     },
-    [theme.breakpoints.up("sm")]: {
-      margin: "12px auto",
+    pegs: (props) => ({
+      display: "flex",
+      flexFlow: `${
+        props.isLeftHanded && !props.doNotFlipOver ? "row-reverse" : "row"
+      } nowrap`,
+      justifyContent: "center",
+      textAlign: "center",
+      alignItems: "center",
+    }),
+    forkWrapper: {
+      display: "inline-flex",
+      order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 10 : 0),
     },
-  },
-  pegs: (props) => ({
-    display: "flex",
-    flexFlow: `${
-      props.isLeftHanded && !props.doNotFlipOver ? "row-reverse" : "row"
-    } nowrap`,
-    justifyContent: "center",
-    textAlign: "center",
-    alignItems: "center",
-    /*"&$active": {
-      color: "black",
-    },*/
-  }),
-  forkWrapper: {
-    display: "inline-flex",
-    order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 10 : 0),
-  },
-  fork: {
-    height: 20,
-    marginRight: 8,
-    marginLeft: 5,
-    [theme.breakpoints.up("sm")]: {
-      height: 25,
-      marginRight: 9,
-      marginLeft: 6,
+    fork: {
+      height: 20,
+      marginRight: 8,
+      marginLeft: 5,
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: portrait)`]: (forkTablet = {
+        height: 25,
+        marginRight: 9,
+        marginLeft: 6,
+      }),
+      [`${theme.breakpoints.up(
+        "md"
+      )} and (orientation: landscape)`]: forkTablet,
     },
-  },
-  settings: {
-    display: "inline-block",
-    height: 25,
-    width: 25,
-    border: "2px solid black",
-    fontSize: 19,
-    borderRadius: "50%",
-    marginLeft: 10,
-    order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
-    [theme.breakpoints.up("sm")]: {
-      height: 29,
-      width: 29,
-      fontSize: 21,
-    },
-  },
-  playBtn: {
-    display: "inline-flex",
-    fontSize: 29,
-  },
-  discard: {
-    position: "absolute",
-    top: -17,
-    right: -15,
-    fontSize: 27,
-    zIndex: 0,
-    "&::before": {
-      content: `''`,
-      position: "absolute",
-      display: "block",
-      height: 19,
-      width: 19,
-      backgroundColor: theme.palette.background.main,
-      top: 6,
-      left: 4,
-      zIndex: -1,
-      borderRadius: "50%",
-    },
-    [theme.breakpoints.up("sm")]: {
-      top: -23,
-      right: -19,
-      fontSize: 34,
-    },
-  },
-  linkStrings: {
-    position: "absolute",
-    fontSize: 21,
-    width: 25,
-    zIndex: 0,
-    textAlign: "center",
-    top: 85,
-    right: -14,
-    "&::before": {
-      content: `''`,
-      position: "absolute",
-      display: "block",
+    settings: {
+      display: "inline-block",
       height: 25,
       width: 25,
-      backgroundColor: theme.palette.background.main,
-      zIndex: -1,
+      border: "2px solid black",
+      fontSize: 19,
       borderRadius: "50%",
-      border: "2.4px solid black",
-      top: 0,
-      left: 0,
+      marginLeft: 10,
+      order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: portrait)`]: (settingsTablet = {
+        height: 29,
+        width: 29,
+        fontSize: 21,
+      }),
+      [`${theme.breakpoints.up(
+        "md"
+      )} and (orientation: landscape)`]: settingsTablet,
     },
-    "&$active": {
-      color: theme.palette.secondary.main,
-      "&::before": {
-        borderColor: theme.palette.secondary.main,
-      },
+    playBtn: {
+      display: "inline-flex",
+      fontSize: 29,
     },
-    [theme.breakpoints.up("sm")]: {
-      fontSize: 24,
+    discard: {
+      position: "absolute",
+      top: -17,
       right: -15,
-      top: 117,
-      width: 28,
+      fontSize: 27,
+      zIndex: 0,
       "&::before": {
-        height: 29,
-        width: 29,
+        content: `''`,
+        position: "absolute",
+        display: "block",
+        height: 19,
+        width: 19,
+        backgroundColor: theme.palette.background.main,
+        top: 6,
+        left: 4,
+        zIndex: -1,
+        borderRadius: "50%",
       },
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: portrait)`]: (discardTablet = {
+        top: -23,
+        right: -19,
+        fontSize: 34,
+      }),
+      [`${theme.breakpoints.up(
+        "md"
+      )} and (orientation: landscape)`]: discardTablet,
     },
-  },
-  playBtnOpen: {
-    position: "absolute",
-    fontSize: 21,
-    width: 25,
-    zIndex: 0,
-    textAlign: "center",
-    top: 85,
-    left: -14,
-    "&::before": {
-      content: `''`,
+    linkStrings: {
       position: "absolute",
-      display: "block",
-      height: 25,
+      fontSize: 21,
       width: 25,
-      backgroundColor: theme.palette.background.main,
-      zIndex: -1,
-      borderRadius: "50%",
-      border: "2.4px solid black",
-      top: 0,
-      left: 0,
-    },
-    "&$active": {
-      color: theme.palette.secondary.main,
+      zIndex: 0,
+      textAlign: "center",
+      top: 85,
+      right: -14,
       "&::before": {
-        borderColor: theme.palette.secondary.main,
+        content: `''`,
+        position: "absolute",
+        display: "block",
+        height: 25,
+        width: 25,
+        backgroundColor: theme.palette.background.main,
+        zIndex: -1,
+        borderRadius: "50%",
+        border: "2.4px solid black",
+        top: 0,
+        left: 0,
       },
-    },
-    [theme.breakpoints.up("sm")]: {
-      fontSize: 24,
-      left: -16,
-      top: 117,
-      width: 29,
-      "&::before": {
-        height: 29,
-        width: 29,
+      "&$active": {
+        color: theme.palette.secondary.main,
+        "&::before": {
+          borderColor: theme.palette.secondary.main,
+        },
       },
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: portrait)`]: (linkStringsTablet = {
+        fontSize: 24,
+        right: -15,
+        top: 117,
+        width: 28,
+        "&::before": {
+          height: 29,
+          width: 29,
+        },
+      }),
+      [`${theme.breakpoints.up(
+        "md"
+      )} and (orientation: landscape)`]: linkStringsTablet,
     },
-  },
-  tuneBtnWrapper: {
-    display: "flex",
-    justifyContent: "center",
-    position: "relative",
-    zIndex: 0,
-    "&::before": {
-      content: `''`,
+    playBtnOpen: {
       position: "absolute",
-      top: 12,
-      zIndex: -1,
-      height: 1,
-      width: 182,
-      backgroundColor: theme.palette.gray.light,
-    },
-    [theme.breakpoints.up("sm")]: {
+      fontSize: 21,
+      width: 25,
+      zIndex: 0,
+      textAlign: "center",
+      top: 85,
+      left: -14,
       "&::before": {
-        top: 17,
-        width: 256,
+        content: `''`,
+        position: "absolute",
+        display: "block",
+        height: 25,
+        width: 25,
+        backgroundColor: theme.palette.background.main,
+        zIndex: -1,
+        borderRadius: "50%",
+        border: "2.4px solid black",
+        top: 0,
+        left: 0,
+      },
+      "&$active": {
+        color: theme.palette.secondary.main,
+        "&::before": {
+          borderColor: theme.palette.secondary.main,
+        },
+      },
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: portrait)`]: (playBtnOpenTablet = {
+        fontSize: 24,
+        left: -16,
+        top: 117,
+        width: 29,
+        "&::before": {
+          height: 29,
+          width: 29,
+        },
+      }),
+      [`${theme.breakpoints.up(
+        "md"
+      )} and (orientation: landscape)`]: playBtnOpenTablet,
+    },
+    tuneBtnWrapper: {
+      display: "flex",
+      justifyContent: "center",
+      position: "relative",
+      zIndex: 0,
+      "&::before": {
+        content: `''`,
+        position: "absolute",
+        top: 12,
+        zIndex: -1,
+        height: 1,
+        width: 182,
+        backgroundColor: theme.palette.gray.light,
+      },
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: portrait)`]: (tuneBtnWrapperTablet = {
+        "&::before": {
+          top: 17,
+          width: 256,
+        },
+      }),
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: landscape)`]: tuneBtnWrapperTablet,
+    },
+    tuneBtn: {
+      display: "block",
+      color: theme.palette.gray.dark,
+      border: "none",
+      margin: 0,
+      padding: 0,
+      background: theme.palette.background.main,
+      outline: "none",
+      "&:disabled": {
+        color: theme.palette.gray.light,
       },
     },
-  },
-  tuneBtn: {
-    display: "block",
-    color: theme.palette.gray.dark,
-    border: "none",
-    margin: 0,
-    padding: 0,
-    background: theme.palette.background.main,
-    outline: "none",
-    "&:disabled": {
-      color: theme.palette.gray.light,
-    },
-  },
-  active: {},
-}));
+    active: {},
+  };
+});
 
 const Tuning = ({
   playNote,

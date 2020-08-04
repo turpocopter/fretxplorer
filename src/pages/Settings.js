@@ -12,22 +12,28 @@ const useStyles = makeStyles((theme) => {
     paper: {
       margin: theme.spacing(6, 0),
       display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
+      flexFlow: "column nowrap",
+      alignItems: "stretch",
       [theme.breakpoints.up("sm")]: {
         minHeight: "calc(100vh - 294px)",
-        display: "flex",
-        flexFlow: "column nowrap",
         justifyContent: "center",
-        alignItems: "stretch",
+      },
+      [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
+        margin: 0,
       },
     },
     title: {
       marginBottom: theme.spacing(6),
+      [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
+        marginBottom: theme.spacing(2),
+      },
     },
     switchContainer: {
       width: "100%",
       marginBottom: theme.spacing(4),
+      [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
+        marginBottom: theme.spacing(1),
+      },
     },
     flatSwitch: {
       fontSize: "0.9em",

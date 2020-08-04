@@ -42,18 +42,18 @@ const ChordPicker = () => {
   const classes = useStyles({ chordName });
   const selectedNotes = useSelector((state) => state.notePicker.selected);
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={6} className={classes.pickerContainer}>
+    <div spacing={3}>
+      <div className={classes.pickerContainer}>
         {chordName === "" ? (
           <ChordPickerForm />
         ) : (
           <Chord chordName={chordName} selectedNotes={selectedNotes} />
         )}
-      </Grid>
-      <Grid className={classes.fretboardContainer} item xs={12} md={6}>
+      </div>
+      <div className={classes.fretboardContainer}>
         <Fretboard />
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 };
 

@@ -5,50 +5,61 @@ import TextField from "@material-ui/core/TextField";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  formControl: {
-    margin: 0,
-    width: 218,
-    [theme.breakpoints.up("sm")]: {
-      marginTop: 4,
-      marginBottom: 8,
-      width: 320,
+const useStyles = makeStyles((theme) => {
+  let formControlTablet;
+  return {
+    wrapper: {
+      display: "flex",
+      justifyContent: "center",
     },
-  },
-  select: {
-    fontSize: "0.95em",
-    [theme.breakpoints.up("sm")]: {
+    formControl: {
+      margin: 0,
+      width: 218,
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: portrait)`]: (formControlTablet = {
+        marginTop: 4,
+        marginBottom: 8,
+        width: 320,
+      }),
+      [`${theme.breakpoints.up(
+        "md"
+      )} and (orientation: landscape)`]: formControlTablet,
+    },
+    select: {
+      fontSize: "0.95em",
+      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+        fontSize: "1em",
+      },
+      [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
+        fontSize: "1em",
+      },
+      "& span": {
+        color: theme.palette.gray.main,
+        fontSize: "0.9em",
+      },
+    },
+    label: {
+      fontSize: "0.92em",
+    },
+    menu: {
+      fontSize: "0.95em",
+    },
+    group: {
       fontSize: "1em",
-    },
-    "& span": {
+      textAlign: "center",
       color: theme.palette.gray.main,
-      fontSize: "0.9em",
     },
-  },
-  label: {
-    fontSize: "0.92em",
-  },
-  menu: {
-    fontSize: "0.95em",
-  },
-  group: {
-    fontSize: "1em",
-    textAlign: "center",
-    color: theme.palette.gray.main,
-  },
-  option: {
-    fontSize: "1em",
-    minHeight: 34,
-    "& span": {
-      color: theme.palette.gray.main,
-      fontSize: "0.9em",
+    option: {
+      fontSize: "1em",
+      minHeight: 34,
+      "& span": {
+        color: theme.palette.gray.main,
+        fontSize: "0.9em",
+      },
     },
-  },
-}));
+  };
+});
 
 const tuningPresets = [
   {
