@@ -24,12 +24,28 @@ const useStyles = makeStyles((theme) => {
       textAlign: "center",
       paddingTop: theme.spacing(8),
       paddingBottom: theme.spacing(16),
+      [theme.breakpoints.up("sm")]: {
+        paddingTop: theme.spacing(16),
+        paddingBottom: theme.spacing(32),
+      },
     },
     buttonWrapper: {
       margin: theme.spacing(2),
+      [theme.breakpoints.up("sm")]: {
+        margin: theme.spacing(2),
+      },
+    },
+    button: {
+      minWidth: "15em",
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "1.2em",
+      },
     },
     separator: {
       marginTop: theme.spacing(4),
+      [theme.breakpoints.up("sm")]: {
+        marginTop: theme.spacing(8),
+      },
     },
   };
 });
@@ -44,6 +60,7 @@ const Welcome = () => {
       <div className={classes.buttons}>
         <div className={classes.buttonWrapper}>
           <Button
+            className={classes.button}
             variant='contained'
             size='large'
             color='primary'
@@ -56,6 +73,7 @@ const Welcome = () => {
         </div>
         <div className={classes.buttonWrapper}>
           <Button
+            className={classes.button}
             variant='contained'
             size='large'
             color='primary'
@@ -68,6 +86,7 @@ const Welcome = () => {
         </div>
         <div className={`${classes.buttonWrapper} ${classes.separator}`}>
           <Button
+            className={classes.button}
             variant='contained'
             size='large'
             component={NavLink}

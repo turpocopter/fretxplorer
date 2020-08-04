@@ -13,9 +13,17 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: 0,
     width: 218,
+    [theme.breakpoints.up("sm")]: {
+      marginTop: 4,
+      marginBottom: 8,
+      width: 320,
+    },
   },
   select: {
     fontSize: "0.95em",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "1em",
+    },
     "& span": {
       color: theme.palette.gray.main,
       fontSize: "0.9em",

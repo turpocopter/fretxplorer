@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     "&$active": {
       borderRadius: 10,
       border: `3px solid ${theme.palette.gray.light}`,
-      width: 273,
+      width: "18.8em",
       paddingBottom: 8,
       margin: "0 auto",
     },
@@ -36,9 +36,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
-    "&$active": {
+    /*"&$active": {
       color: "black",
-    },
+    },*/
   }),
   forkWrapper: {
     display: "inline-flex",
@@ -109,6 +109,16 @@ const useStyles = makeStyles((theme) => ({
         borderColor: theme.palette.secondary.main,
       },
     },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 24,
+      right: -15,
+      top: 117,
+      width: 28,
+      "&::before": {
+        height: 29,
+        width: 29,
+      },
+    },
   },
   playBtnOpen: {
     position: "absolute",
@@ -137,6 +147,16 @@ const useStyles = makeStyles((theme) => ({
         borderColor: theme.palette.secondary.main,
       },
     },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 24,
+      left: -16,
+      top: 117,
+      width: 29,
+      "&::before": {
+        height: 29,
+        width: 29,
+      },
+    },
   },
   tuneBtnWrapper: {
     display: "flex",
@@ -151,6 +171,12 @@ const useStyles = makeStyles((theme) => ({
       height: 1,
       width: 182,
       backgroundColor: theme.palette.gray.light,
+    },
+    [theme.breakpoints.up("sm")]: {
+      "&::before": {
+        top: 17,
+        width: 256,
+      },
     },
   },
   tuneBtn: {

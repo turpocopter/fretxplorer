@@ -48,6 +48,14 @@ const useStyles = makeStyles((theme) => {
           borderColor: theme.palette.secondary.main,
         },
       },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: 25,
+        width: 29,
+        "&::before": {
+          height: 29,
+          width: 29,
+        },
+      },
     },
     interval: {
       color: "#aaa",

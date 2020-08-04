@@ -9,6 +9,13 @@ import Spinner from "components/UI/Spinner";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  "@global": {
+    html: {
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "140%",
+      },
+    },
+  },
   root: {
     backgroundColor: theme.palette.background.main,
     minHeight: "100vh",

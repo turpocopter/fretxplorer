@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => {
       flexDirection: "column",
       alignItems: "center",
       borderBottom: "1px solid #ddd",
+      backgroundColor: theme.palette.background.main,
     },
     chordHeader: {
       width: "100%",

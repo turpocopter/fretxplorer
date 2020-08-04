@@ -7,9 +7,17 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+      margin: "8px 0",
+    },
+  },
   formControl: {
     margin: 0,
     minWidth: 250,
+    [theme.breakpoints.up("sm")]: {
+      minWidth: 400,
+    },
   },
 }));
 
@@ -92,7 +100,7 @@ const QualityForm = (props) => {
   ));
 
   return (
-    <div>
+    <div className={classes.wrapper}>
       <FormControl variant='outlined' className={classes.formControl}>
         <TextField
           variant='outlined'

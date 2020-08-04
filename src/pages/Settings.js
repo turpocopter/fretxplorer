@@ -14,6 +14,13 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
+      [theme.breakpoints.up("sm")]: {
+        minHeight: "calc(100vh - 294px)",
+        display: "flex",
+        flexFlow: "column nowrap",
+        justifyContent: "center",
+        alignItems: "stretch",
+      },
     },
     title: {
       marginBottom: theme.spacing(6),
@@ -43,6 +50,9 @@ const useStyles = makeStyles((theme) => {
       "& small": {
         color: theme.palette.gray.main,
       },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "1.1em",
+      },
     },
     tuningContainer: {
       marginTop: theme.spacing(2),
@@ -70,42 +80,44 @@ const Settings = () => {
 
   return (
     <div className={classes.paper}>
-      <Typography
-        className={classes.title}
-        variant='h5'
-        component='h2'
-        align='center'
-      >
-        Settings
-      </Typography>
-      <div className={classes.switchContainer}>
-        <label className={classes.flatSwitch}>
-          <span className={classes.switchLabel}>
-            Latin <small>(Do, Re, Mi...)</small>
-          </span>
-          <Switch
-            checked={!isLatin}
-            onChange={onToggleNamingConvention}
-            color='default'
-          />
-          <span className={classes.switchLabel}>
-            Letters <small>(C, D, E...)</small>
-          </span>
-        </label>
-      </div>
-      <div className={classes.switchContainer}>
-        <label className={classes.flatSwitch}>
-          <span className={classes.switchLabel}>Left-handed</span>
-          <Switch
-            checked={leftHanded === false}
-            onChange={onToggleHands}
-            color='default'
-          />
-          <span className={classes.switchLabel}>Right-handed</span>
-        </label>
-      </div>
-      <div className={classes.tuningContainer}>
-        <Tuning alwaysOpen={true} doNotFlipOver={true} />
+      <div className={classes.paperInner}>
+        <Typography
+          className={classes.title}
+          variant='h5'
+          component='h2'
+          align='center'
+        >
+          Settings
+        </Typography>
+        <div className={classes.switchContainer}>
+          <label className={classes.flatSwitch}>
+            <span className={classes.switchLabel}>
+              Latin <small>(Do, Re, Mi...)</small>
+            </span>
+            <Switch
+              checked={!isLatin}
+              onChange={onToggleNamingConvention}
+              color='default'
+            />
+            <span className={classes.switchLabel}>
+              Letters <small>(C, D, E...)</small>
+            </span>
+          </label>
+        </div>
+        <div className={classes.switchContainer}>
+          <label className={classes.flatSwitch}>
+            <span className={classes.switchLabel}>Left-handed</span>
+            <Switch
+              checked={leftHanded === false}
+              onChange={onToggleHands}
+              color='default'
+            />
+            <span className={classes.switchLabel}>Right-handed</span>
+          </label>
+        </div>
+        <div className={classes.tuningContainer}>
+          <Tuning alwaysOpen={true} doNotFlipOver={true} />
+        </div>
       </div>
     </div>
   );

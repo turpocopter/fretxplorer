@@ -8,9 +8,17 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { hasNote } from "utility/intervals";
 
 const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+      margin: "8px 0",
+    },
+  },
   formControl: {
     margin: 0,
     minWidth: 250,
+    [theme.breakpoints.up("sm")]: {
+      minWidth: 400,
+    },
   },
 }));
 
@@ -112,7 +120,7 @@ const SeventhForm = (props) => {
     ));
   return (
     filteredSeventhList.length > 0 && (
-      <div>
+      <div className={classes.wrapper}>
         <FormControl variant='outlined' className={classes.formControl}>
           <TextField
             variant='outlined'

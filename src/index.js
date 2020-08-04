@@ -36,7 +36,7 @@ const store = createStore(
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: /*`'Nanum Gothic', sans-serif`*/ `'M PLUS 1p', sans-serif` /*`"Gothic A1", sans-serif`,*/,
+    fontFamily: `'M PLUS 1p', sans-serif`,
   },
   palette: {
     primary: {

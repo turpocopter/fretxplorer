@@ -14,10 +14,25 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    [theme.breakpoints.up("sm")]: {
+      width: 400,
+    },
+    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+      margin: "8px 0",
+    },
   },
   formControl: {
     margin: 0,
     width: 120,
+    [theme.breakpoints.up("sm")]: {
+      width: 200,
+    },
+  },
+  flatSwitch: {
+    fontSize: "1.4em",
+    "& span": {
+      verticalAlign: "middle",
+    },
   },
 }));
 

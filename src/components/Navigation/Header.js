@@ -1,13 +1,13 @@
 import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
-//import Typography from "@material-ui/core/Typography";
+import MainMenu from "components/Navigation/MainMenu";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import logo from "assets/logo.png";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   header: {
     flexGrow: 1,
     marginBottom: 8,
@@ -16,6 +16,10 @@ const useStyles = makeStyles(() => ({
   logo: {
     marginLeft: -16,
     width: 150,
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: -24,
+      width: 260,
+    },
     "& img": {
       width: "100%",
       display: "block",
@@ -25,9 +29,17 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     top: 4,
     right: 4,
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
   },
   title: {
     flexGrow: 1,
+  },
+  mainMenu: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
   },
 }));
 
@@ -46,6 +58,9 @@ const Header = ({ toggleDrawer }) => {
       >
         <MenuIcon />
       </IconButton>
+      <div className={classes.mainMenu}>
+        <MainMenu orientation='horizontal' onClickLink={() => {}} />
+      </div>
     </Toolbar>
   );
 };

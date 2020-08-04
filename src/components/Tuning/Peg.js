@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
     "& div": {
       backgroundColor: theme.palette.background.main,
     },
+    [theme.breakpoints.up("sm")]: {
+      "&::before": {
+        height: 64,
+      },
+    },
   },
   tuneBtn: {
     display: "block",

@@ -15,25 +15,48 @@ import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    margin: theme.spacing(6, 4),
+    margin: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    backgroundColor: theme.palette.background.main,
+    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+      minHeight: "calc(100vh - 262px)",
+      display: "flex",
+      flexFlow: "column nowrap",
+      justifyContent: "center",
+    },
+  },
+  paperInner: {
+    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+      height: "30.8em",
+    },
   },
   title: {
     marginBottom: theme.spacing(2),
+    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+      marginBottom: theme.spacing(4),
+    },
   },
   form: {
     width: 250,
     margin: "0 auto",
+    [theme.breakpoints.up("sm")]: {
+      width: 400,
+    },
   },
-  /*formControl: {
-    margin: "0 8px",
-  },*/
+  buttonWrapper: {
+    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+      marginTop: 8,
+    },
+  },
   submitButton: {
     width: 250,
     marginTop: 16,
     padding: "16px 0",
+    [theme.breakpoints.up("sm")]: {
+      width: 400,
+    },
     "& sup": {
       verticalAlign: "top",
       position: "relative",
@@ -84,62 +107,65 @@ const ChordPickerForm = () => {
 
   return (
     <div className={classes.paper}>
-      <Typography
-        className={classes.title}
-        variant='h5'
-        component='h2'
-        align='center'
-      >
-        Pick a chord!
-      </Typography>
-      <RootForm
-        rootNote={rootNote}
-        useFlats={useFlats}
-        noteNaming={noteNaming}
-        updateRoot={onUpdateRoot}
-        toggleFlats={onToggleFlats}
-      />
-      {rootNote !== "" && (
-        <QualityForm
-          rootName={rootName}
-          quality={quality}
-          selected={selected}
-          updateQuality={onUpdateQuality}
-          setTmpChordName={setTmpChordName}
+      <div className={classes.paperInner}>
+        <Typography
+          className={classes.title}
+          variant='h5'
+          component='h2'
+          align='center'
+        >
+          Pick a chord!
+        </Typography>
+        <RootForm
+          rootNote={rootNote}
+          useFlats={useFlats}
+          noteNaming={noteNaming}
+          updateRoot={onUpdateRoot}
+          toggleFlats={onToggleFlats}
         />
-      )}
-      {quality !== "" && (
-        <SeventhForm
-          rootName={rootName}
-          seventh={seventh}
-          selected={selected}
-          updateSeventh={onUpdateSeventh}
-          setTmpChordName={setTmpChordName}
-        />
-      )}
-      {seventh !== "" && (
-        <ExtensionForm
-          rootName={rootName}
-          selected={selected}
-          extension={extension}
-          updateExtension={onUpdateExtension}
-          setTmpChordName={setTmpChordName}
-        />
-      )}
-      {quality !== "" && (
-        <FormControl className={classes.formControl}>
-          <Button
-            className={classes.submitButton}
-            variant='contained'
-            color='primary'
-            size='large'
-            onClick={onPickChord}
-          >
-            PICK&nbsp;
-            <span dangerouslySetInnerHTML={{ __html: tmpChordName }} />
-          </Button>
-        </FormControl>
-      )}
+        {rootNote !== "" && (
+          <QualityForm
+            rootName={rootName}
+            quality={quality}
+            selected={selected}
+            updateQuality={onUpdateQuality}
+            setTmpChordName={setTmpChordName}
+            className={classes.quality}
+          />
+        )}
+        {quality !== "" && (
+          <SeventhForm
+            rootName={rootName}
+            seventh={seventh}
+            selected={selected}
+            updateSeventh={onUpdateSeventh}
+            setTmpChordName={setTmpChordName}
+          />
+        )}
+        {seventh !== "" && (
+          <ExtensionForm
+            rootName={rootName}
+            selected={selected}
+            extension={extension}
+            updateExtension={onUpdateExtension}
+            setTmpChordName={setTmpChordName}
+          />
+        )}
+        {quality !== "" && (
+          <FormControl className={classes.buttonWrapper}>
+            <Button
+              className={classes.submitButton}
+              variant='contained'
+              color='primary'
+              size='large'
+              onClick={onPickChord}
+            >
+              PICK&nbsp;
+              <span dangerouslySetInnerHTML={{ __html: tmpChordName }} />
+            </Button>
+          </FormControl>
+        )}
+      </div>
     </div>
   );
 };
