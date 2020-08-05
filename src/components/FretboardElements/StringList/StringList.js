@@ -9,6 +9,10 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexFlow: (props) => `${props.isLeftHanded ? "row-reverse" : "row"} nowrap`,
     paddingRight: "2em",
+    "@media (orientation: landscape)": {
+      flexFlow: "column-reverse nowrap!important",
+      paddingRight: 0,
+    },
   },
 }));
 
@@ -19,7 +23,7 @@ export default function StringList(props) {
       {...props}
       key={el.stringId}
       name={el.stringId}
-      order={props.isLeftHanded ? el.stringId : 7 - el.stringId}
+      isLeftHanded={props.isLeftHanded}
       tuning={el}
     />
   ));

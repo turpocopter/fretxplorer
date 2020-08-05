@@ -12,9 +12,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: (props) =>
       props.position > 0 ? "#5f4035" : "transparent",
     backgroundImage: (props) => {
-      if (props.position > 0 && (props.order === 1 || props.order === 6)) {
+      if (
+        props.position > 0 &&
+        (props.stringId === 1 || props.stringId === 6)
+      ) {
         return `linear-gradient(${
-          props.order === 1 ? 90 : -90
+          (props.isLeftHanded ? props.stringId === 1 : props.stringId === 6)
+            ? 90
+            : -90
         }deg, rgba(0,0,0,0.05), transparent)`;
       }
       return null;
@@ -30,12 +35,48 @@ const useStyles = makeStyles((theme) => ({
       left: 0,
       width: "100%",
       backgroundImage: (props) =>
-        props.order === 1 || props.order === 6
+        props.stringId === 1 || props.stringId === 6
           ? `linear-gradient(${
-              props.order === 1 ? 90 : -90
+              (props.isLeftHanded ? props.stringId === 1 : props.stringId === 6)
+                ? 90
+                : -90
             }deg, #9d8c64 0%,#c0ac87 50%)`
           : null,
       borderBottom: "1px solid #917f5f",
+      "@media (orientation: landscape)": {
+        width: "calc(1.5em - 1px)",
+        height: "100%",
+        left: (props) => (props.isLeftHanded ? 0 : "auto"),
+        right: (props) => (props.isLeftHanded ? "auto" : 0),
+        borderBottom: "none",
+        borderRight: (props) =>
+          props.isLeftHanded ? "none" : "1px solid #917f5f",
+        borderLeft: (props) =>
+          props.isLeftHanded ? "1px solid #917f5f" : "none",
+        backgroundImage: (props) =>
+          props.stringId === 1 || props.stringId === 6
+            ? `linear-gradient(${
+                props.stringId === 1 ? 180 : 0
+              }deg, #9d8c64 0%,#c0ac87 50%)`
+            : null,
+      },
+    },
+    "@media (orientation: landscape)": {
+      flexFlow: "row nowrap",
+      height: "auto!important",
+      backgroundImage: (props) => {
+        if (
+          props.position > 0 &&
+          (props.stringId === 1 || props.stringId === 6)
+        ) {
+          return `linear-gradient(${
+            props.stringId === 1 ? 180 : 0
+          }deg, rgba(0,0,0,0.05), transparent)`;
+        }
+        return null;
+      },
+      width: (props) =>
+        props.position === 0 ? "2.5em" : `${6 * 0.9438 ** props.position}em`,
     },
   },
   fretInner: {
@@ -63,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.main,
       },
     },
+    "@media (orientation: landscape)": {},
   },
   isRoot: {},
   active: {},
@@ -72,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "0.25em",
     background: (props) => {
-      switch (props.order) {
+      switch (props.isLeftHanded ? props.stringId : 7 - props.stringId) {
         case 1:
           return "linear-gradient(-90deg, transparent 0%, transparent 70%, rgb(90, 90, 90) 100%), linear-gradient(0deg, rgb(140, 140, 140) 0%, white 35%, white 65%, rgb(140, 140, 140) 100%)";
         case 6:
@@ -83,6 +125,21 @@ const useStyles = makeStyles((theme) => ({
     },
     "&:last-child": {
       display: "none",
+    },
+    "@media (orientation: landscape)": {
+      width: "0.25em",
+      height: "100%",
+
+      background: (props) => {
+        switch (props.stringId) {
+          case 6:
+            return "linear-gradient(180deg, transparent 0%, transparent 70%, rgb(90, 90, 90) 100%), linear-gradient(90deg, rgb(140, 140, 140) 0%, white 35%, white 65%, rgb(140, 140, 140) 100%)";
+          case 1:
+            return "linear-gradient(0deg, transparent 0%, transparent 70%, rgb(90, 90, 90) 100%), linear-gradient(90deg, rgb(140, 140, 140) 0%, white 35%, white 65%, rgb(140, 140, 140) 100%)";
+          default:
+            return "linear-gradient(90deg, rgb(140, 140, 140) 0%, white 35%, white 65%, rgb(140, 140, 140) 100%)";
+        }
+      },
     },
   },
 }));

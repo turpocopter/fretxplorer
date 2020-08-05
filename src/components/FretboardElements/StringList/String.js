@@ -9,6 +9,11 @@ const useStyles = makeStyles((theme) => ({
   string: {
     width: "2.6em",
     position: "relative",
+    "@media (orientation: landscape)": {
+      height: "2.6em",
+      width: "auto",
+      position: "relative",
+    },
     "&::before": {
       content: '""',
       display: "block",
@@ -25,33 +30,82 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.up("sm")]: {
         top: 20,
       },
+      "@media (orientation: landscape)": {
+        height: 1,
+        width: "calc(100% - 1em)",
+        top: 0,
+        left: (props) => (props.isLeftHanded ? 0 : "1em"),
+        right: (props) => (props.isLeftHanded ? "1em" : 0),
+        margin: "auto",
+        background:
+          "linear-gradient(0deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
+        zIndex: 1,
+        /*[theme.breakpoints.up("sm")]: {
+          left: (props) => (props.isLeftHanded ? "auto" : 20),
+          right: (props) => (props.isLeftHanded ? 20 : "auto"),
+        },*/
+      },
     },
     "&:nth-child(5)::before": {
       width: 1.3,
+      "@media (orientation: landscape)": {
+        width: "auto",
+        height: 1.3,
+      },
     },
     "&:nth-child(4)::before": {
       width: 1.7,
+      "@media (orientation: landscape)": {
+        width: "auto",
+        height: 1.7,
+      },
     },
     "&:nth-child(3)::before": {
       width: 3,
       background:
         "repeating-linear-gradient( 3deg, rgba(0,0,0,0), rgba(0,0,0,0) 0.5px, rgba(0,0,0,0.15) 0.5px, rgba(0,0,0,0.15) 1px), linear-gradient(90deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
+      "@media (orientation: landscape)": {
+        width: "auto",
+        height: 3,
+        background:
+          "repeating-linear-gradient( -87deg, rgba(0,0,0,0), rgba(0,0,0,0) 0.5px, rgba(0,0,0,0.15) 0.5px, rgba(0,0,0,0.15) 1px), linear-gradient(0deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
+      },
     },
     "&:nth-child(2)::before": {
       width: 4.2,
       background:
         "repeating-linear-gradient( 3deg, rgba(0,0,0,0), rgba(0,0,0,0) 0.5px, rgba(0,0,0,0.15) 0.5px, rgba(0,0,0,0.15) 1px), linear-gradient(90deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
+      "@media (orientation: landscape)": {
+        width: "auto",
+        height: 4.2,
+        background:
+          "repeating-linear-gradient( -87deg, rgba(0,0,0,0), rgba(0,0,0,0) 0.5px, rgba(0,0,0,0.15) 0.5px, rgba(0,0,0,0.15) 1px), linear-gradient(0deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
+      },
     },
     "&:nth-child(1)::before": {
       width: 5.2,
       background:
         "repeating-linear-gradient( 3deg, rgba(0,0,0,0), rgba(0,0,0,0) 0.5px, rgba(0,0,0,0.15) 0.5px, rgba(0,0,0,0.15) 1px), linear-gradient(90deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
+      "@media (orientation: landscape)": {
+        width: "auto",
+        height: 5.2,
+        background:
+          "repeating-linear-gradient( -87deg, rgba(0,0,0,0), rgba(0,0,0,0) 0.5px, rgba(0,0,0,0.15) 0.5px, rgba(0,0,0,0.15) 1px), linear-gradient(0deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
+      },
+    },
+  },
+  frets: {
+    "@media (orientation: landscape)": {
+      display: "flex",
+      flexFlow: (props) =>
+        `${props.isLeftHanded ? "row-reverse" : "row"} nowrap`,
+      height: "100%",
     },
   },
 }));
 
 const String = (props) => {
-  const classes = useStyles();
+  const classes = useStyles(props);
   const {
     rootNote,
     showIntervals,
@@ -61,7 +115,7 @@ const String = (props) => {
     nbFrets,
     noteNaming,
     playNote,
-    order,
+    isLeftHanded,
   } = props;
   const { translateNote } = useNoteNames(noteNaming);
 
@@ -89,13 +143,13 @@ const String = (props) => {
         octave={octave}
         playNote={playNote}
         stringId={name}
-        order={order}
+        isLeftHanded={isLeftHanded}
       />
     );
   });
   return (
     <div className={classes.string}>
-      <div className='frets'>{frets}</div>
+      <div className={classes.frets}>{frets}</div>
     </div>
   );
 };

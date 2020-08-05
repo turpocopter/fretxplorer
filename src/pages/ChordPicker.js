@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => {
   return {
     pickerContainer: {
       position: "sticky",
-      top: -12,
+      top: 0,
       //backgroundColor: theme.palette.background.main,
       zIndex: 100,
       paddingBottom: "0!important",
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => {
         backgroundImage: `linear-gradient(180deg, ${theme.palette.background.main}, transparent)`,
       },
       [theme.breakpoints.up("sm")]: {
-        top: 95,
+        top: 106,
       },
     },
     fretboardContainer: {

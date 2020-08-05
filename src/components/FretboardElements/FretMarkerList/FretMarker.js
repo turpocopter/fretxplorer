@@ -17,11 +17,23 @@ const useStyles = makeStyles(() => ({
     "&:last-child": {
       borderBottom: "none",
     },
+    "@media (orientation: landscape)": {
+      height: "auto!important",
+      textAlign: "center",
+      marginRight: 0,
+      borderBottom: 0,
+      borderRight: (props) =>
+        props.isLeftHanded ? 0 : "0.25em solid transparent",
+      borderLeft: (props) =>
+        props.isLeftHanded ? "0.25em solid transparent" : 0,
+      width: (props) =>
+        props.position === 0 ? "2.5em" : `${6 * 0.9438 ** props.position}em`,
+    },
   },
 }));
 
-const FretMarker = ({ position }) => {
-  const classes = useStyles({ position });
+const FretMarker = ({ position, isLeftHanded }) => {
+  const classes = useStyles({ position, isLeftHanded });
   return (
     <div className={classes.fretMarker}>
       <small>{position}</small>

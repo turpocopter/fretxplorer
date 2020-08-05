@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => {
       borderBottom: "1px solid #ddd",
       backgroundColor: theme.palette.background.main,
       [theme.breakpoints.up("sm")]: {
+        paddingTop: 0,
         paddingBottom: theme.spacing(3),
       },
     },

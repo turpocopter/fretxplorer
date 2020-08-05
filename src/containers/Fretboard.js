@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     position: "relative",
     marginTop: theme.spacing(1),
+    "@media (orientation: landscape)": {
+      flexFlow: "column nowrap",
+      overflow: "auto",
+      width: "67em",
+    },
   },
 }));
 
@@ -46,7 +51,7 @@ const Fretboard = (props) => {
       <Tuning alwaysOpen={false} />
       <div className={classes.fretboardWrapper}>
         <div className={classes.fretboardInner}>
-          <FretMarkerList nbFrets={16} />
+          <FretMarkerList nbFrets={16} isLeftHanded={isLeftHanded} />
           <StringList
             tuning={tuning}
             rootNote={rootNote}
