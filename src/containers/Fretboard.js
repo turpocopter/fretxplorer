@@ -11,6 +11,9 @@ import withMidiSounds from "hoc/withMidiSounds";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  fretboardRoot: {
+    position: "relative",
+  },
   fretboardWrapper: {
     "@media (orientation: landscape)": {
       overflow: "auto",
@@ -28,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       flexFlow: (props) =>
         `${props.isLeftHanded ? "row-reverse" : "row"} nowrap`,
-      width: "70em",
     },
     "@media (max-width: 800px) and (orientation: landscape)": {
       fontSize: "0.85em",
@@ -45,7 +47,12 @@ const useStyles = makeStyles((theme) => ({
       flexFlow: "column nowrap",
       overflow: "auto",
       width: "67em",
-      paddingBottom: "2em",
+      paddingBottom: "1.4em",
+      marginTop: theme.spacing(6),
+    },
+    "@media (max-width: 800px) and (orientation: landscape)": {
+      marginTop: 40,
+      paddingBottom: "1.4em",
     },
   },
 }));
@@ -64,9 +71,10 @@ const Fretboard = (props) => {
   };
 
   return (
-    <div>
+    <div className={classes.fretboardRoot}>
       <NoteIntervalSwitch
         showIntervals={showIntervals}
+        isLeftHanded={isLeftHanded}
         toggleNotesIntervals={onToggleNotesIntervals}
       />
       <div className={classes.fretboardWrapper}>

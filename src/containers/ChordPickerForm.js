@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
       flexFlow: "column nowrap",
       justifyContent: "center",
     },
+    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
+      margin: "16px 32px",
+    },
   },
   paperInner: {
     [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
@@ -63,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
       top: "-0.25em",
     },
     textTransform: "none",
+    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
+      marginTop: 8,
+      padding: "8px 0",
+    },
   },
 }));
 

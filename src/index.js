@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import createSagaMiddleware from "redux-saga";
+//import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import {
+  createStore,
+  combineReducers /*applyMiddleware, compose*/,
+} from "redux";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import settingsReducer from "./store/reducers/settings";
@@ -13,11 +16,12 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-const composeEnhancers =
+/*const composeEnhancers =
   process.env.NODE_ENV === "development" &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true })
     : null || compose;
+*/
 
 const reducer = combineReducers({
   settings: settingsReducer,
@@ -25,16 +29,26 @@ const reducer = combineReducers({
   auth: authReducer,
 });
 
-const sagaMiddleware = createSagaMiddleware();
+//const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   reducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  //composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
 // TODO : run sagas
 
 const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 590,
+      md: 1024,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   typography: {
     fontFamily: `'M PLUS 1p', sans-serif`,
   },

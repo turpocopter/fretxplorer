@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import json2mq from "json2mq";
 
 const useStyles = makeStyles((theme) => {
   let chordTablet;
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up(
         "md"
       )} and (orientation: landscape)`]: chordTablet,
+      "@media (min-height: 768px) and (orientation: landscape)": {
+        borderBottom: "none",
+      },
     },
     chordHeader: {
       width: "100%",
@@ -36,6 +40,7 @@ const useStyles = makeStyles((theme) => {
     },
     title: {},
     button: {
+      marginLeft: "1em",
       [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         position: "relative",
         top: 30,
@@ -51,8 +56,13 @@ const Chord = () => {
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
   const classes = useStyles();
-  const tabletOrBigger = useMediaQuery((theme) => theme.breakpoints.up("sm"));
-
+  //const biggerButton = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+  const biggerButton = useMediaQuery(
+    json2mq({
+      minWidth: 600,
+      orientation: "portrait",
+    })
+  );
   const rootNoteValue = rootNote + (rootNote >= 4 ? 36 : 48); // on la veut à la 3è octave de la librairie (ou 4è si entre C et D#)
   const selectedWithValues = selected.map((el) => ({
     ...el,
@@ -77,7 +87,7 @@ const Chord = () => {
           className={classes.button}
           variant='contained'
           color='primary'
-          size={tabletOrBigger ? "medium" : "small"}
+          size={biggerButton ? "medium" : "small"}
           onClick={onDiscardChord}
         >
           Pick Another

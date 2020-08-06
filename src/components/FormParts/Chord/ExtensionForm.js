@@ -19,6 +19,33 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       minWidth: 400,
     },
+    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
+      "& > .MuiTextField-root": {
+        margin: "8px 0",
+      },
+    },
+  },
+  select: {
+    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
+      fontSize: "0.9em",
+      "& > .MuiSelect-root": {
+        padding: 12,
+        paddingRight: 32,
+      },
+    },
+  },
+  label: {
+    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
+      fontSize: "1em",
+      transform: "translate(14px, 14px) scale(1)",
+    },
+  },
+  menu: {
+    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
+      "& li": {
+        fontSize: "1em!important",
+      },
+    },
   },
 }));
 
@@ -438,8 +465,11 @@ const ExtensionForm = (props) => {
             SelectProps={{
               className: classes.select,
               MenuProps: {
-                className: classes.menu,
+                classes: { list: classes.menu },
               },
+            }}
+            InputLabelProps={{
+              className: classes.label,
             }}
             margin='normal'
           >

@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
           display: "flex",
           flexFlow: "row nowrap",
           marginRight: -16,
+          [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
+            fontSize: "1.1em",
+          },
         }
       : {},
   list: (props) =>

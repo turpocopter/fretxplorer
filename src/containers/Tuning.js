@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 
@@ -42,6 +42,14 @@ const useStyles = makeStyles((theme) => {
         )} and (orientation: landscape)`]: tuningTablet,
       },
       [theme.breakpoints.up("sm")]: tuningTablet,
+      "@media (orientation: landscape)": {
+        paddingLeft: (props) => (!props.alwaysOpen ? 16 : 0),
+        paddingRight: (props) => (!props.alwaysOpen ? 16 : 0),
+        margin: "48px auto 0",
+      },
+      "@media (max-height: 767px) and (orientation: landscape)": {
+        margin: "30px auto 0",
+      },
     },
     pegs: (props) => ({
       display: "flex",
@@ -51,10 +59,13 @@ const useStyles = makeStyles((theme) => {
       justifyContent: "center",
       textAlign: "center",
       alignItems: "center",
-      "@media (orientation: landscape)": (props) =>
-        !props.alwaysOpen
-          ? { display: "flex", flexFlow: "column-reverse nowrap" }
-          : {},
+      "@media (orientation: landscape)": {
+        flexFlow: !props.alwaysOpen
+          ? "column-reverse nowrap"
+          : `${
+              props.isLeftHanded && !props.doNotFlipOver ? "row-reverse" : "row"
+            } nowrap`,
+      },
     }),
     forkWrapper: {
       display: "inline-flex",
@@ -94,6 +105,7 @@ const useStyles = makeStyles((theme) => {
       marginLeft: 10,
       order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
       "@media (orientation: landscape)": {
+        display: (props) => (!props.isAlwaysOpen ? "none" : "inline-block"),
         order: (props) => (!props.alwaysOpen ? 0 : 10),
         marginTop: (props) => (!props.alwaysOpen ? 10 : 0),
         marginLeft: (props) => (!props.alwaysOpen ? 0 : 10),
@@ -274,7 +286,6 @@ const Tuning = ({
   playNote,
   playMelody,
   getNoteVal,
-  cancelSound,
   alwaysOpen,
   doNotFlipOver,
 }) => {
@@ -290,6 +301,7 @@ const Tuning = ({
   const [isLinked, setIsLinked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const classes = useStyles({ doNotFlipOver, isLeftHanded, alwaysOpen });
+
   let intervalID = null;
 
   /*

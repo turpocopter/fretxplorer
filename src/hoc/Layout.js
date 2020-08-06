@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Header from "../components/Navigation/Header";
 import SideDrawer from "components/Navigation/SideDrawer";
