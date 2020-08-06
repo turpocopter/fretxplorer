@@ -45,10 +45,10 @@ const useStyles = makeStyles((theme) => {
       "@media (orientation: landscape)": {
         paddingLeft: (props) => (!props.alwaysOpen ? 16 : 0),
         paddingRight: (props) => (!props.alwaysOpen ? 16 : 0),
-        margin: "48px auto 0",
+        margin: "48px 0 0",
       },
       "@media (max-height: 767px) and (orientation: landscape)": {
-        margin: "30px auto 0",
+        margin: "30px 0 0",
       },
     },
     pegs: (props) => ({

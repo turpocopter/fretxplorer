@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       flexFlow: (props) =>
         `${props.isLeftHanded ? "row-reverse" : "row"} nowrap`,
+      minWidth: "100%",
+      justifyContent: "flex-end",
     },
     "@media (max-width: 800px) and (orientation: landscape)": {
       fontSize: "0.85em",

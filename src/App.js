@@ -17,6 +17,15 @@ const useStyles = makeStyles((theme) => ({
       [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
         fontSize: "140%",
       },
+      "@media (min-width: 1360px)": {
+        fontSize: "160%",
+      },
+      "@media (min-width: 1590px)": {
+        fontSize: "180%",
+      },
+      "@media (min-width: 1780px)": {
+        fontSize: "200%",
+      },
     },
   },
   root: {
