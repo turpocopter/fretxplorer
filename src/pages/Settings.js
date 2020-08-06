@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => {
     },
     switchLabel: {
       display: "inline-block",
-      width: "35%",
+      width: "38%",
       "&:first-child": {
         textAlign: "right",
       },

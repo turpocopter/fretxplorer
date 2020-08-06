@@ -11,19 +11,17 @@ const useStyles = makeStyles((theme) => {
     pickerContainer: {
       position: "sticky",
       top: 0,
-      //backgroundColor: theme.palette.background.main,
+      backgroundColor: theme.palette.background.main,
       zIndex: 100,
       paddingBottom: "0!important",
+      paddingLeft: 16,
+      paddingRight: 16,
       marginBottom: 8,
-      "&::after": {
-        content: `''`,
-        display: "block",
-        height: 8,
-        bottom: -24,
-        left: 0,
-        backgroundImage: `linear-gradient(180deg, ${theme.palette.background.main}, transparent)`,
-      },
       [theme.breakpoints.up("sm")]: {
+        paddingLeft: 24,
+        paddingRight: 24,
+      },
+      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         top: 106,
       },
     },

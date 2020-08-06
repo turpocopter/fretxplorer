@@ -51,15 +51,28 @@ const useStyles = makeStyles((theme) => {
       justifyContent: "center",
       textAlign: "center",
       alignItems: "center",
+      "@media (orientation: landscape)": (props) =>
+        !props.alwaysOpen
+          ? { display: "flex", flexFlow: "column-reverse nowrap" }
+          : {},
     }),
     forkWrapper: {
       display: "inline-flex",
       order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 10 : 0),
+      "@media (orientation: landscape)": {
+        order: (props) => (!props.alwaysOpen ? 10 : 0),
+      },
     },
     fork: {
       height: 20,
       marginRight: 8,
       marginLeft: 5,
+      "@media (orientation: landscape)": {
+        marginRight: (props) => (!props.alwaysOpen ? 0 : 8),
+        marginLeft: (props) => (!props.alwaysOpen ? 0 : 5),
+        marginTop: (props) => (!props.alwaysOpen ? 5 : 0),
+        marginBottom: (props) => (!props.alwaysOpen ? 8 : 0),
+      },
       [`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (forkTablet = {
@@ -80,6 +93,11 @@ const useStyles = makeStyles((theme) => {
       borderRadius: "50%",
       marginLeft: 10,
       order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
+      "@media (orientation: landscape)": {
+        order: (props) => (!props.alwaysOpen ? 0 : 10),
+        marginTop: (props) => (!props.alwaysOpen ? 10 : 0),
+        marginLeft: (props) => (!props.alwaysOpen ? 0 : 10),
+      },
       [`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (settingsTablet = {
@@ -271,7 +289,7 @@ const Tuning = ({
   const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const classes = useStyles({ doNotFlipOver, isLeftHanded });
+  const classes = useStyles({ doNotFlipOver, isLeftHanded, alwaysOpen });
   let intervalID = null;
 
   /*
@@ -355,6 +373,7 @@ const Tuning = ({
       isLinked={isLinked}
       onClickPeg={() => onClickPeg(el.stringId, el.note, el.octave)}
       isOpen={isOpen}
+      alwaysOpen={alwaysOpen}
       tuneUp={onTuneUpString}
       tuneDown={onTuneDownString}
       tuneUpDisabled={getNoteVal(el.note, el.octave) - el.reference === 9}

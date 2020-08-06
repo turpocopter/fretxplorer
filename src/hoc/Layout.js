@@ -24,7 +24,7 @@ const Layout = (props) => {
       <Box>
         <SideDrawer isOpened={drawerIsOpened} toggle={toggleDrawer} />
         <Header toggleDrawer={toggleDrawer} />
-        <Container>{props.children}</Container>
+        <>{props.children}</>
       </Box>
     </>
   );

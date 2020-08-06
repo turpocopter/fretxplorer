@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       flexFlow: "column nowrap",
       justifyContent: "center",
-      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+      "@media (orientation: landscape)": {
         flexFlow: "row nowrap",
         justifyContent: "space-between",
       },
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
       "& img": {
         width: "100%",
       },
-      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+      "@media (orientation: landscape)": {
         display: "flex",
         flexFlow: "column nowrap",
         justifyContent: "center",
@@ -35,23 +35,23 @@ const useStyles = makeStyles((theme) => {
       textAlign: "center",
       paddingTop: theme.spacing(8),
       paddingBottom: theme.spacing(16),
-      [theme.breakpoints.up("sm")]: {
+      display: "flex",
+      flexFlow: "column nowrap",
+      justifyContent: "center",
+      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         paddingTop: theme.spacing(16),
         paddingBottom: theme.spacing(32),
       },
-      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+      "@media (orientation: landscape)": {
         flexGrow: 1,
         paddingTop: 0,
         paddingBottom: 0,
-        display: "flex",
-        flexFlow: "column nowrap",
-        justifyContent: "center",
       },
     },
     buttonWrapper: {
-      margin: theme.spacing(2),
-      [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
-        margin: theme.spacing(1),
+      margin: theme.spacing(1),
+      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+        margin: theme.spacing(2),
       },
     },
     button: {
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => {
       },
     },
     separator: {
-      marginTop: theme.spacing(4),
+      marginTop: theme.spacing(3),
       [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         marginTop: theme.spacing(8),
       },

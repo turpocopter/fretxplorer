@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => {
+  let chordTablet;
   return {
     paper: {
       padding: theme.spacing(1.5, 0, 1.5),
@@ -17,10 +18,15 @@ const useStyles = makeStyles((theme) => {
       alignItems: "center",
       borderBottom: "1px solid #ddd",
       backgroundColor: theme.palette.background.main,
-      [theme.breakpoints.up("sm")]: {
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation: portrait)`]: (chordTablet = {
         paddingTop: 0,
         paddingBottom: theme.spacing(3),
-      },
+      }),
+      [`${theme.breakpoints.up(
+        "md"
+      )} and (orientation: landscape)`]: chordTablet,
     },
     chordHeader: {
       width: "100%",

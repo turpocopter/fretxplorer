@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
       ? {
           display: "flex",
           flexFlow: "row nowrap",
+          marginRight: -16,
         }
       : {},
   list: (props) =>

@@ -12,7 +12,27 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   fretboardWrapper: {
-    overflow: "auto",
+    "@media (orientation: landscape)": {
+      overflow: "auto",
+      //margin: "0 -16px",
+      display: "flex",
+      flexFlow: (props) =>
+        `${props.isLeftHanded ? "row-reverse" : "row"} nowrap`,
+    },
+    [`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+      //margin: "0 -24px",
+    },
+  },
+  fretboardScroller: {
+    "@media (orientation: landscape)": {
+      display: "flex",
+      flexFlow: (props) =>
+        `${props.isLeftHanded ? "row-reverse" : "row"} nowrap`,
+      width: "70em",
+    },
+    "@media (max-width: 800px) and (orientation: landscape)": {
+      fontSize: "0.85em",
+    },
   },
   fretboardInner: {
     display: "flex",
@@ -25,19 +45,20 @@ const useStyles = makeStyles((theme) => ({
       flexFlow: "column nowrap",
       overflow: "auto",
       width: "67em",
+      paddingBottom: "2em",
     },
   },
 }));
 
 const Fretboard = (props) => {
   const dispatch = useDispatch();
-  const classes = useStyles(props);
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const selectedNotes = useSelector((state) => state.notePicker.selected);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
   const isLeftHanded = useSelector((state) => state.settings.leftHanded);
   const tuning = useSelector((state) => state.settings.tuning);
   const showIntervals = useSelector((state) => state.settings.showIntervals);
+  const classes = useStyles({ isLeftHanded });
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
@@ -48,20 +69,22 @@ const Fretboard = (props) => {
         showIntervals={showIntervals}
         toggleNotesIntervals={onToggleNotesIntervals}
       />
-      <Tuning alwaysOpen={false} />
       <div className={classes.fretboardWrapper}>
-        <div className={classes.fretboardInner}>
-          <FretMarkerList nbFrets={16} isLeftHanded={isLeftHanded} />
-          <StringList
-            tuning={tuning}
-            rootNote={rootNote}
-            selectedNotes={selectedNotes}
-            showIntervals={showIntervals}
-            nbFrets={16}
-            noteNaming={noteNaming}
-            playNote={props.playNote}
-            isLeftHanded={isLeftHanded}
-          />
+        <div className={classes.fretboardScroller}>
+          <Tuning alwaysOpen={false} />
+          <div className={classes.fretboardInner}>
+            <FretMarkerList nbFrets={16} isLeftHanded={isLeftHanded} />
+            <StringList
+              tuning={tuning}
+              rootNote={rootNote}
+              selectedNotes={selectedNotes}
+              showIntervals={showIntervals}
+              nbFrets={16}
+              noteNaming={noteNaming}
+              playNote={props.playNote}
+              isLeftHanded={isLeftHanded}
+            />
+          </div>
         </div>
       </div>
     </div>

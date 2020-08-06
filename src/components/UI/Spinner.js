@@ -3,8 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   parent: {
+    position: "absolute",
+    top: 0,
+    left: 0,
     background: theme.palette.background.main,
     height: "100vh",
+    width: "100vw",
     display: "flex",
     flexFlow: "column nowrap",
     justifyContent: "center",

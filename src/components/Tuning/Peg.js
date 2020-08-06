@@ -15,6 +15,13 @@ const useStyles = makeStyles((theme) => {
       order: 1,
       width: "2.6em",
       color: theme.palette.gray.main,
+      "@media (orientation: landscape)": {
+        height: (props) => (!props.alwaysOpen ? "2.6em" : "auto"),
+        flexFlow: (props) =>
+          !props.alwaysOpen ? "row nowrap" : "column nowrap",
+        justifyContent: "center",
+        alignItems: "center",
+      },
       "&$open": {
         color: theme.palette.gray.dark,
         fontWeight: 500,
@@ -23,7 +30,7 @@ const useStyles = makeStyles((theme) => {
         color: theme.palette.secondary.main,
       },
       "&::before": {
-        content: (isLinked) => isLinked && `''`,
+        content: (props) => props.isLinked && `''`,
         display: "block",
         position: "absolute",
         width: 1,
@@ -72,6 +79,7 @@ const Peg = ({
   onClickPeg,
   isActive,
   isOpen,
+  alwaysOpen,
   isLinked,
   stringId,
   tuneUp,
@@ -79,7 +87,7 @@ const Peg = ({
   tuneUpDisabled,
   tuneDownDisabled,
 }) => {
-  const classes = useStyles(isLinked);
+  const classes = useStyles({ isLinked, alwaysOpen });
 
   const pegClasses = [classes.peg];
   if (isOpen) pegClasses.push(classes.open);
