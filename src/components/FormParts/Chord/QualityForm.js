@@ -23,9 +23,21 @@ const useStyles = makeStyles((theme) => ({
         margin: "8px 0",
       },
     },
+    "@media (min-height: 768px) and (orientation: landscape)": {
+      "& > .MuiTextField-root": {
+        margin: "8px 0",
+      },
+    },
   },
   select: {
     [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
+      fontSize: "0.9em",
+      "& > .MuiSelect-root": {
+        padding: 12,
+        paddingRight: 32,
+      },
+    },
+    "@media (min-height: 768px) and (orientation: landscape)": {
       fontSize: "0.9em",
       "& > .MuiSelect-root": {
         padding: 12,
@@ -38,9 +50,18 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1em",
       transform: "translate(14px, 14px) scale(1)",
     },
+    "@media (min-height: 768px) and (orientation: landscape)": {
+      fontSize: "1em",
+      transform: "translate(14px, 14px) scale(1)",
+    },
   },
   menu: {
     [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
+      "& li": {
+        fontSize: "1em!important",
+      },
+    },
+    "@media (min-height: 768px) and (orientation: landscape)": {
       "& li": {
         fontSize: "1em!important",
       },

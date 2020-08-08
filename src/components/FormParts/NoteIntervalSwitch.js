@@ -9,15 +9,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       marginTop: "8px",
     },
-    "@media (orientation: landscape)": {
-      position: "absolute",
-      top: 0,
-      left: (props) => (props.isLeftHanded ? 16 : "auto"),
-      right: (props) => (props.isLeftHanded ? "auto" : 16),
-    },
-    /*"@media (max-width: 800px) and (orientation: landscape)": {
-      marginTop: 0,
-    },*/
   },
   flatSwitch: {
     fontSize: "0.9em",
@@ -30,18 +21,17 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
       fontSize: "1em",
     },
+    "@media (orientation: landscape)": {
+      marginLeft: 8,
+    },
     "@media (min-height: 768px) and (orientation: landscape)": {
       fontSize: "1em",
     },
   },
 }));
 
-const NoteIntervalSwitch = ({
-  showIntervals,
-  toggleNotesIntervals,
-  isLeftHanded,
-}) => {
-  const classes = useStyles({ isLeftHanded });
+const NoteIntervalSwitch = ({ showIntervals, toggleNotesIntervals }) => {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>

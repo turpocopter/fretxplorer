@@ -15,15 +15,21 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "140%",
       },
       [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
-        fontSize: "140%",
+        fontSize: "130%",
       },
-      "@media (min-width: 1360px)": {
+      /*"@media (min-width: 1360px) and (max-aspect-ratio: 8/5)": {
         fontSize: "160%",
-      },
+      },*/
       "@media (min-width: 1590px)": {
+        fontSize: "150%",
+      },
+      "@media (min-width: 1590px) and (max-aspect-ratio: 8/5)": {
         fontSize: "180%",
       },
       "@media (min-width: 1780px)": {
+        fontSize: "180%",
+      },
+      "@media (min-width: 1780px) and (max-aspect-ratio: 8/5)": {
         fontSize: "200%",
       },
     },

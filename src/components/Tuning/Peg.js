@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => {
       position: "relative",
       zIndex: 1,
       order: 1,
-      width: "2.6em",
+      width: "2.4em",
       color: theme.palette.gray.main,
       "@media (orientation: landscape)": {
-        height: (props) => (!props.alwaysOpen ? "2.6em" : "auto"),
+        height: (props) => (!props.alwaysOpen ? "2.4em" : "auto"),
         flexFlow: (props) =>
           !props.alwaysOpen ? "row nowrap" : "column nowrap",
         justifyContent: "center",

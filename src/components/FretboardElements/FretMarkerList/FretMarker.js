@@ -8,6 +8,7 @@ const useStyles = makeStyles(() => ({
     borderBottom: "0.25em solid transparent",
     height: (props) =>
       props.position === 0 ? "2.5em" : `${6 * 0.9438 ** props.position}em`,
+    minHeight: "2.35em",
     display: "flex",
     flexFlow: "column nowrap",
     justifyContent: "center",
@@ -19,6 +20,7 @@ const useStyles = makeStyles(() => ({
     },
     "@media (orientation: landscape)": {
       height: "auto!important",
+      minHeight: "auto!important",
       textAlign: "center",
       marginRight: 0,
       borderBottom: 0,
@@ -28,6 +30,7 @@ const useStyles = makeStyles(() => ({
         props.isLeftHanded ? "0.25em solid transparent" : 0,
       width: (props) =>
         props.position === 0 ? "2.5em" : `${6 * 0.9438 ** props.position}em`,
+      minWidth: "2.35em",
     },
   },
 }));

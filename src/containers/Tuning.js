@@ -45,10 +45,9 @@ const useStyles = makeStyles((theme) => {
       "@media (orientation: landscape)": {
         paddingLeft: (props) => (!props.alwaysOpen ? 16 : 0),
         paddingRight: (props) => (!props.alwaysOpen ? 16 : 0),
-        margin: "48px 0 0",
-      },
-      "@media (max-height: 767px) and (orientation: landscape)": {
-        margin: "30px 0 0",
+        //margin: (props) => !props.alwaysOpen && "2.5em 0 0",
+        display: (props) => !props.alwaysOpen && "flex",
+        margin: (props) => !props.alwaysOpen && "1.1em 0 0",
       },
     },
     pegs: (props) => ({
@@ -248,18 +247,18 @@ const useStyles = makeStyles((theme) => {
       "&::before": {
         content: `''`,
         position: "absolute",
-        top: 12,
+        top: "0.9em", //12,
         zIndex: -1,
         height: 1,
-        width: 182,
+        width: "12.1em", //169,
         backgroundColor: theme.palette.gray.light,
       },
       [`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (tuneBtnWrapperTablet = {
         "&::before": {
-          top: 17,
-          width: 256,
+          //top: 17,
+          //width: 236,
         },
       }),
       [`${theme.breakpoints.up(

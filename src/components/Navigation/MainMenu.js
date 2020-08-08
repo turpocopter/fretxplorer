@@ -12,10 +12,17 @@ const useStyles = makeStyles((theme) => ({
       ? {
           display: "flex",
           flexFlow: "row nowrap",
-          marginRight: -16,
-          [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
-            fontSize: "1.1em",
+          marginRight: 0,
+          "@media (min-width: 800px)": {
+            fontSize: "1.4em",
           },
+          [`${theme.breakpoints.up("md")}`]: {
+            fontSize: "1.3em",
+          },
+          /*[`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
+            fontSize: "1.em",
+            marginRight: -16,
+          },*/
         }
       : {},
   list: (props) =>
@@ -33,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
           fontSize: "0.9em",
           textTransform: "uppercase",
           fontWeight: 500,
+          /*[`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
+            fontSize: "1.1em",
+          },*/
         }
       : {},
   activeLink: (props) =>

@@ -9,10 +9,16 @@ import StringList from "components/FretboardElements/StringList/StringList";
 import withMidiSounds from "hoc/withMidiSounds";
 
 import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
   fretboardRoot: {
     position: "relative",
+    "@media (orientation: landscape)": {
+      display: "flex",
+      flexFlow: "row nowrap",
+      height: "100%",
+    },
   },
   fretboardWrapper: {
     "@media (orientation: landscape)": {
@@ -31,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       flexFlow: (props) =>
         `${props.isLeftHanded ? "row-reverse" : "row"} nowrap`,
-      minWidth: "100%",
+      flexGrow: 1,
       justifyContent: "flex-end",
     },
     "@media (max-width: 800px) and (orientation: landscape)": {
@@ -52,9 +58,25 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: "1.4em",
       marginTop: theme.spacing(6),
     },
+    "@media (min-width: 1024px) and (orientation: landscape)": {
+      width: "87.8em",
+    },
     "@media (max-width: 800px) and (orientation: landscape)": {
       marginTop: 40,
       paddingBottom: "1.4em",
+    },
+  },
+  noteIntervalSwitch: {
+    "@media (orientation: landscape)": {
+      position: "absolute",
+      top: 0,
+      left: (props) => (props.isLeftHanded ? 16 : "auto"),
+      right: (props) => (props.isLeftHanded ? "auto" : 16),
+      //width: (props) => (props.isLeftHanded ? "19.4em" : "inherit"),
+      zIndex: 100,
+    },
+    "@media (min-height: 768px) and (orientation: landscape)": {
+      display: "none",
     },
   },
 }));
@@ -71,25 +93,27 @@ const Fretboard = (props) => {
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
-
+  const fullFretboard = useMediaQuery("(min-width: 1024px)");
+  const nbFrets = fullFretboard ? 24 : 16;
   return (
     <div className={classes.fretboardRoot}>
-      <NoteIntervalSwitch
-        showIntervals={showIntervals}
-        isLeftHanded={isLeftHanded}
-        toggleNotesIntervals={onToggleNotesIntervals}
-      />
+      <div className={classes.noteIntervalSwitch}>
+        <NoteIntervalSwitch
+          showIntervals={showIntervals}
+          toggleNotesIntervals={onToggleNotesIntervals}
+        />
+      </div>
       <div className={classes.fretboardWrapper}>
         <div className={classes.fretboardScroller}>
           <Tuning alwaysOpen={false} />
           <div className={classes.fretboardInner}>
-            <FretMarkerList nbFrets={16} isLeftHanded={isLeftHanded} />
+            <FretMarkerList nbFrets={nbFrets} isLeftHanded={isLeftHanded} />
             <StringList
               tuning={tuning}
               rootNote={rootNote}
               selectedNotes={selectedNotes}
               showIntervals={showIntervals}
-              nbFrets={16}
+              nbFrets={nbFrets}
               noteNaming={noteNaming}
               playNote={props.playNote}
               isLeftHanded={isLeftHanded}

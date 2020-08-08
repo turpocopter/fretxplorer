@@ -29,7 +29,19 @@ const useStyles = makeStyles((theme) => {
         "md"
       )} and (orientation: landscape)`]: chordTablet,
       "@media (min-height: 768px) and (orientation: landscape)": {
+        paddingTop: 12,
         borderBottom: "none",
+        minHeight: "16.6em",
+      },
+      "@media (min-height: 840px) and (orientation: landscape)": {
+        minHeight: "19.7em" /*"23.1em",*/,
+      },
+      "@media (min-height: 840px) and (min-width: 1140px) and (orientation: landscape)": {
+        display: "flex",
+        minWidth: 400,
+        flexFlow: "column nowrap",
+        justifyContent: "center",
+        fontSize: "1em",
       },
     },
     chordHeader: {

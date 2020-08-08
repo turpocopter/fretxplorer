@@ -7,10 +7,10 @@ import useNoteNames from "hooks/noteNames";
 
 const useStyles = makeStyles((theme) => ({
   string: {
-    width: "2.6em",
+    width: "2.4em",
     position: "relative",
     "@media (orientation: landscape)": {
-      height: "2.6em",
+      height: "2.4em",
       width: "auto",
       position: "relative",
     },

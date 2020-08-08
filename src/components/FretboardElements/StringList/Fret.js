@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     height: (props) =>
       props.position === 0 ? "2.5em" : `${6 * 0.9438 ** props.position}em`,
+    minHeight: "2.35em",
     "&::before": {
       content: (props) => props.position === 0 && `''`,
       position: "absolute",
@@ -64,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
     "@media (orientation: landscape)": {
       flexFlow: "row nowrap",
       height: "auto!important",
+      minHeight: "auto!important",
       backgroundImage: (props) => {
         if (
           props.position > 0 &&
@@ -77,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
       },
       width: (props) =>
         props.position === 0 ? "2.5em" : `${6 * 0.9438 ** props.position}em`,
+      minWidth: "2.35em",
     },
   },
   fretInner: {
