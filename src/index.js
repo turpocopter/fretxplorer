@@ -9,6 +9,7 @@ import {
 } from "redux";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+
 import settingsReducer from "./store/reducers/settings";
 import notePickerReducer from "./store/reducers/notePicker";
 import authReducer from "./store/reducers/auth";

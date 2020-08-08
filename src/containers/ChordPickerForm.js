@@ -6,12 +6,13 @@ import RootForm from "components/FormParts/RootForm";
 import QualityForm from "components/FormParts/Chord/QualityForm";
 import SeventhForm from "components/FormParts/Chord/SeventhForm";
 import ExtensionForm from "components/FormParts/Chord/ExtensionForm";
+import Typography from "@material-ui/core/Typography";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
 import useNoteNames from "hooks/noteNames";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -123,6 +124,7 @@ const ChordPickerForm = () => {
   const classes = useStyles();
 
   const onUpdateRoot = (rootNote) => {
+    console.log(rootNote, rootNote !== "");
     return dispatch(actions.updateRoot(rootNote, noteNaming));
   };
   const onUpdateQuality = (name, notes) => {
@@ -163,48 +165,56 @@ const ChordPickerForm = () => {
           updateRoot={onUpdateRoot}
           toggleFlats={onToggleFlats}
         />
-        {rootNote !== "" && (
-          <QualityForm
-            rootName={rootName}
-            quality={quality}
-            selected={selected}
-            updateQuality={onUpdateQuality}
-            setTmpChordName={setTmpChordName}
-            className={classes.quality}
-          />
-        )}
-        {quality !== "" && (
-          <SeventhForm
-            rootName={rootName}
-            seventh={seventh}
-            selected={selected}
-            updateSeventh={onUpdateSeventh}
-            setTmpChordName={setTmpChordName}
-          />
-        )}
-        {seventh !== "" && (
-          <ExtensionForm
-            rootName={rootName}
-            selected={selected}
-            extension={extension}
-            updateExtension={onUpdateExtension}
-            setTmpChordName={setTmpChordName}
-          />
-        )}
-        {quality !== "" && (
-          <FormControl className={classes.buttonWrapper}>
-            <Button
-              className={classes.submitButton}
-              variant='contained'
-              color='primary'
-              size='large'
-              onClick={onPickChord}
-            >
-              PICK&nbsp;
-              <span dangerouslySetInnerHTML={{ __html: tmpChordName }} />
-            </Button>
-          </FormControl>
-        )}
+        <Fade in={rootNote !== ""} mountOnEnter unmountOnExit timeout={700}>
+          <div>
+            <QualityForm
+              rootName={rootName}
+              quality={quality}
+              selected={selected}
+              updateQuality={onUpdateQuality}
+              setTmpChordName={setTmpChordName}
+              className={classes.quality}
+            />
+          </div>
+        </Fade>
+        <Fade in={quality !== ""} mountOnEnter unmountOnExit timeout={700}>
+          <div>
+            <SeventhForm
+              rootName={rootName}
+              seventh={seventh}
+              selected={selected}
+              updateSeventh={onUpdateSeventh}
+              setTmpChordName={setTmpChordName}
+            />
+          </div>
+        </Fade>
+        <Fade in={seventh !== ""} mountOnEnter unmountOnExit timeout={700}>
+          <div>
+            <ExtensionForm
+              rootName={rootName}
+              selected={selected}
+              extension={extension}
+              updateExtension={onUpdateExtension}
+              setTmpChordName={setTmpChordName}
+            />
+          </div>
+        </Fade>
+        <Fade in={quality !== ""} mountOnEnter unmountOnExit timeout={700}>
+          <div>
+            <FormControl className={classes.buttonWrapper}>
+              <Button
+                className={classes.submitButton}
+                variant='contained'
+                color='primary'
+                size='large'
+                onClick={onPickChord}
+              >
+                PICK&nbsp;
+                <span dangerouslySetInnerHTML={{ __html: tmpChordName }} />
+              </Button>
+            </FormControl>
+          </div>
+        </Fade>
       </div>
     </div>
   );

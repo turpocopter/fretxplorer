@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
   fret: {
@@ -164,10 +165,15 @@ export default function Fret(props) {
   const fretClasses = [classes.fretInner];
   if (isRoot) fretClasses.push(classes.isRoot);
   if (isActive) fretClasses.push(classes.active);
-  const content = display && (
-    <div className={fretClasses.join(" ")} onClick={() => onPlay(note, octave)}>
-      {display}
-    </div>
+  const content = (
+    <Fade in={Boolean(display)} timeout={{ enter: 300, exit: 0 }}>
+      <div
+        className={fretClasses.join(" ")}
+        onClick={() => onPlay(note, octave)}
+      >
+        {display}
+      </div>
+    </Fade>
   );
   return (
     <>

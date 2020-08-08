@@ -51,14 +51,14 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1em",
       transform: "translate(14px, 14px) scale(1)",
       "&.MuiInputLabel-shrink": {
-        transform: "translate(11px, -5px) scale(0.75)",
+        transform: "translate(11px, -6px) scale(0.7)",
       },
     },
     "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
       fontSize: "1em",
       transform: "translate(14px, 14px) scale(1)",
       "&.MuiInputLabel-shrink": {
-        transform: "translate(11px, -5px) scale(0.75)",
+        transform: "translate(11px, -6px) scale(0.7)",
       },
     },
   },

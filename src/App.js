@@ -5,6 +5,8 @@ import * as actions from "store/actions";
 
 import Layout from "hoc/Layout";
 import Spinner from "components/UI/Spinner";
+import TransitionSwitch from "react-router-transition-switch";
+import Fader from "react-fader";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -17,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
       [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
         fontSize: "130%",
       },
-      /*"@media (min-width: 1360px) and (max-aspect-ratio: 8/5)": {
-        fontSize: "160%",
-      },*/
       "@media (min-width: 1590px)": {
         fontSize: "140%",
       },
@@ -89,21 +88,23 @@ function App(props) {
       >
         <Layout>
           <Suspense fallback={<Spinner />}>
-            <Route path='/chordpicker' exact>
-              <ChordPicker />
-            </Route>
-            <Route path='/scalepicker' exact>
-              <ScalePicker />
-            </Route>
-            <Route path='/chordguesser' exact>
-              <ChordGuesser />
-            </Route>
-            <Route path='/settings' exact>
-              <Settings />
-            </Route>
-            <Route path='/about' exact>
-              <About />
-            </Route>
+            <TransitionSwitch component={Fader}>
+              <Route path='/chordpicker' exact>
+                <ChordPicker />
+              </Route>
+              <Route path='/scalepicker' exact>
+                <ScalePicker />
+              </Route>
+              <Route path='/chordguesser' exact>
+                <ChordGuesser />
+              </Route>
+              <Route path='/settings' exact>
+                <Settings />
+              </Route>
+              <Route path='/about' exact>
+                <About />
+              </Route>
+            </TransitionSwitch>
           </Suspense>
         </Layout>
       </Route>

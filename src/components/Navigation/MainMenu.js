@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => ({
           flexFlow: "row nowrap",
           marginRight: 0,
           "@media (min-width: 800px)": {
-            fontSize: "1.4em",
-          },
-          [`${theme.breakpoints.up("md")}`]: {
             fontSize: "1.3em",
           },
+          /*[`${theme.breakpoints.up("md")}`]: {
+            fontSize: "1.3em",
+          },*/
           /*[`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
             fontSize: "1.em",
             marginRight: -16,

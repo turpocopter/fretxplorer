@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
       left: (props) => (props.isLeftHanded ? 16 : "auto"),
       right: (props) => (props.isLeftHanded ? "auto" : 16),
       //width: (props) => (props.isLeftHanded ? "19.4em" : "inherit"),
-      zIndex: 100,
+      zIndex: 90,
     },
     "@media (min-height: 768px) and (orientation: landscape)": {
       display: "none",

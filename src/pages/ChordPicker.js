@@ -7,7 +7,10 @@ import ChordPickerForm from "containers/ChordPickerForm";
 import Fretboard from "containers/Fretboard";
 import Chord from "containers/Chord";
 import Tuning from "containers/Tuning";
+import Fader from "react-fader";
 import { makeStyles } from "@material-ui/core/styles";
+
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -98,18 +101,34 @@ const ChordPicker = () => {
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
+  const isBigScreen = useMediaQuery(
+    "(min-height: 768px) and (orientation: landscape)"
+  );
   useEffect(() => {
     dispatch(actions.reinitSelection());
   }, [dispatch]);
   return (
     <div className={classes.pageContent}>
-      <div className={classes.pickerContainer}>
+      <div key='pickerContainer' className={classes.pickerContainer}>
         <div>
-          {chordName === "" ? (
-            <ChordPickerForm />
-          ) : (
-            <Chord chordName={chordName} selectedNotes={selectedNotes} />
-          )}
+          <Fader
+            fadeInTransitionDuration={300}
+            fadeOutTransitionDuration={chordName === "" ? 0 : 300}
+            shouldTransition={(oldChildren, newChildren) => {
+              console.log(oldChildren.key, newChildren.key);
+              return isBigScreen && oldChildren.key !== newChildren.key;
+            }}
+          >
+            {chordName === "" ? (
+              <ChordPickerForm key='picker' />
+            ) : (
+              <Chord
+                key='chord'
+                chordName={chordName}
+                selectedNotes={selectedNotes}
+              />
+            )}
+          </Fader>
         </div>
         <div className={classes.persistentTuner}>
           <Tuning alwaysOpen={true} />
@@ -121,7 +140,7 @@ const ChordPicker = () => {
           </div>
         </div>
       </div>
-      <div className={classes.fretboardContainer}>
+      <div key='fretboardContainer' className={classes.fretboardContainer}>
         <Fretboard />
       </div>
     </div>

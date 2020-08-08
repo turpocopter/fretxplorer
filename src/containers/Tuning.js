@@ -16,21 +16,21 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { makeStyles } from "@material-ui/core/styles";
+import Collapse from "@material-ui/core/Collapse";
 
 const useStyles = makeStyles((theme) => {
   let tuningTablet = { margin: "12px auto" };
-  //let forkTablet;
-  //let settingsTablet;
-  //let discardTablet;
-  //let linkStringsTablet;
-  //let playBtnOpenTablet;
   let tuneBtnWrapperTablet;
   return {
     tuning: {
       position: "relative",
+      borderColor: (props) =>
+        !props.isCollapsing ? theme.palette.gray.light : "transparent",
+      borderStyle: "solid",
+      borderWidth: 0,
       "&$active": {
         borderRadius: 10,
-        border: `3px solid ${theme.palette.gray.light}`,
+        borderWidth: 3,
         width: "18.8em",
         paddingBottom: "0.6em",
         margin: "0 auto",
@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => {
       "@media (orientation: landscape)": {
         paddingLeft: (props) => (!props.alwaysOpen ? 16 : 0),
         paddingRight: (props) => (!props.alwaysOpen ? 16 : 0),
-        //margin: (props) => !props.alwaysOpen && "2.5em 0 0",
         display: (props) => !props.alwaysOpen && "flex",
         margin: (props) => !props.alwaysOpen && "1.1em 0 0",
       },
@@ -83,25 +82,11 @@ const useStyles = makeStyles((theme) => {
         marginTop: (props) => (!props.alwaysOpen ? 5 : 0),
         marginBottom: (props) => (!props.alwaysOpen ? 8 : 0),
       },
-      /*[`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: portrait)`]: (forkTablet = {
-        height: 25,
-        marginRight: 9,
-        marginLeft: 6,
-      }),
-      [`${theme.breakpoints.up(
-        "md"
-      )} and (orientation: landscape)`]: forkTablet,*/
     },
     settings: {
       display: "inline-block",
-      //height: 25,
-      //width: 25,
       border: "2px solid black",
-      //fontSize: 19,
       borderRadius: "50%",
-      //marginLeft: 10,
       width: "1.5rem",
       height: "1.5rem",
       fontSize: "1.1rem",
@@ -109,20 +94,7 @@ const useStyles = makeStyles((theme) => {
       order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
       "@media (orientation: landscape)": {
         display: (props) => (!props.isAlwaysOpen ? "none" : "inline-block"),
-        //order: (props) => (!props.alwaysOpen ? 0 : 10),
-        //marginTop: (props) => (!props.alwaysOpen ? 10 : 0),
-        //marginLeft: (props) => (!props.alwaysOpen ? 0 : 10),
       },
-      /*[`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: portrait)`]: (settingsTablet = {
-        height: 29,
-        width: 29,
-        fontSize: 21,
-      }),
-      [`${theme.breakpoints.up(
-        "md"
-      )} and (orientation: landscape)`]: settingsTablet,*/
     },
     playBtn: {
       display: "inline-flex",
@@ -130,9 +102,6 @@ const useStyles = makeStyles((theme) => {
     },
     discard: {
       position: "absolute",
-      /*top: -17,
-      right: -15,
-      fontSize: 27,*/
       top: "-1.05rem",
       right: "-0.95rem",
       fontSize: "1.7rem",
@@ -145,33 +114,15 @@ const useStyles = makeStyles((theme) => {
         left: "0.4rem",
         width: "0.9rem",
         height: "1rem",
-        //height: 19,
-        //width: 19,
         backgroundColor: theme.palette.background.main,
-        //top: 6,
-        //left: 4,
         zIndex: -1,
         borderRadius: "50%",
       },
-      /*[`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: portrait)`]: (discardTablet = {
-        top: -23,
-        right: -19,
-        fontSize: 34,
-      }),
-      [`${theme.breakpoints.up(
-        "md"
-      )} and (orientation: landscape)`]: discardTablet,*/
     },
     linkStrings: {
       position: "absolute",
-      //fontSize: 21,
-      //width: 25,
       zIndex: 0,
       textAlign: "center",
-      //top: 85,
-      //right: -14,
       bottom: "1.9rem",
       right: "-0.5rem",
       width: "1rem",
@@ -180,14 +131,10 @@ const useStyles = makeStyles((theme) => {
         content: `''`,
         position: "absolute",
         display: "block",
-        //height: 25,
-        //width: 25,
         backgroundColor: theme.palette.background.main,
         zIndex: -1,
         borderRadius: "50%",
         border: "2.4px solid black",
-        //top: 0,
-        //left: 0,
         top: "-0.1rem",
         left: "-0.2rem",
         width: "1.45rem",
@@ -199,30 +146,11 @@ const useStyles = makeStyles((theme) => {
           borderColor: theme.palette.secondary.main,
         },
       },
-      /*[`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: portrait)`]: (linkStringsTablet = {
-        fontSize: 24,
-        right: -15,
-        top: 117,
-        width: 28,
-        "&::before": {
-          height: 29,
-          width: 29,
-        },
-      }),
-      [`${theme.breakpoints.up(
-        "md"
-      )} and (orientation: landscape)`]: linkStringsTablet,*/
     },
     playBtnOpen: {
       position: "absolute",
-      //fontSize: 21,
-      //width: 25,
       zIndex: 0,
       textAlign: "center",
-      //top: 85,
-      //left: -14,
       bottom: "1.9rem",
       left: "-0.5rem",
       width: "1rem",
@@ -231,14 +159,10 @@ const useStyles = makeStyles((theme) => {
         content: `''`,
         position: "absolute",
         display: "block",
-        //height: 25,
-        //width: 25,
         backgroundColor: theme.palette.background.main,
         zIndex: -1,
         borderRadius: "50%",
         border: "2.4px solid black",
-        //top: 0,
-        //left: 0,
         top: "-0.1rem",
         left: "-0.2rem",
         width: "1.45rem",
@@ -250,21 +174,6 @@ const useStyles = makeStyles((theme) => {
           borderColor: theme.palette.secondary.main,
         },
       },
-      /*[`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: portrait)`]: (playBtnOpenTablet = {
-        fontSize: 24,
-        left: -16,
-        top: 117,
-        width: 29,
-        "&::before": {
-          height: 29,
-          width: 29,
-        },
-      }),
-      [`${theme.breakpoints.up(
-        "md"
-      )} and (orientation: landscape)`]: playBtnOpenTablet,*/
     },
     tuneBtnWrapper: {
       display: "flex",
@@ -274,19 +183,16 @@ const useStyles = makeStyles((theme) => {
       "&::before": {
         content: `''`,
         position: "absolute",
-        top: "0.9em", //12,
+        top: "0.9em",
         zIndex: -1,
         height: 1,
-        width: "12.1em", //169,
+        width: "12.1em",
         backgroundColor: theme.palette.gray.light,
       },
       [`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (tuneBtnWrapperTablet = {
-        "&::before": {
-          //top: 17,
-          //width: 236,
-        },
+        "&::before": {},
       }),
       [`${theme.breakpoints.up(
         "sm"
@@ -326,7 +232,13 @@ const Tuning = ({
   const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const classes = useStyles({ doNotFlipOver, isLeftHanded, alwaysOpen });
+  const [isCollapsing, setIsCollapsing] = useState(false);
+  const classes = useStyles({
+    doNotFlipOver,
+    isLeftHanded,
+    alwaysOpen,
+    isCollapsing,
+  });
 
   let intervalID = null;
 
@@ -439,73 +351,87 @@ const Tuning = ({
   if (isLinked) {
     linkStringsClasses.push(classes.active);
   }
+  /*
+<Collapse
+      in={(isOpen || alwaysOpen) && !isCollapsing}
+      collapsedHeight={56}
+      timeout={300}
+    >
+  */
+
   return (
-    <div className={wrapperClasses.join(" ")}>
-      {isOpen && <Presets preset={preset} selectPreset={onSelectPreset} />}
-      {isOpen && isLinked && (
-        <div className={classes.tuneBtnWrapper}>
-          <button
-            className={classes.tuneBtn}
-            onClick={onTuneDownAll}
-            disabled={!isGlobalTuningEnabled(true)}
-          >
-            <RemoveCircleIcon />
-          </button>
-        </div>
-      )}
-      <div className={pegsClasses.join(" ")}>
-        {!isOpen && (
-          <div className={classes.forkWrapper} onClick={onClickPlay}>
-            <img className={classes.fork} src={fork} alt='Tuning' />
-          </div>
-        )}
-        {pegList}
-        {!isOpen && (
-          <div className={classes.settings} onClick={() => setIsOpen(true)}>
-            <SettingsIcon fontSize='inherit' />
-          </div>
-        )}
-      </div>
-      {isOpen && isLinked && (
-        <div className={classes.tuneBtnWrapper}>
-          <button
-            className={classes.tuneBtn}
-            onClick={onTuneUpAll}
-            disabled={!isGlobalTuningEnabled()}
-          >
-            <AddCircleIcon />
-          </button>
-        </div>
-      )}
-      {isOpen && (
-        <>
-          {!alwaysOpen && (
-            <div
-              className={classes.discard}
-              onClick={() => {
-                setIsOpen(false);
-                setIsLinked(false);
-              }}
+    <>
+      <div className={wrapperClasses.join(" ")}>
+        {isOpen && <Presets preset={preset} selectPreset={onSelectPreset} />}
+        {isOpen && isLinked && (
+          <div className={classes.tuneBtnWrapper}>
+            <button
+              className={classes.tuneBtn}
+              onClick={onTuneDownAll}
+              disabled={!isGlobalTuningEnabled(true)}
             >
-              <CancelIcon fontSize='inherit' />
+              <RemoveCircleIcon />
+            </button>
+          </div>
+        )}
+        <div className={pegsClasses.join(" ")}>
+          {!isOpen && (
+            <div className={classes.forkWrapper} onClick={onClickPlay}>
+              <img className={classes.fork} src={fork} alt='Tuning' />
             </div>
           )}
-          <div className={playBtnClasses.join(" ")} onClick={onClickPlay}>
-            <PlayArrowIcon fontSize='inherit' />
+          {pegList}
+          {!isOpen && (
+            <div className={classes.settings} onClick={() => setIsOpen(true)}>
+              <SettingsIcon fontSize='inherit' />
+            </div>
+          )}
+        </div>
+        {isOpen && isLinked && (
+          <div className={classes.tuneBtnWrapper}>
+            <button
+              className={classes.tuneBtn}
+              onClick={onTuneUpAll}
+              disabled={!isGlobalTuningEnabled()}
+            >
+              <AddCircleIcon />
+            </button>
           </div>
-          <div
-            className={linkStringsClasses.join(" ")}
-            onClick={() => setIsLinked(!isLinked)}
-          >
-            {isLinked ? (
-              <LinkOffIcon fontSize='inherit' />
-            ) : (
-              <LinkIcon fontSize='inherit' />
+        )}
+        {isOpen && (
+          <>
+            {!alwaysOpen && (
+              <div
+                className={classes.discard}
+                onClick={() => {
+                  setIsCollapsing(true);
+                  setTimeout(() => {
+                    setIsOpen(false);
+                    setIsLinked(false);
+                    setIsCollapsing(false);
+                  }, 300);
+                }}
+              >
+                <CancelIcon fontSize='inherit' />
+              </div>
             )}
-          </div>
-        </>
-      )}
-    </div>
+            <div className={playBtnClasses.join(" ")} onClick={onClickPlay}>
+              <PlayArrowIcon fontSize='inherit' />
+            </div>
+            <div
+              className={linkStringsClasses.join(" ")}
+              onClick={() => setIsLinked(!isLinked)}
+            >
+              {isLinked ? (
+                <LinkOffIcon fontSize='inherit' />
+              ) : (
+                <LinkIcon fontSize='inherit' />
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

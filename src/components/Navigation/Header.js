@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => {
         backgroundColor: theme.palette.background.main,
         paddingBottom: 8,
         zIndex: 200,
+        minHeight: 106,
       }),
       "@media (min-width: 800px) and (orientation: landscape)": stickyHeader,
     },

@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import json2mq from "json2mq";
 
 const useStyles = makeStyles((theme) => {
   let chordTablet;
@@ -68,12 +67,9 @@ const Chord = () => {
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
   const classes = useStyles();
-  //const biggerButton = useMediaQuery((theme) => theme.breakpoints.up("sm"));
-  const biggerButton = useMediaQuery(
-    json2mq({
-      minWidth: 600,
-    })
-  );
+  const biggerButton = useMediaQuery("(min-width: 600px)");
+  //const largeScreen = useMediaQuery('(min-height: 768px) and (orientation: landscape)');
+
   const rootNoteValue = rootNote + (rootNote >= 4 ? 36 : 48); // on la veut à la 3è octave de la librairie (ou 4è si entre C et D#)
   const selectedWithValues = selected.map((el) => ({
     ...el,
