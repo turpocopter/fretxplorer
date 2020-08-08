@@ -40,9 +40,11 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         top: 106,
       },
-      "@media (orientation: landscape)": {
+      "@media (max-height: 767px) and (orientation: landscape)": {
+        display: (props) => props.chordName !== "" && "flex",
+        flexFlow: (props) => props.chordName !== "" && "column nowrap",
         flexGrow: (props) => props.chordName !== "" && 1,
-        //alignItems: (props) => props.chordName !== "" && "center",
+        justifyContent: (props) => props.chordName !== "" && "center",
       },
       "@media (min-height: 768px) and (orientation: landscape)": {
         display: "flex",

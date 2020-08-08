@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => {
       )} and (orientation: portrait)`]: (formControlTablet = {
         marginTop: 4,
         marginBottom: 8,
-        width: 320,
+        width: "13.4em",
       }),
       [`${theme.breakpoints.up(
         "md"

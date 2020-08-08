@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 
@@ -303,6 +303,13 @@ const Tuning = ({
 
   let intervalID = null;
 
+  useEffect(() => {
+    window.addEventListener("orientationchange", (event) => {
+      if (!alwaysOpen) {
+        setIsOpen(false);
+      }
+    });
+  }, [alwaysOpen]);
   /*
   useEffect(() => {
     return () => {

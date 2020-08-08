@@ -21,16 +21,16 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "160%",
       },*/
       "@media (min-width: 1590px)": {
-        fontSize: "150%",
+        fontSize: "140%",
       },
       "@media (min-width: 1590px) and (max-aspect-ratio: 8/5)": {
-        fontSize: "180%",
+        fontSize: "160%",
       },
       "@media (min-width: 1780px)": {
-        fontSize: "180%",
+        fontSize: "160%",
       },
       "@media (min-width: 1780px) and (max-aspect-ratio: 8/5)": {
-        fontSize: "200%",
+        fontSize: "180%",
       },
     },
   },

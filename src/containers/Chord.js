@@ -72,7 +72,6 @@ const Chord = () => {
   const biggerButton = useMediaQuery(
     json2mq({
       minWidth: 600,
-      orientation: "portrait",
     })
   );
   const rootNoteValue = rootNote + (rootNote >= 4 ? 36 : 48); // on la veut à la 3è octave de la librairie (ou 4è si entre C et D#)

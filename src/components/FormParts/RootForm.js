@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         margin: "8px 0",
       },
     },
-    "@media (min-height: 768px) and (orientation: landscape)": {
+    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
       "& > .MuiTextField-root": {
         margin: "8px 0",
       },
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
       fontSize: "1.1em",
     },
-    "@media (min-height: 768px) and (orientation: landscape)": {
+    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
       fontSize: "1.1em",
     },
   },
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: 32,
       },
     },
-    "@media (min-height: 768px) and (orientation: landscape)": {
+    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
       fontSize: "0.9em",
       "& > .MuiSelect-root": {
         padding: 12,
@@ -70,10 +70,16 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
       fontSize: "1em",
       transform: "translate(14px, 14px) scale(1)",
+      "&.MuiInputLabel-shrink": {
+        transform: "translate(11px, -5px) scale(0.75)",
+      },
     },
-    "@media (min-height: 768px) and (orientation: landscape)": {
+    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
       fontSize: "1em",
       transform: "translate(14px, 14px) scale(1)",
+      "&.MuiInputLabel-shrink": {
+        transform: "translate(11px, -5px) scale(0.75)",
+      },
     },
   },
   menu: {
@@ -82,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "1em!important",
       },
     },
-    "@media (min-height: 768px) and (orientation: landscape)": {
+    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
       "& li": {
         fontSize: "1em!important",
       },

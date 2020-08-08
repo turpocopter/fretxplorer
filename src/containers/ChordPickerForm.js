@@ -99,6 +99,10 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 8,
       padding: "8px 0",
     },
+    "@media (min-width: 1590px) and (max-aspect-ratio: 8/5)": {
+      marginTop: 16,
+      padding: "16px 0",
+    },
   },
 }));
 
