@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => {
         justifyContent: "center",
       },
       [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
-        margin: 0,
+        margin: "0 0 2em",
       },
     },
     title: {

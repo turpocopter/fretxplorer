@@ -81,7 +81,7 @@ const Chord = () => {
   }));
 
   const onDiscardChord = () => {
-    return dispatch(actions.discardChord());
+    return dispatch(actions.reinitSelection());
   };
 
   return (

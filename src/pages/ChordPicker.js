@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 
@@ -98,6 +98,9 @@ const ChordPicker = () => {
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
+  useEffect(() => {
+    dispatch(actions.reinitSelection());
+  }, [dispatch]);
   return (
     <div className={classes.pageContent}>
       <div className={classes.pickerContainer}>

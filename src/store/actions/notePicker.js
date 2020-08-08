@@ -48,8 +48,8 @@ export const updateScaleName = (name) => {
   };
 };
 
-export const discardChord = () => {
+export const reinitSelection = () => {
   return {
-    type: actionTypes.DISCARD_CHORD,
+    type: actionTypes.REINIT_SELECTION,
   };
 };

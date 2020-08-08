@@ -146,7 +146,7 @@ const chordPickerReducer = (state = initialState, action) => {
     case actionTypes.UPDATE_SCALE_NAME:
       return { ...state, scaleName: action.name, chordName: "" };
 
-    case actionTypes.DISCARD_CHORD:
+    case actionTypes.REINIT_SELECTION:
       return { ...state, chordName: "", selected: [], rootNote: "" };
 
     default:
