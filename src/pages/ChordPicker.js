@@ -8,7 +8,6 @@ import Fretboard from "containers/Fretboard";
 import Chord from "containers/Chord";
 import Tuning from "containers/Tuning";
 import { makeStyles } from "@material-ui/core/styles";
-import noteNames from "hooks/noteNames";
 
 const useStyles = makeStyles((theme) => {
   return {
