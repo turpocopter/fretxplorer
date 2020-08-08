@@ -59,6 +59,11 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         fontSize: "1.2em",
       },
+      [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
+        margin: "0.2em",
+        minWidth: "15em",
+        fontSize: "1.2em",
+      },
     },
     separator: {
       marginTop: theme.spacing(3),

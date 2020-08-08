@@ -27,8 +27,10 @@ const useStyles = makeStyles((theme) => {
     noteName: {},
     playChord: {
       display: "inline-block",
-      fontSize: 21,
-      width: 25,
+      //fontSize: 21,
+      //width: 25,
+      fontSize: "1.3rem",
+      width: "1.5rem",
       zIndex: 0,
       textAlign: "center",
       position: "relative",
@@ -36,13 +38,16 @@ const useStyles = makeStyles((theme) => {
         content: `''`,
         position: "absolute",
         display: "block",
-        height: 25,
-        width: 25,
+        //height: 25,
+        //width: 25,
+        height: "1.6rem",
+        width: "1.6rem",
         backgroundColor: theme.palette.background.main,
         zIndex: -1,
         borderRadius: "50%",
         border: "2.4px solid black",
-        top: 0,
+        //top: 0,
+        top: "-0.1rem",
         left: 0,
       },
       "&$active": {
@@ -51,7 +56,7 @@ const useStyles = makeStyles((theme) => {
           borderColor: theme.palette.secondary.main,
         },
       },
-      [theme.breakpoints.up("sm")]: {
+      /*[theme.breakpoints.up("sm")]: {
         fontSize: 25,
         width: 29,
         marginLeft: 8,
@@ -59,7 +64,7 @@ const useStyles = makeStyles((theme) => {
           height: 29,
           width: 29,
         },
-      },
+      },*/
     },
     interval: {
       color: "#aaa",

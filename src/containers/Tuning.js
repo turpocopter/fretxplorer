@@ -19,11 +19,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => {
   let tuningTablet = { margin: "12px auto" };
-  let forkTablet;
-  let settingsTablet;
-  let discardTablet;
-  let linkStringsTablet;
-  let playBtnOpenTablet;
+  //let forkTablet;
+  //let settingsTablet;
+  //let discardTablet;
+  //let linkStringsTablet;
+  //let playBtnOpenTablet;
   let tuneBtnWrapperTablet;
   return {
     tuning: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => {
         borderRadius: 10,
         border: `3px solid ${theme.palette.gray.light}`,
         width: "18.8em",
-        paddingBottom: 8,
+        paddingBottom: "0.6em",
         margin: "0 auto",
         [`${theme.breakpoints.up(
           "sm"
@@ -74,16 +74,16 @@ const useStyles = makeStyles((theme) => {
       },
     },
     fork: {
-      height: 20,
-      marginRight: 8,
-      marginLeft: 5,
+      height: "1.35rem",
+      marginRight: "1.2rem",
+      marginLeft: 0,
       "@media (orientation: landscape)": {
         marginRight: (props) => (!props.alwaysOpen ? 0 : 8),
         marginLeft: (props) => (!props.alwaysOpen ? 0 : 5),
         marginTop: (props) => (!props.alwaysOpen ? 5 : 0),
         marginBottom: (props) => (!props.alwaysOpen ? 8 : 0),
       },
-      [`${theme.breakpoints.up(
+      /*[`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (forkTablet = {
         height: 25,
@@ -92,24 +92,28 @@ const useStyles = makeStyles((theme) => {
       }),
       [`${theme.breakpoints.up(
         "md"
-      )} and (orientation: landscape)`]: forkTablet,
+      )} and (orientation: landscape)`]: forkTablet,*/
     },
     settings: {
       display: "inline-block",
-      height: 25,
-      width: 25,
+      //height: 25,
+      //width: 25,
       border: "2px solid black",
-      fontSize: 19,
+      //fontSize: 19,
       borderRadius: "50%",
-      marginLeft: 10,
+      //marginLeft: 10,
+      width: "1.5rem",
+      height: "1.5rem",
+      fontSize: "1.1rem",
+      marginLeft: "1.2rem",
       order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
       "@media (orientation: landscape)": {
         display: (props) => (!props.isAlwaysOpen ? "none" : "inline-block"),
-        order: (props) => (!props.alwaysOpen ? 0 : 10),
-        marginTop: (props) => (!props.alwaysOpen ? 10 : 0),
-        marginLeft: (props) => (!props.alwaysOpen ? 0 : 10),
+        //order: (props) => (!props.alwaysOpen ? 0 : 10),
+        //marginTop: (props) => (!props.alwaysOpen ? 10 : 0),
+        //marginLeft: (props) => (!props.alwaysOpen ? 0 : 10),
       },
-      [`${theme.breakpoints.up(
+      /*[`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (settingsTablet = {
         height: 29,
@@ -118,7 +122,7 @@ const useStyles = makeStyles((theme) => {
       }),
       [`${theme.breakpoints.up(
         "md"
-      )} and (orientation: landscape)`]: settingsTablet,
+      )} and (orientation: landscape)`]: settingsTablet,*/
     },
     playBtn: {
       display: "inline-flex",
@@ -126,23 +130,30 @@ const useStyles = makeStyles((theme) => {
     },
     discard: {
       position: "absolute",
-      top: -17,
+      /*top: -17,
       right: -15,
-      fontSize: 27,
+      fontSize: 27,*/
+      top: "-1.05rem",
+      right: "-0.95rem",
+      fontSize: "1.7rem",
       zIndex: 0,
       "&::before": {
         content: `''`,
         position: "absolute",
         display: "block",
-        height: 19,
-        width: 19,
+        top: "0.5rem",
+        left: "0.4rem",
+        width: "0.9rem",
+        height: "1rem",
+        //height: 19,
+        //width: 19,
         backgroundColor: theme.palette.background.main,
-        top: 6,
-        left: 4,
+        //top: 6,
+        //left: 4,
         zIndex: -1,
         borderRadius: "50%",
       },
-      [`${theme.breakpoints.up(
+      /*[`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (discardTablet = {
         top: -23,
@@ -151,28 +162,36 @@ const useStyles = makeStyles((theme) => {
       }),
       [`${theme.breakpoints.up(
         "md"
-      )} and (orientation: landscape)`]: discardTablet,
+      )} and (orientation: landscape)`]: discardTablet,*/
     },
     linkStrings: {
       position: "absolute",
-      fontSize: 21,
-      width: 25,
+      //fontSize: 21,
+      //width: 25,
       zIndex: 0,
       textAlign: "center",
-      top: 85,
-      right: -14,
+      //top: 85,
+      //right: -14,
+      bottom: "1.9rem",
+      right: "-0.5rem",
+      width: "1rem",
+      fontSize: "1.1rem",
       "&::before": {
         content: `''`,
         position: "absolute",
         display: "block",
-        height: 25,
-        width: 25,
+        //height: 25,
+        //width: 25,
         backgroundColor: theme.palette.background.main,
         zIndex: -1,
         borderRadius: "50%",
         border: "2.4px solid black",
-        top: 0,
-        left: 0,
+        //top: 0,
+        //left: 0,
+        top: "-0.1rem",
+        left: "-0.2rem",
+        width: "1.45rem",
+        height: "1.45rem",
       },
       "&$active": {
         color: theme.palette.secondary.main,
@@ -180,7 +199,7 @@ const useStyles = makeStyles((theme) => {
           borderColor: theme.palette.secondary.main,
         },
       },
-      [`${theme.breakpoints.up(
+      /*[`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (linkStringsTablet = {
         fontSize: 24,
@@ -194,28 +213,36 @@ const useStyles = makeStyles((theme) => {
       }),
       [`${theme.breakpoints.up(
         "md"
-      )} and (orientation: landscape)`]: linkStringsTablet,
+      )} and (orientation: landscape)`]: linkStringsTablet,*/
     },
     playBtnOpen: {
       position: "absolute",
-      fontSize: 21,
-      width: 25,
+      //fontSize: 21,
+      //width: 25,
       zIndex: 0,
       textAlign: "center",
-      top: 85,
-      left: -14,
+      //top: 85,
+      //left: -14,
+      bottom: "1.9rem",
+      left: "-0.5rem",
+      width: "1rem",
+      fontSize: "1.1rem",
       "&::before": {
         content: `''`,
         position: "absolute",
         display: "block",
-        height: 25,
-        width: 25,
+        //height: 25,
+        //width: 25,
         backgroundColor: theme.palette.background.main,
         zIndex: -1,
         borderRadius: "50%",
         border: "2.4px solid black",
-        top: 0,
-        left: 0,
+        //top: 0,
+        //left: 0,
+        top: "-0.1rem",
+        left: "-0.2rem",
+        width: "1.45rem",
+        height: "1.45rem",
       },
       "&$active": {
         color: theme.palette.secondary.main,
@@ -223,7 +250,7 @@ const useStyles = makeStyles((theme) => {
           borderColor: theme.palette.secondary.main,
         },
       },
-      [`${theme.breakpoints.up(
+      /*[`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (playBtnOpenTablet = {
         fontSize: 24,
@@ -237,7 +264,7 @@ const useStyles = makeStyles((theme) => {
       }),
       [`${theme.breakpoints.up(
         "md"
-      )} and (orientation: landscape)`]: playBtnOpenTablet,
+      )} and (orientation: landscape)`]: playBtnOpenTablet,*/
     },
     tuneBtnWrapper: {
       display: "flex",
@@ -453,7 +480,13 @@ const Tuning = ({
       {isOpen && (
         <>
           {!alwaysOpen && (
-            <div className={classes.discard} onClick={() => setIsOpen(false)}>
+            <div
+              className={classes.discard}
+              onClick={() => {
+                setIsOpen(false);
+                setIsLinked(false);
+              }}
+            >
               <CancelIcon fontSize='inherit' />
             </div>
           )}

@@ -5,7 +5,7 @@ import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => {
-  let pegTablet;
+  //let pegTablet;
   return {
     peg: {
       display: "flex",
@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => {
       },
       "&::before": {
         content: (props) => props.isLinked && `''`,
-        display: "block",
+        display: (props) => (props.isLinked ? "block" : "none"),
         position: "absolute",
         width: 1,
-        height: 47,
+        height: "2.8rem",
         backgroundColor: theme.palette.gray.light,
         top: 0,
         bottom: 0,
@@ -46,14 +46,14 @@ const useStyles = makeStyles((theme) => {
       "& div": {
         backgroundColor: theme.palette.background.main,
       },
-      [`${theme.breakpoints.up(
+      /*[`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (pegTablet = {
         "&::before": {
           height: 64,
         },
       }),
-      [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: pegTablet,
+      [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: pegTablet,*/
     },
     tuneBtn: {
       display: "block",

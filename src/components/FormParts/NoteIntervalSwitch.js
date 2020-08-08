@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "center",
     [theme.breakpoints.up("sm")]: {
-      marginTop: "8px",
+      marginTop: "0.8em",
     },
   },
   flatSwitch: {

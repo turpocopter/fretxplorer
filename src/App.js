@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
       "@media (min-width: 1590px)": {
         fontSize: "140%",
       },
+      "@media (min-width: 1024px) and (orientation: portrait)": {
+        fontSize: "180%",
+      },
       "@media (min-width: 1590px) and (max-aspect-ratio: 8/5)": {
         fontSize: "160%",
       },

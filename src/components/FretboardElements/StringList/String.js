@@ -27,9 +27,6 @@ const useStyles = makeStyles((theme) => ({
       background:
         "linear-gradient(90deg, #797265 0%, #eee4d8 49%, #ededed 50%, #ededed 55%, #999080 100%)",
       zIndex: 1,
-      [theme.breakpoints.up("sm")]: {
-        top: 20,
-      },
       "@media (orientation: landscape)": {
         height: 1,
         width: "calc(100% - 1em)",
