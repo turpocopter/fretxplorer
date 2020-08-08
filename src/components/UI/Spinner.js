@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
       top: "-0.1em",
       left: "-0.1em",
       transformOrigin: "5.1em 5.1em",
-      animation: "load2 2s infinite ease 1.5s",
+      animation: "$load2 2s infinite ease 1.5s",
     },
     "&::after": {
       content: `""`,
