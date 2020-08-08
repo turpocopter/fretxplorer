@@ -1,7 +1,7 @@
 import React from "react";
 import Drawer from "@material-ui/core/Drawer";
 import MainMenu from "components/Navigation/MainMenu";
-import logo from "assets/logo.png";
+import logo from "assets/logo.svg";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({

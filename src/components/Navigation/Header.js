@@ -4,7 +4,7 @@ import MainMenu from "components/Navigation/MainMenu";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
-import logo from "assets/logo.png";
+import logo from "assets/logo.svg";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => {
