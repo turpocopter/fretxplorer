@@ -5,6 +5,7 @@ import * as actions from "store/actions";
 
 import Layout from "hoc/Layout";
 import Spinner from "components/UI/Spinner";
+import Welcome from "pages/Welcome";
 import TransitionSwitch from "react-router-transition-switch";
 import Fader from "react-fader";
 
@@ -43,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
   active: {},
 }));
 
-const Welcome = React.lazy(() => {
-  return import("pages/Welcome");
-});
 const ChordPicker = React.lazy(() => {
   return import("pages/ChordPicker");
 });
@@ -71,11 +69,7 @@ function App(props) {
   return (
     <div className={classes.root}>
       <Route exact path='/'>
-        <Suspense fallback={<Spinner />}>
-          <Route path='/' exact>
-            <Welcome />
-          </Route>
-        </Suspense>
+        <Welcome />
       </Route>
       <Route
         path={[
