@@ -18,7 +18,7 @@ export default (namingConvention = "letters") => {
       ? NOTE_NAMES[namingConvention][INTERVALS[index] - 1]
       : useFlats
       ? `${NOTE_NAMES[namingConvention][INTERVALS[index + 1] - 1]}♭`
-      : `${NOTE_NAMES[namingConvention][INTERVALS[index - 1] - 1]}#`;
+      : `${NOTE_NAMES[namingConvention][INTERVALS[index - 1] - 1]}♯`;
   };
 
   /**
@@ -32,12 +32,12 @@ export default (namingConvention = "letters") => {
         ? NOTE_NAMES[namingConvention][v - 1]
         : useFlats
         ? `${NOTE_NAMES[namingConvention][INTERVALS[k + 1] - 1]}♭`
-        : `${NOTE_NAMES[namingConvention][INTERVALS[k - 1] - 1]}#`;
+        : `${NOTE_NAMES[namingConvention][INTERVALS[k - 1] - 1]}♯`;
     });
 
   /**
    * Translates a note object
-   * @param {object} note object with an id property (which note btw 0 for C and 6 for B) and an alt property ('','♭','#','♭♭' or '##')
+   * @param {object} note object with an id property (which note btw 0 for C and 6 for B) and an alt property ('','♭','♯','♭♭' or '♯♯')
    */
   const translateNote = (note) =>
     NOTE_NAMES[namingConvention][note.id] + note.alt;

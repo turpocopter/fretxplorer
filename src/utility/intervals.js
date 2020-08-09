@@ -41,7 +41,7 @@ export const computeDisplayName = (
       alteration = "𝄪";
       break;
     case 1:
-      alteration = "#";
+      alteration = "♯";
       break;
     case -1:
       alteration = "♭";
@@ -51,8 +51,6 @@ export const computeDisplayName = (
       break;
     default:
   }
-  /*if (semitonesDelta >= 0) alteration = "#".repeat(semitonesDelta);
-  else alteration = "♭".repeat(Math.abs(semitonesDelta));*/
   return { id: noteName, alt: alteration };
 };
 
@@ -72,7 +70,7 @@ export const computeDisplayInterval = (degree, semitonesFromRoot) => {
       alteration = "𝄪";
       break;
     case 1:
-      alteration = "#";
+      alteration = "♯";
       break;
     case -1:
       alteration = "♭";
@@ -82,8 +80,6 @@ export const computeDisplayInterval = (degree, semitonesFromRoot) => {
       break;
     default:
   }
-  /*if (semitonesDelta >= 0) alteration = "#".repeat(semitonesDelta);
-  else alteration = "♭".repeat(Math.abs(semitonesDelta));*/
   return alteration + degree;
 };
 

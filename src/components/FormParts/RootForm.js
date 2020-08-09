@@ -138,7 +138,7 @@ const RootForm = (props) => {
           onChange={props.toggleFlats}
           color='default'
         />
-        <span>#</span>
+        <span>♯</span>
       </label>
     </div>
   );

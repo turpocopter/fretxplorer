@@ -102,7 +102,7 @@ const tuningPresets = [
         ],
       },
       {
-        id: "BEADF#B",
+        id: "BEADF♯B",
         name: "Baritone",
         tuning: [
           { stringId: 6, note: 11, octave: 1 },
@@ -172,7 +172,7 @@ const tuningPresets = [
         ],
       },
       {
-        id: "DADF#AD",
+        id: "DADF♯AD",
         name: "Open D major / Vestapol",
         tuning: [
           { stringId: 6, note: 2, octave: 2 },
@@ -254,7 +254,7 @@ const tuningPresets = [
     cat_name: "Other open tunings",
     tunings: [
       {
-        id: "EAC#EAE",
+        id: "EAC♯EAE",
         name: "Open A major",
         tuning: [
           { stringId: 6, note: 4, octave: 2 },
@@ -290,7 +290,7 @@ const tuningPresets = [
         ],
       },
       {
-        id: "BF#BF#BD#",
+        id: "BF♯BF♯BD♯",
         name: "Open B major",
         tuning: [
           { stringId: 6, note: 11, octave: 1 },
@@ -408,7 +408,7 @@ const tuningPresets = [
         ],
       },
       {
-        id: "DADEBC#",
+        id: "DADEBC♯",
         name: "Ålesund",
         tuning: [
           { stringId: 6, note: 2, octave: 2 },
@@ -420,7 +420,7 @@ const tuningPresets = [
         ],
       },
       {
-        id: "DADF#BE",
+        id: "DADF♯BE",
         name: "José González tuning",
         tuning: [
           { stringId: 6, note: 2, octave: 2 },

@@ -330,7 +330,7 @@ const extensionsList = {
         if (hasNote(selected, 4, 3)) return "M7♭9";
         else return "m<sup>M7</sup>♭9";
       } else if (hasNote(selected, 10, 7)) {
-        if (hasNote(selected, 8, 5)) return "7#5♭9";
+        if (hasNote(selected, 8, 5)) return "7♯5♭9";
         else if (hasNote(selected, 6, 5)) {
           if (hasNote(selected, 4, 3)) return "7♭5♭9";
           else return "<sup>ø</sup>7♭9";
@@ -341,7 +341,7 @@ const extensionsList = {
     },
   },
   sharp9: {
-    symbol: "#9",
+    symbol: "♯9",
     notes: [{ semitonesFromRoot: 3, degree: 9 }],
     isAvailable: (selected) =>
       (hasNote(selected, 7, 5) &&
@@ -352,16 +352,16 @@ const extensionsList = {
         hasNote(selected, 10, 7) &&
         hasNote(selected, 4, 3)),
     nameChord: (selected) => {
-      if (hasNote(selected, 11, 7)) return "M7#9";
+      if (hasNote(selected, 11, 7)) return "M7♯9";
       else if (hasNote(selected, 4, 3)) {
-        if (hasNote(selected, 6, 5)) return "7♭5#9";
-        else if (hasNote(selected, 8, 5)) return "7#5#9";
-        else return "7#9";
-      } else return "m7#9";
+        if (hasNote(selected, 6, 5)) return "7♭5♯9";
+        else if (hasNote(selected, 8, 5)) return "7♯5♯9";
+        else return "7♯9";
+      } else return "m7♯9";
     },
   },
   sharp11: {
-    symbol: "#11",
+    symbol: "♯11",
     notes: [{ semitonesFromRoot: 6, degree: 11 }],
     isAvailable: (selected) =>
       ((hasNote(selected, 11, 7) && hasNote(selected, 4, 3)) ||
@@ -370,13 +370,13 @@ const extensionsList = {
           !hasNote(selected, 6, 5))) &&
       !hasNote(selected, 8, 5),
     nameChord: (selected) => {
-      if (hasNote(selected, 11, 7)) return "M7#11";
-      else if (hasNote(selected, 4, 3)) return "7#11";
-      else return "m7#11";
+      if (hasNote(selected, 11, 7)) return "M7♯11";
+      else if (hasNote(selected, 4, 3)) return "7♯11";
+      else return "m7♯11";
     },
   },
   e9sharp11: {
-    symbol: "9#11",
+    symbol: "9♯11",
     notes: [
       { semitonesFromRoot: 2, degree: 9 },
       { semitonesFromRoot: 6, degree: 11 },
@@ -385,7 +385,7 @@ const extensionsList = {
       hasNote(selected, 11, 7) &&
       hasNote(selected, 7, 5) &&
       hasNote(selected, 4, 3),
-    nameChord: (selected) => "M9#11",
+    nameChord: (selected) => "M9♯11",
   },
   flat13: {
     symbol: "♭13",
@@ -424,7 +424,7 @@ const extensionsList = {
     nameChord: (selected) => (hasNote(selected, 5, 4) ? "13♭9sus4" : "13♭9"),
   },
   e13sharp9: {
-    symbol: "13#9",
+    symbol: "13♯9",
     notes: [
       { semitonesFromRoot: 3, degree: 9 },
       { semitonesFromRoot: 9, degree: 13 },
@@ -434,7 +434,7 @@ const extensionsList = {
       hasNote(selected, 4, 3) &&
       !hasNote(selected, 6, 5) &&
       !hasNote(selected, 8, 5),
-    nameChord: (selected) => "13#9",
+    nameChord: (selected) => "13♯9",
   },
 };
 
