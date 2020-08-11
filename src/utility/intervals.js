@@ -27,12 +27,30 @@ export const computeDisplayName = (
   const naturalRootNoteIndex = isNatural(rootNoteIndex)
     ? rootNoteIndex
     : rootNoteIndex + (useFlats ? 1 : -1);
-  // "name" of destination note (between 0 for C and 6 for B)
-  const noteName = (INTERVALS[naturalRootNoteIndex] + degree - 2) % 7;
-  // index of destination note without alteration
-  const naturalNoteIndex = INTERVALS.indexOf(noteName + 1);
-  // which alteration should be displayed?
-  let semitonesDelta = noteIndex - naturalNoteIndex;
+  let noteName;
+  let semitonesDelta;
+  // if no formal degree is wanted - pick the closest natural
+  if (degree === "N") {
+    if (isNatural(noteIndex)) {
+      noteName = (INTERVALS[noteIndex] - 1) % 7;
+      semitonesDelta = 0;
+    } else {
+      noteName = useFlats
+        ? (INTERVALS[noteIndex + 1] - 1) % 7
+        : (INTERVALS[noteIndex - 1] - 1) % 7;
+      semitonesDelta = useFlats ? -1 : 1;
+    }
+  }
+  // normal case
+  else {
+    // "name" of destination note (between 0 for C and 6 for B)
+    noteName = (INTERVALS[naturalRootNoteIndex] + degree - 2) % 7;
+    // index of destination note without alteration
+    const naturalNoteIndex = INTERVALS.indexOf(noteName + 1);
+    // which alteration should be displayed?
+    semitonesDelta = noteIndex - naturalNoteIndex;
+  }
+
   if (semitonesDelta > 2) semitonesDelta -= 12;
   else if (semitonesDelta < -2) semitonesDelta += 12;
   let alteration = "";

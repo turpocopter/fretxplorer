@@ -89,6 +89,8 @@ const Fretboard = (props) => {
   const isLeftHanded = useSelector((state) => state.settings.leftHanded);
   const tuning = useSelector((state) => state.settings.tuning);
   const showIntervals = useSelector((state) => state.settings.showIntervals);
+  const useFlats = useSelector((state) => state.notePicker.useFlats);
+
   const classes = useStyles({ isLeftHanded });
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());

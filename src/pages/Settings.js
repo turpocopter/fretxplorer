@@ -72,8 +72,6 @@ const Settings = () => {
   const dispatch = useDispatch();
   const isLatin = useSelector((state) => state.settings.noteNaming === "latin");
   const leftHanded = useSelector((state) => state.settings.leftHanded);
-  console.log("this is LH in settings", leftHanded);
-  console.log("typeof LH", typeof leftHanded);
 
   const onToggleHands = () => {
     return dispatch(actions.toggleHands());

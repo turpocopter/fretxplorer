@@ -124,7 +124,6 @@ const ChordPickerForm = () => {
   const classes = useStyles();
 
   const onUpdateRoot = (rootNote) => {
-    console.log(rootNote, rootNote !== "");
     return dispatch(actions.updateRoot(rootNote, noteNaming));
   };
   const onUpdateQuality = (name, notes) => {

@@ -96,8 +96,9 @@ const ChordPicker = () => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
   const showIntervals = useSelector((state) => state.settings.showIntervals);
-  const classes = useStyles({ chordName });
   const selectedNotes = useSelector((state) => state.notePicker.selected);
+
+  const classes = useStyles({ chordName });
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
@@ -115,7 +116,6 @@ const ChordPicker = () => {
             fadeInTransitionDuration={300}
             fadeOutTransitionDuration={chordName === "" ? 0 : 300}
             shouldTransition={(oldChildren, newChildren) => {
-              console.log(oldChildren.key, newChildren.key);
               return isBigScreen && oldChildren.key !== newChildren.key;
             }}
           >

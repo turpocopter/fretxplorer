@@ -152,7 +152,6 @@ export default function Fret(props) {
   const { display, isRoot, note, octave, playNote } = props;
   const [isActive, setIsActive] = useState(false);
   const classes = useStyles(props);
-
   const onPlay = (note, octave) => {
     if (!isActive) {
       setIsActive(true);
@@ -171,7 +170,7 @@ export default function Fret(props) {
         className={fretClasses.join(" ")}
         onClick={() => onPlay(note, octave)}
       >
-        {display}
+        {display !== "N" && display}
       </div>
     </Fade>
   );

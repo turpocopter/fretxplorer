@@ -7,6 +7,7 @@ const initialState = {
   selected: [],
   chordName: "",
   scaleName: "",
+  modeName: "",
 };
 
 /**
@@ -141,13 +142,34 @@ const chordPickerReducer = (state = initialState, action) => {
       };
 
     case actionTypes.UPDATE_CHORD_NAME:
-      return { ...state, chordName: action.name, scaleName: "" };
+      return { ...state, chordName: action.name, scaleName: "", modeName: "" };
 
     case actionTypes.UPDATE_SCALE_NAME:
-      return { ...state, scaleName: action.name, chordName: "" };
+      console.log(action.selected);
+      console.log(
+        updateDisplaysOnAdd(state.rootNote, state.useFlats, action.selected)
+      );
+      return {
+        ...state,
+        scaleName: action.name,
+        selected: updateDisplaysOnAdd(
+          state.rootNote,
+          state.useFlats,
+          action.selected
+        ),
+        modeName: "",
+        chordName: "",
+      };
 
     case actionTypes.REINIT_SELECTION:
-      return { ...state, chordName: "", selected: [], rootNote: "" };
+      return {
+        ...state,
+        chordName: "",
+        selected: [],
+        rootNote: "",
+        scaleName: "",
+        modeName: "",
+      };
 
     default:
       return state;

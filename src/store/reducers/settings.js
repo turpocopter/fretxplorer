@@ -22,7 +22,6 @@ const settingsReducer = (state = initialState, action) => {
       localStorage.setItem("fretxplorerNoteNaming", action.convention);
       return { ...state, noteNaming: action.convention };
     case actionTypes.TOGGLE_HANDS:
-      console.log("new LH value", !state.leftHanded);
       localStorage.setItem("fretxplorerLeftHanded", !state.leftHanded);
       return { ...state, leftHanded: !state.leftHanded };
     case actionTypes.TOGGLE_NOTES_INTERVALS:
@@ -95,11 +94,6 @@ const settingsReducer = (state = initialState, action) => {
     case actionTypes.CHECK_LOCAL_SETTINGS:
       const localNoteNaming = localStorage.getItem("fretxplorerNoteNaming");
       const localLeftHanded = localStorage.getItem("fretxplorerLeftHanded");
-      console.log("retrieved LH value", localLeftHanded);
-      console.log(
-        "assigned LH value",
-        localLeftHanded !== null ? localLeftHanded : state.leftHanded
-      );
       const localTuning = localStorage.getItem("fretxplorerTuning");
       return {
         ...state,

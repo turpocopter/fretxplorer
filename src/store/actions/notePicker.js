@@ -41,10 +41,11 @@ export const updateChordName = (name) => {
   };
 };
 
-export const updateScaleName = (name) => {
+export const updateScaleName = (name, selected) => {
   return {
     type: actionTypes.UPDATE_SCALE_NAME,
     name,
+    selected,
   };
 };
 
