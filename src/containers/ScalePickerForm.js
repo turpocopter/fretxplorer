@@ -98,6 +98,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   select: {
+    [`${theme.breakpoints.down("sm")} and (orientation: portrait)`]: {
+      "& > .MuiSelect-root > span": {
+        display: "none",
+      },
+    },
     [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
       fontSize: "0.9em",
       "& > .MuiSelect-root": {
@@ -415,7 +420,7 @@ const scales = [
         displayIntervals: ["R", 2, "♭3", 3, 4, 5, 6, "♭7"],
       },
       {
-        shortName: "bebop Dorian (alternate)",
+        shortName: "bebop Dorian (alt.)",
         fullName: "Alternate Bebop Dorian scale",
         subtitle: "Dorian mode with major 7th added",
         semitonesFromRoot: [0, 2, 3, 5, 7, 9, 10, 11],
@@ -534,7 +539,7 @@ const ScalePickerForm = ({ onPick }) => {
   const useFlats = useSelector((state) => state.notePicker.useFlats);
   //const scaleName = useSelector((state) => state.notePicker.scaleName);
   //const modeName = useSelector((state) => state.notePicker.scaleName);
-  //const selected = useSelector((state) => state.notePicker.selected);
+  const selected = useSelector((state) => state.notePicker.selected);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
   const [tmpScaleName, setTmpScaleName] = useState("");
   const { getNoteName } = useNoteNames(noteNaming);
@@ -620,7 +625,8 @@ const ScalePickerForm = ({ onPick }) => {
             displayIntervals !== null ? JSON.stringify(displayIntervals) : ""
           }
         >
-          {el.fullName}
+          {el.fullName.replace(" scale", "")}
+          {el.fullName.includes(" scale") && <span>&nbsp;scale</span>}
           {/*el.hasOwnProperty("subtitle") && (
           <span>&nbsp;{` (${el.subtitle})`}</span>
         )*/}

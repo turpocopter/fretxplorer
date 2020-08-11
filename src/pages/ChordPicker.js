@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => {
       display: "none",
       "@media (min-height: 768px) and (orientation: landscape)": {
         display: "block", //(props) => (props.chordName !== "" ? "block" : "none"),
-        marginRight: 16,
+        marginLeft: "2em",
       },
       "@media (min-height: 840px) and (min-width: 1140px) and (orientation: landscape)": {
         marginTop: "1em",

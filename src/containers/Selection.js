@@ -50,12 +50,15 @@ const useStyles = makeStyles((theme) => {
       justifyContent: "space-between",
     },
     title: {},
-    button: {
+    buttonWrapper: {
       marginLeft: "1em",
       [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         position: "relative",
         top: 30,
       },
+    },
+    button: {
+      margin: "0.3em 0",
     },
   };
 });
@@ -93,15 +96,17 @@ const Selection = ({ type }) => {
             __html: sanitize(type === "scale" ? scaleName : chordName),
           }}
         />
-        <Button
-          className={classes.button}
-          variant='contained'
-          color='primary'
-          size={biggerButton ? "medium" : "small"}
-          onClick={onDiscardSelection}
-        >
-          Pick Another
-        </Button>
+        <div className={classes.buttonWrapper}>
+          <Button
+            className={classes.button}
+            variant='contained'
+            color='primary'
+            size={biggerButton ? "medium" : "small"}
+            onClick={onDiscardSelection}
+          >
+            Pick&nbsp;Another
+          </Button>
+        </div>
       </div>
       <Notes
         selectedWithValues={selectedWithValues}
