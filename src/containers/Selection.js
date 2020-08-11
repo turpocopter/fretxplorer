@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 import { sanitize } from "dompurify";
-import ChordNotes from "components/Selection/ChordNotes";
+import Notes from "components/Selection/Notes";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -60,9 +60,10 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const Chord = () => {
+const Selection = ({ type }) => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
+  const scaleName = useSelector((state) => state.notePicker.scaleName);
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
@@ -76,7 +77,7 @@ const Chord = () => {
     midiValue: rootNoteValue + el.semitonesFromRoot + (el.degree > 7 ? 12 : 0),
   }));
 
-  const onDiscardChord = () => {
+  const onDiscardSelection = () => {
     return dispatch(actions.reinitSelection());
   };
 
@@ -88,24 +89,26 @@ const Chord = () => {
           variant='h5'
           component='h2'
           color='primary'
-          dangerouslySetInnerHTML={{ __html: sanitize(chordName) }}
+          dangerouslySetInnerHTML={{
+            __html: sanitize(type === "scale" ? scaleName : chordName),
+          }}
         />
         <Button
           className={classes.button}
           variant='contained'
           color='primary'
           size={biggerButton ? "medium" : "small"}
-          onClick={onDiscardChord}
+          onClick={onDiscardSelection}
         >
           Pick Another
         </Button>
       </div>
-      <ChordNotes
+      <Notes
         selectedWithValues={selectedWithValues}
         namingConvention={namingConvention}
-      ></ChordNotes>
+      ></Notes>
     </div>
   );
 };
 
-export default Chord;
+export default Selection;

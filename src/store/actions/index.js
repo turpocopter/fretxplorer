@@ -16,6 +16,7 @@ export {
   updateExtension,
   updateChordName,
   updateScaleName,
+  updateScaleNotes,
   reinitSelection,
 } from "./notePicker";
 export {

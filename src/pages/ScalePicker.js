@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { /*useState,*/ useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 
 import NoteIntervalSwitch from "components/FormParts/NoteIntervalSwitch";
 import ScalePickerForm from "containers/ScalePickerForm";
 import Fretboard from "containers/Fretboard";
-import Scale from "containers/Scale";
+import Selection from "containers/Selection";
 import Tuning from "containers/Tuning";
 import Fader from "react-fader";
 import { makeStyles } from "@material-ui/core/styles";
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => {
       marginTop: "2em",
     },
     fretboardContainer: {
-      display: (props) => (props.chordName === "" ? "none" : "block"),
+      display: (props) => (props.scaleName === "" ? "none" : "block"),
       "@media (orientation: landscape)": {
         flexGrow: (props) => props.chordName !== "" && 1,
         alignItems: (props) => props.chordName !== "" && "center",
@@ -96,11 +96,15 @@ const ScalePicker = () => {
   const dispatch = useDispatch();
   const scaleName = useSelector((state) => state.notePicker.scaleName);
   const showIntervals = useSelector((state) => state.settings.showIntervals);
-  const selectedNotes = useSelector((state) => state.notePicker.selectedNotes);
+  //const selectedNotes = useSelector((state) => state.notePicker.selectedNotes);
+  //const [modes, setModes] = useState(null);
+
   const classes = useStyles({ scaleName });
+
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
+
   const isBigScreen = useMediaQuery(
     "(min-height: 768px) and (orientation: landscape)"
   );
@@ -118,14 +122,10 @@ const ScalePicker = () => {
               return isBigScreen && oldChildren.key !== newChildren.key;
             }}
           >
-            {1 !== 2 /*scaleName === ""*/ ? (
+            {scaleName === "" ? (
               <ScalePickerForm key='picker' />
             ) : (
-              <Scale
-                key='chord'
-                scaleName={scaleName}
-                selectedNotes={selectedNotes}
-              />
+              <Selection key='selection' type='scale' />
             )}
           </Fader>
         </div>

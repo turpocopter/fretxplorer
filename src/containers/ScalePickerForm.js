@@ -501,8 +501,7 @@ const scales = [
       {
         shortName: "Hungarian major",
         fullName: "Hungarian Major scale",
-        steps: [3, 1, 2, 1, 2, 1, 2],
-        semitonesFromRoot: [0],
+        semitonesFromRoot: [0, 3, 4, 6, 7, 9, 10],
       },
       {
         shortName: "Persian",
@@ -529,17 +528,19 @@ const scales = [
   },
 ];
 
-const ScalePickerForm = () => {
+const ScalePickerForm = ({ onPick }) => {
   const dispatch = useDispatch();
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const useFlats = useSelector((state) => state.notePicker.useFlats);
-  const scaleName = useSelector((state) => state.notePicker.scaleName);
-  const modeName = useSelector((state) => state.notePicker.scaleName);
-  const selected = useSelector((state) => state.notePicker.selected);
+  //const scaleName = useSelector((state) => state.notePicker.scaleName);
+  //const modeName = useSelector((state) => state.notePicker.scaleName);
+  //const selected = useSelector((state) => state.notePicker.selected);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
-  const [isValidated, setIsValidated] = useState("");
+  const [tmpScaleName, setTmpScaleName] = useState("");
   const { getNoteName } = useNoteNames(noteNaming);
   const classes = useStyles();
+
+  const rootName = getNoteName(rootNote, useFlats);
 
   const computeModeSemitones = (scaleSemitonesFromRoot, mode) => {
     return scaleSemitonesFromRoot
@@ -553,13 +554,9 @@ const ScalePickerForm = () => {
   };
   const onToggleFlats = () => dispatch(actions.toggleFlats(noteNaming));
   const onUpdateScale = (scaleName, semitonesFromRoot, displayIntervals) => {
-    //    S'il ny a pas semitonesFromRoot c'est un related to... mais on peut ptet gérer en amont ??
-
-    //    Si displayIntervals est un array : cool on mappe
-    //    Sinon
-    //    si 7 notes : degrés : 1 2 3 4 5 6 7 - on calculera le displayInterval en faisant un updateDisplayInterval avec force false
-
+    setTmpScaleName(scaleName);
     let newSelected;
+    // if displayIntervals is an array: intervals can be mapped to semitones
     if (displayIntervals != null) {
       newSelected = semitonesFromRoot.map((el, i) => ({
         semitonesFromRoot: el,
@@ -571,18 +568,20 @@ const ScalePickerForm = () => {
             : parseInt(displayIntervals[i].toString().replace(/\D/g, "")),
         displayInterval: displayIntervals[i],
       }));
-    } else {
+    }
+    // otherwise we just map degrees to semitones, and the intervals will be calculated by the reducer&
+    else {
       newSelected = semitonesFromRoot.map((el, i) => ({
         semitonesFromRoot: el,
         degree: i + 1,
       }));
     }
-    return dispatch(actions.updateScaleName(scaleName, newSelected));
+    return dispatch(actions.updateScaleNotes(newSelected));
   };
-
-  const onPickScale = () => {};
-
-  const rootName = getNoteName(rootNote, useFlats);
+  const onPickScale = () => {
+    console.log("NAME: " + rootName + " " + tmpScaleName);
+    dispatch(actions.updateScaleName(rootName + " " + tmpScaleName));
+  };
 
   const scaleListContents = scales.map((cat) => {
     const catItems = cat.scales.map((el) => {
@@ -666,17 +665,22 @@ const ScalePickerForm = () => {
                 select
                 label='Scale'
                 className={classes.textField}
-                value={scaleName}
+                value={tmpScaleName}
                 onChange={(e) => {
-                  onUpdateScale(
-                    e.target.value,
-                    e.currentTarget.dataset.semitonesfromroot !== ""
-                      ? JSON.parse(e.currentTarget.dataset.semitonesfromroot)
-                      : null,
-                    e.currentTarget.dataset.displayintervals !== ""
-                      ? JSON.parse(e.currentTarget.dataset.displayintervals)
-                      : null
-                  );
+                  console.log(e.target);
+                  if (e.target.value !== undefined) {
+                    onUpdateScale(
+                      e.target.value,
+                      e.currentTarget.dataset.semitonesfromroot !== ""
+                        ? JSON.parse(e.currentTarget.dataset.semitonesfromroot)
+                        : null,
+                      e.currentTarget.dataset.displayintervals !== ""
+                        ? JSON.parse(e.currentTarget.dataset.displayintervals)
+                        : null
+                    );
+                  } else {
+                    e.preventDefault();
+                  }
                 }}
                 SelectProps={{
                   className: classes.select,
@@ -694,7 +698,7 @@ const ScalePickerForm = () => {
             </FormControl>
           </div>
         </Fade>
-        <Fade in={scaleName !== ""} mountOnEnter unmountOnExit timeout={700}>
+        <Fade in={tmpScaleName !== ""} mountOnEnter unmountOnExit timeout={700}>
           <div>
             <FormControl className={classes.buttonWrapper}>
               <Button
@@ -704,7 +708,7 @@ const ScalePickerForm = () => {
                 size='large'
                 onClick={onPickScale}
               >
-                PICK {rootName} {scaleName}
+                PICK {rootName} {tmpScaleName}
               </Button>
             </FormControl>
           </div>

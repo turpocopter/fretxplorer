@@ -119,6 +119,7 @@ const Fretboard = (props) => {
               noteNaming={noteNaming}
               playNote={props.playNote}
               isLeftHanded={isLeftHanded}
+              useFlats={useFlats}
             />
           </div>
         </div>

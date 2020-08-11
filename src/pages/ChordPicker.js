@@ -5,7 +5,7 @@ import * as actions from "store/actions";
 import NoteIntervalSwitch from "components/FormParts/NoteIntervalSwitch";
 import ChordPickerForm from "containers/ChordPickerForm";
 import Fretboard from "containers/Fretboard";
-import Chord from "containers/Chord";
+import Selection from "containers/Selection";
 import Tuning from "containers/Tuning";
 import Fader from "react-fader";
 import { makeStyles } from "@material-ui/core/styles";
@@ -96,7 +96,7 @@ const ChordPicker = () => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
   const showIntervals = useSelector((state) => state.settings.showIntervals);
-  const selectedNotes = useSelector((state) => state.notePicker.selected);
+  //const selectedNotes = useSelector((state) => state.notePicker.selected);
 
   const classes = useStyles({ chordName });
   const onToggleNotesIntervals = () => {
@@ -122,11 +122,7 @@ const ChordPicker = () => {
             {chordName === "" ? (
               <ChordPickerForm key='picker' />
             ) : (
-              <Chord
-                key='chord'
-                chordName={chordName}
-                selectedNotes={selectedNotes}
-              />
+              <Selection key='chord' type='chord' />
             )}
           </Fader>
         </div>
