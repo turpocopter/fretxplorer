@@ -27,8 +27,6 @@ const useStyles = makeStyles((theme) => {
     noteName: {},
     playChord: {
       display: "inline-block",
-      //fontSize: 21,
-      //width: 25,
       fontSize: "1.3rem",
       width: "1.5rem",
       zIndex: 0,
@@ -38,15 +36,12 @@ const useStyles = makeStyles((theme) => {
         content: `''`,
         position: "absolute",
         display: "block",
-        //height: 25,
-        //width: 25,
         height: "1.6rem",
         width: "1.6rem",
         backgroundColor: theme.palette.background.main,
         zIndex: -1,
         borderRadius: "50%",
         border: "2.4px solid black",
-        //top: 0,
         top: "-0.1rem",
         left: 0,
       },
@@ -56,15 +51,6 @@ const useStyles = makeStyles((theme) => {
           borderColor: theme.palette.secondary.main,
         },
       },
-      /*[theme.breakpoints.up("sm")]: {
-        fontSize: 25,
-        width: 29,
-        marginLeft: 8,
-        "&::before": {
-          height: 29,
-          width: 29,
-        },
-      },*/
     },
     interval: {
       color: "#aaa",
@@ -76,14 +62,15 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const ChordNotes = ({
+const Notes = ({
+  selectionType,
   playNote,
   playChord,
+  playScale,
   cancelSound,
   selectedWithValues,
   namingConvention,
 }) => {
-  const speed = 1;
   const classes = useStyles();
   const { translateNote } = useNotes(namingConvention);
   const [activeNote, setActiveNote] = useState(null);
@@ -114,6 +101,7 @@ const ChordNotes = ({
   const midiValues = selectedWithValues.map((el) => el.midiValue);
 
   const onClickNote = (el, i) => {
+    const speed = 1;
     if (!isPlaying && !activeNote) {
       playNote(el.midiValue);
       setActiveNote(i);
@@ -123,10 +111,13 @@ const ChordNotes = ({
     }
   };
 
-  const onChordListen = () => {
+  const onSelectionListen = (type = "chord") => {
+    const speed = type === "scale" ? 0.7 : 1;
     if (!isPlaying && !activeNote) {
       setIsPlaying(true);
-      playChord(midiValues, speed);
+      type === "scale"
+        ? playScale(midiValues, speed)
+        : playChord(midiValues, speed);
       setActiveNote(0);
       let noteCounter = 0;
       intervalID = setInterval(() => {
@@ -134,12 +125,25 @@ const ChordNotes = ({
         setActiveNote(noteCounter);
         if (noteCounter === notes.length - 1) {
           clearInterval(intervalID);
-          setTimeout(() => {
-            setActiveNote(null);
-          }, speed * 1000);
-          setTimeout(() => {
-            setIsPlaying(false);
-          }, speed * (3000 + 70 * notes.length));
+          // Scale : finish by playing first note again one octave higher
+          if (type === "scale") {
+            setTimeout(() => {
+              setActiveNote(0);
+            }, speed * 1000);
+            setTimeout(() => {
+              setActiveNote(null);
+              setIsPlaying(false);
+            }, speed * 2000);
+          }
+          // Chord: finish by playing arpeggiated chord
+          else {
+            setTimeout(() => {
+              setActiveNote(null);
+            }, speed * 1000);
+            setTimeout(() => {
+              setIsPlaying(false);
+            }, speed * (3000 + 70 * notes.length));
+          }
         }
       }, speed * 1000);
     }
@@ -152,7 +156,7 @@ const ChordNotes = ({
         className={
           classes.playChord + (isPlaying === true ? " " + classes.active : "")
         }
-        onClick={onChordListen}
+        onClick={() => onSelectionListen(selectionType)}
       >
         <PlayArrowIcon fontSize='inherit' />
       </li>
@@ -160,4 +164,4 @@ const ChordNotes = ({
   );
 };
 
-export default withMidiSounds(ChordNotes);
+export default withMidiSounds(Notes);

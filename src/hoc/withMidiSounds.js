@@ -17,7 +17,7 @@ const WithMidiSounds = (WrappedComponent) => {
     const onPlayMelody = (
       notes,
       speed = 1,
-      playChord = false,
+      type = null,
       notesNeedTranslation = false
     ) => {
       if (midiSounds) {
@@ -35,7 +35,8 @@ const WithMidiSounds = (WrappedComponent) => {
             speed
           );
         });
-        if (playChord) {
+        // chord: play arpeggio after
+        if (type === "chord") {
           notes.forEach((note, i) => {
             midiSounds.playChordAt(
               when + speed * notes.length + i * 0.07,
@@ -45,11 +46,24 @@ const WithMidiSounds = (WrappedComponent) => {
             );
           });
         }
+        // scale: play root at octave after
+        else if (type === "scale") {
+          midiSounds.playChordAt(
+            when + speed * notes.length,
+            INSTRUMENT_ID,
+            [notes[0] + 12],
+            speed
+          );
+        }
       }
     };
 
     const onPlayChord = (notes, speed = 1, notesNeedTranslation = false) => {
-      onPlayMelody(notes, speed, true, notesNeedTranslation);
+      onPlayMelody(notes, speed, "chord", notesNeedTranslation);
+    };
+
+    const onPlayScale = (notes, speed = 1, notesNeedTranslation = false) => {
+      onPlayMelody(notes, speed, "scale", notesNeedTranslation);
     };
 
     const onCancel = () => {
@@ -63,6 +77,7 @@ const WithMidiSounds = (WrappedComponent) => {
           playNote={onPlayNote}
           playMelody={onPlayMelody}
           playChord={onPlayChord}
+          playScale={onPlayScale}
           getNoteVal={getNoteVal}
           cancelSound={onCancel}
         />

@@ -109,6 +109,7 @@ const Selection = ({ type }) => {
         </div>
       </div>
       <Notes
+        selectionType={type}
         selectedWithValues={selectedWithValues}
         namingConvention={namingConvention}
       ></Notes>

@@ -289,7 +289,7 @@ const Tuning = ({
       playMelody(
         tuning.map((el) => ({ n: el.note, o: el.octave })),
         1,
-        false,
+        null,
         true
       );
       let stringCounter = 6;
