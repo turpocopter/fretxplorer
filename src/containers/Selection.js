@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => {
   let chordTablet;
   return {
     paper: {
-      padding: theme.spacing(1.5, 0, 1.5),
+      padding: theme.spacing(1, 0, 1),
       display: "flex",
       flexDirection: "column",
       alignItems: "center",

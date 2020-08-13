@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
   flatSwitch: {
     fontSize: "0.9em",
     display: "inline-block",
-    marginLeft: 16,
-    marginRight: 8,
+    marginLeft: 0,
+    marginRight: 0,
     marginBottom: 8,
     marginTop: 0,
     minWidth: 120,

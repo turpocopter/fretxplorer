@@ -4,6 +4,9 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Switch from "@material-ui/core/Switch";
+import IconButton from "@material-ui/core/IconButton";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import useNotes from "hooks/noteNames";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,11 +14,23 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => {
   let formControlTablet;
   return {
-    /*wrapper: {
+    root: {
+      marginTop: "1em",
+      borderTop: `1px solid ${theme.palette.gray.light}`,
+      paddingTop: 4,
+      width: "100%",
+    },
+    wrapper: {
       display: "flex",
-      justifyContent: "center",
-    },*/
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    mainCtrlsWrapper: {
+      flexGrow: 1,
+      textAlign: "center",
+    },
     formControl: {
+      textAlign: "left",
       margin: 0,
       width: 218,
       [`${theme.breakpoints.up(
@@ -61,6 +76,34 @@ const useStyles = makeStyles((theme) => {
         fontSize: "0.9em",
       },
     },
+    modeSwitch: {
+      textAlign: "center",
+    },
+    flatSwitch: {
+      fontSize: "0.9em",
+      display: "inline-block",
+      marginLeft: 0,
+      marginRight: 0,
+      marginBottom: 0,
+      marginTop: 0,
+      minWidth: 120,
+      whiteSpace: "nowrap",
+      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
+        fontSize: "1em",
+      },
+      "@media (orientation: landscape)": {
+        marginLeft: 8,
+      },
+      "@media (min-height: 768px) and (orientation: landscape)": {
+        fontSize: "1em",
+      },
+    },
+    btnPrevious: {
+      marginLeft: -16,
+    },
+    btnNext: {
+      marginRight: -16,
+    },
   };
 });
 
@@ -69,6 +112,8 @@ const Modes = ({
   selected,
   current,
   setCurrent,
+  pickPrevious,
+  pickNext,
   parallelModes,
   toggleParallelModes,
   namingConvention,
@@ -76,68 +121,81 @@ const Modes = ({
   const classes = useStyles();
   const { translateNote } = useNotes(namingConvention);
   return (
-    <div>
-      <FormControl variant='outlined' className={classes.formControl}>
-        <TextField
-          variant='outlined'
-          id='modes'
-          select
-          label='Modes'
-          className={classes.textField}
-          value={current}
-          onChange={(e) =>
-            setCurrent(e.target.value, e.currentTarget.dataset.name)
-          }
-          SelectProps={{
-            className: classes.select,
-            MenuProps: {
-              classes: { list: classes.menu },
-            },
-          }}
-          InputLabelProps={{
-            className: classes.label,
-          }}
-          margin='normal'
-          size='small'
-        >
-          {modes.map((mode, i) => {
-            const rootForMode = translateNote(
-              selected[
-                parallelModes
-                  ? 0
-                  : (selected.length + i - current) % selected.length
-              ].displayName
-            );
-            const modeName = mode.hasOwnProperty("shortName")
-              ? mode.shortName
-              : mode.fullName;
-            const displayName = mode.hasOwnProperty("listName")
-              ? mode.listName
-              : modeName;
-            return (
-              <MenuItem
-                key={i}
-                value={i}
-                data-name={`${rootForMode} ${modeName}`}
-                className={classes.option}
-              >
-                {`${rootForMode} ${displayName}`}
-              </MenuItem>
-            );
-          })}
-        </TextField>
-      </FormControl>
-
-      <div className={classes.modeSwitch}>
-        <label className={classes.flatSwitch}>
-          <span>Relative modes</span>
-          <Switch
-            checked={parallelModes}
-            onChange={toggleParallelModes}
-            color='default'
-          />
-          <span>Parallel modes </span>
-        </label>
+    <div className={classes.root}>
+      <div className={classes.wrapper}>
+        <div className={`${classes.btnWrapper} ${classes.btnPrevious}`}>
+          <IconButton aria-label='delete' onClick={pickPrevious}>
+            <NavigateBeforeIcon fontSize='large' />
+          </IconButton>
+        </div>
+        <div className={classes.mainCtrlsWrapper}>
+          <FormControl variant='outlined' className={classes.formControl}>
+            <TextField
+              variant='outlined'
+              id='modes'
+              select
+              label='Modes'
+              className={classes.textField}
+              value={current}
+              onChange={(e) =>
+                setCurrent(e.target.value, e.currentTarget.dataset.name)
+              }
+              SelectProps={{
+                className: classes.select,
+                MenuProps: {
+                  classes: { list: classes.menu },
+                },
+              }}
+              InputLabelProps={{
+                className: classes.label,
+              }}
+              margin='normal'
+              size='small'
+            >
+              {modes.map((mode, i) => {
+                const rootForMode = translateNote(
+                  selected[
+                    parallelModes
+                      ? 0
+                      : (selected.length + i - current) % selected.length
+                  ].displayName
+                );
+                const modeName = mode.hasOwnProperty("shortName")
+                  ? mode.shortName
+                  : mode.fullName;
+                const displayName = mode.hasOwnProperty("listName")
+                  ? mode.listName
+                  : modeName;
+                return (
+                  <MenuItem
+                    key={i}
+                    value={i}
+                    data-name={`${modeName}`}
+                    className={classes.option}
+                  >
+                    {`${rootForMode} ${displayName}`}
+                  </MenuItem>
+                );
+              })}
+            </TextField>
+          </FormControl>
+          <div className={classes.modeSwitch}>
+            <label className={classes.flatSwitch}>
+              Relative <span>modes</span>
+              <Switch
+                checked={parallelModes}
+                onChange={toggleParallelModes}
+                color='default'
+              />
+              Parallel <span>modes</span>
+            </label>
+          </div>
+        </div>
+        <div className={`${classes.btnWrapper} ${classes.btnNext}`}>
+          <IconButton aria-label='delete' onClick={pickNext}>
+            <NavigateNextIcon fontSize='large' />
+          </IconButton>
+        </div>
       </div>
     </div>
   );
