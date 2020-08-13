@@ -451,7 +451,7 @@ const ExtensionForm = (props) => {
 
   useEffect(() => {
     if (extension !== "" && extension !== "none") {
-      setTmpChordName(rootName + extensionsList[extension].nameChord(selected));
+      setTmpChordName(extensionsList[extension].nameChord(selected));
     }
   }, [extension, rootName, selected, setTmpChordName]);
 

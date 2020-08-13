@@ -592,11 +592,9 @@ const ScalePickerForm = ({ onPick }) => {
   const onPickScale = () => {
     dispatch(
       actions.updateScaleInfo(
-        rootName +
-          " " +
-          (tmpScaleInfo.hasOwnProperty("shortName")
-            ? tmpScaleInfo.shortName
-            : tmpScaleInfo.fullName),
+        tmpScaleInfo.hasOwnProperty("shortName")
+          ? tmpScaleInfo.shortName
+          : tmpScaleInfo.fullName,
         tmpScaleInfo
       )
     );

@@ -192,7 +192,10 @@ const chordPickerReducer = (state = initialState, action) => {
       };
 
     case actionTypes.UPDATE_CHORD_NAME:
-      return { ...state, chordName: action.name, scaleName: "" };
+      return {
+        ...state,
+        chordName: action.name,
+      };
 
     /*case actionTypes.UPDATE_SCALE_NAME:
       return { ...state, chordName: "", scaleName: action.name };
@@ -249,11 +252,16 @@ const chordPickerReducer = (state = initialState, action) => {
         forceSharps =
           newRootDisplayName.alt === "♯" || newRootDisplayName.alt === "𝄪";
       }
+      const modeName = state.scaleInfo.modes[action.modeIndex].hasOwnProperty(
+        "shortName"
+      )
+        ? state.scaleInfo.modes[action.modeIndex].shortName
+        : state.scaleInfo.modes[action.modeIndex].fullName;
       return {
         ...state,
         modeIndex: action.modeIndex,
         rootNote: newRoot,
-        scaleName: action.modeName,
+        scaleName: modeName,
         selected: rebuildSelected(
           newRoot,
           forceFlats ? true : forceSharps ? false : state.useFlats,
@@ -273,9 +281,9 @@ const chordPickerReducer = (state = initialState, action) => {
     case actionTypes.REINIT_SELECTION:
       return {
         ...state,
-        chordName: "",
-        selected: [],
         rootNote: "",
+        selected: [],
+        chordName: "",
         scaleName: "",
         scaleInfo: null,
         modeIndex: 0,

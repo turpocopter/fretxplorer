@@ -144,7 +144,7 @@ const SeventhForm = (props) => {
       seventh !== "none" &&
       selected.filter((el) => el.degree > 5 && el.degree !== 7).length === 0
     ) {
-      setTmpChordName(rootName + seventhList[seventh].nameChord(selected));
+      setTmpChordName(seventhList[seventh].nameChord(selected));
     }
   }, [seventh, rootName, selected, setTmpChordName]);
 

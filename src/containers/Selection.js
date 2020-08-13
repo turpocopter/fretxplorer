@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import useNoteNames from "hooks/noteNames";
 
 const useStyles = makeStyles((theme) => {
   let chordTablet;
@@ -77,6 +78,7 @@ const Selection = ({ type }) => {
   const namingConvention = useSelector((state) => state.settings.noteNaming);
   const classes = useStyles();
   const biggerButton = useMediaQuery("(min-width: 600px)");
+  const { translateNote } = useNoteNames(namingConvention);
   //const largeScreen = useMediaQuery('(min-height: 768px) and (orientation: landscape)');
 
   const rootNoteValue = rootNote + (rootNote >= 4 ? 36 : 48); // on la veut à la 3è octave de la librairie (ou 4è si entre C et D#)
@@ -88,56 +90,80 @@ const Selection = ({ type }) => {
   const onDiscardSelection = () => {
     return dispatch(actions.reinitSelection());
   };
-  const onChangeMode = (modeIndex, modeName) => {
-    return dispatch(actions.updateMode(modeIndex, modeName, parallelModes));
+  const onChangeMode = (newModeIndex) => {
+    return dispatch(actions.updateMode(newModeIndex, parallelModes));
+  };
+  const onPreviousMode = () => {
+    return dispatch(
+      actions.updateMode(
+        modeIndex > 0 ? modeIndex - 1 : selected.length - 1,
+        parallelModes
+      )
+    );
+  };
+  const onNextMode = () => {
+    return dispatch(
+      actions.updateMode(
+        modeIndex === selected.length - 1 ? 0 : modeIndex + 1,
+        parallelModes
+      )
+    );
   };
   const onToggleParallelModes = () => {
     return dispatch(actions.toggleParallelModes());
   };
-
+  console.log("RENDER", selected.length);
   return (
-    <div className={classes.paper}>
-      <div className={classes.chordHeader}>
-        <Typography
-          className={classes.title}
-          variant='h5'
-          component='h2'
-          color='primary'
-          dangerouslySetInnerHTML={{
-            __html: sanitize(type === "scale" ? scaleName : chordName),
-          }}
-        />
-        <div className={classes.buttonWrapper}>
-          <Button
-            className={classes.button}
-            variant='contained'
+    selected.length > 0 && (
+      <div className={classes.paper}>
+        <div className={classes.chordHeader}>
+          <Typography
+            className={classes.title}
+            variant='h5'
+            component='h2'
             color='primary'
-            size={biggerButton ? "medium" : "small"}
-            onClick={onDiscardSelection}
-          >
-            Pick&nbsp;Another
-          </Button>
-        </div>
-      </div>
-      <Notes
-        selectionType={type}
-        selectedWithValues={selectedWithValues}
-        namingConvention={namingConvention}
-      ></Notes>
-      {scaleInfo !== null &&
-        scaleInfo.hasOwnProperty("modes") &&
-        scaleInfo.modes !== null && (
-          <Modes
-            modes={scaleInfo.modes}
-            current={modeIndex}
-            setCurrent={onChangeMode}
-            selected={selected}
-            parallelModes={parallelModes}
-            toggleParallelModes={onToggleParallelModes}
-            namingConvention={namingConvention}
+            dangerouslySetInnerHTML={{
+              __html: sanitize(
+                `${translateNote(selected[0].displayName)}${
+                  type === "scale" ? " " + scaleName : chordName
+                }`
+              ),
+            }}
           />
-        )}
-    </div>
+          <div className={classes.buttonWrapper}>
+            <Button
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              size={biggerButton ? "medium" : "small"}
+              onClick={onDiscardSelection}
+            >
+              Pick&nbsp;Another
+            </Button>
+          </div>
+        </div>
+        <Notes
+          selectionType={type}
+          selectedWithValues={selectedWithValues}
+          namingConvention={namingConvention}
+        ></Notes>
+        {scaleInfo !== null &&
+          scaleInfo.hasOwnProperty("modes") &&
+          scaleInfo.modes !== null && (
+            <Modes
+              modes={scaleInfo.modes}
+              current={modeIndex}
+              setCurrent={onChangeMode}
+              pickPrevious={onPreviousMode}
+              pickNext={onNextMode}
+              selected={selected}
+              parallelModes={parallelModes}
+              toggleParallelModes={onToggleParallelModes}
+              namingConvention={namingConvention}
+            />
+          )}
+      </div>
+    )
   );
 };
 

@@ -209,7 +209,9 @@ const ChordPickerForm = () => {
                 onClick={onPickChord}
               >
                 PICK&nbsp;
-                <span dangerouslySetInnerHTML={{ __html: tmpChordName }} />
+                <span
+                  dangerouslySetInnerHTML={{ __html: rootName + tmpChordName }}
+                />
               </Button>
             </FormControl>
           </div>

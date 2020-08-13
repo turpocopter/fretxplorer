@@ -136,7 +136,7 @@ const QualityForm = (props) => {
 
   useEffect(() => {
     if (quality !== "" && selected.filter((el) => el.degree > 5).length === 0) {
-      setTmpChordName(rootName + chordQualities[quality].symbol);
+      setTmpChordName(chordQualities[quality].symbol);
     }
   }, [quality, rootName, selected, setTmpChordName]);
 
