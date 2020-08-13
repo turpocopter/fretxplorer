@@ -111,6 +111,9 @@ const Modes = ({
             const modeName = mode.hasOwnProperty("shortName")
               ? mode.shortName
               : mode.fullName;
+            const displayName = mode.hasOwnProperty("listName")
+              ? mode.listName
+              : modeName;
             return (
               <MenuItem
                 key={i}
@@ -118,7 +121,7 @@ const Modes = ({
                 data-name={`${rootForMode} ${modeName}`}
                 className={classes.option}
               >
-                {`${rootForMode} ${modeName}`}
+                {`${rootForMode} ${displayName}`}
               </MenuItem>
             );
           })}

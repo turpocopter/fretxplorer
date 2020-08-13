@@ -210,9 +210,10 @@ const scales = [
         semitonesFromRoot: [0, 2, 4, 5, 7, 9, 11],
         modes: [
           {
-            shortName: "Ionian",
-            fullName: "Ionian mode",
-            aliases: ["major scale"],
+            shortName: "Major",
+            fullName: "Major scale",
+            listName: "Ionian",
+            aliases: ["Ionian"],
           },
           {
             shortName: "Dorian",
@@ -231,9 +232,10 @@ const scales = [
             fullName: "Mixolydian mode",
           },
           {
-            shortName: "Aeolian",
-            fullName: "Aeolian mode",
-            aliases: ["Natural minor scale"],
+            shortName: "minor",
+            fullName: "Natural minor scale",
+            listName: "Aeolian",
+            aliases: ["Aeolian"],
           },
           {
             shortName: "Locrian",
@@ -289,6 +291,7 @@ const scales = [
             aliases: ["half-diminished scale", "Aeolocrian"],
           },
           {
+            shortName: "altered",
             fullName: "Altered scale",
             aliases: ["altered dominant scale", "Super Locrian"],
           },
