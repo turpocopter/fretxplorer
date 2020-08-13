@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 import { sanitize } from "dompurify";
 import Notes from "components/Selection/Notes";
+import Modes from "components/Selection/Modes";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
@@ -67,6 +69,9 @@ const Selection = ({ type }) => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
   const scaleName = useSelector((state) => state.notePicker.scaleName);
+  const scaleInfo = useSelector((state) => state.notePicker.scaleInfo);
+  const modeIndex = useSelector((state) => state.notePicker.modeIndex);
+  const parallelModes = useSelector((state) => state.settings.parallelModes);
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
@@ -82,6 +87,9 @@ const Selection = ({ type }) => {
 
   const onDiscardSelection = () => {
     return dispatch(actions.reinitSelection());
+  };
+  const onChangeMode = (modeIndex, modeName) => {
+    return dispatch(actions.updateMode(modeIndex, modeName));
   };
 
   return (
@@ -113,6 +121,18 @@ const Selection = ({ type }) => {
         selectedWithValues={selectedWithValues}
         namingConvention={namingConvention}
       ></Notes>
+      {scaleInfo !== null &&
+        scaleInfo.hasOwnProperty("modes") &&
+        scaleInfo.modes !== null && (
+          <Modes
+            modes={scaleInfo.modes}
+            current={modeIndex}
+            setCurrent={onChangeMode}
+            selected={selected}
+            parallelModes={parallelModes}
+            namingConvention={namingConvention}
+          />
+        )}
     </div>
   );
 };

@@ -14,6 +14,7 @@ const initialState = {
   leftHanded: false,
   showIntervals: false, // show intervals instead of note names
   tuning: [...defaultTuning],
+  parallelModes: false, // modes have common root instead of common notes
 };
 
 const settingsReducer = (state = initialState, action) => {

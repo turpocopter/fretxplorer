@@ -13,20 +13,25 @@ const isNatural = (index) => INTERVALS[index] !== null;
  * @param {boolean} useFlats if root note is not natural, whether name should contain a flat or a sharp
  * @param {int} degree which degree of the chord our goal note represents
  * @param {int} semitonesFromRoot how many semytones apart from root note it is
+ * @param {int} forcedNaturalRootName (optional) "note name" (0 for C, 1 for D... 6 for B) you want to force for the root (ex: 0 if you want your root interpreted as C♭ rather than B, 4 if you want your root interpreted as G## rather than A, etc...)
  * @returns {object} with id property for the name of the note (0 for C, 1 for D... 6 for B) and alt property ('','♭','#','♭♭' or '##')
  */
 export const computeDisplayName = (
   rootNoteIndex,
   useFlats,
   degree,
-  semitonesFromRoot
+  semitonesFromRoot,
+  forcedNaturalRootNoteName = null
 ) => {
   // index of destination note
   const noteIndex = (rootNoteIndex + semitonesFromRoot) % 12;
   // index of root note without alteration
-  const naturalRootNoteIndex = isNatural(rootNoteIndex)
-    ? rootNoteIndex
-    : rootNoteIndex + (useFlats ? 1 : -1);
+  const naturalRootNoteIndex =
+    forcedNaturalRootNoteName !== null
+      ? INTERVALS.indexOf(forcedNaturalRootNoteName + 1)
+      : isNatural(rootNoteIndex)
+      ? rootNoteIndex
+      : rootNoteIndex + (useFlats ? 1 : -1);
   let noteName;
   let semitonesDelta;
   // if no formal degree is wanted - pick the closest natural
@@ -99,6 +104,19 @@ export const computeDisplayInterval = (degree, semitonesFromRoot) => {
     default:
   }
   return alteration + degree;
+};
+
+/**
+ * Computes list of semitone intervals for a mode
+ * @param {array} scaleSemitonesFromRoot  list of semitone intervals for reference scale
+ * @param {int} mode index of mode in scale (starts with 0!)
+ * @returns {array} list of semitone intervals for mode
+ */
+export const computeModeSemitones = (scaleSemitonesFromRoot, mode) => {
+  return scaleSemitonesFromRoot
+    .slice(mode)
+    .concat(scaleSemitonesFromRoot.slice(0, mode))
+    .map((el) => (el + 12 - scaleSemitonesFromRoot[mode]) % 12);
 };
 
 /**

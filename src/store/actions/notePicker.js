@@ -41,17 +41,37 @@ export const updateChordName = (name) => {
   };
 };
 
-export const updateScaleName = (name) => {
+/*export const updateScaleName = (name) => {
   return {
     type: actionTypes.UPDATE_SCALE_NAME,
     name,
   };
+};*/
+
+export const updateScaleInfo = (scaleName, scaleInfo) => {
+  return {
+    type: actionTypes.UPDATE_SCALE_INFO,
+    scaleName,
+    scaleInfo,
+  };
 };
 
-export const updateScaleNotes = (selected) => {
+export const updateScaleNotes = (
+  semitonesFromRoot,
+  displayIntervals = null
+) => {
   return {
     type: actionTypes.UPDATE_SCALE_NOTES,
-    selected,
+    semitonesFromRoot,
+    displayIntervals,
+  };
+};
+
+export const updateMode = (modeIndex, modeName) => {
+  return {
+    type: actionTypes.UPDATE_MODE,
+    modeIndex,
+    modeName,
   };
 };
 

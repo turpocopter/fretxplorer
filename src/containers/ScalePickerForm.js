@@ -12,6 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import useNoteNames from "hooks/noteNames";
+import { computeModeSemitones } from "utility/intervals";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -243,7 +244,7 @@ const scales = [
       {
         shortName: "minor",
         fullName: "Natural minor scale",
-        relatedTo: { name: "Major scale", mode: 6 },
+        relatedTo: { name: "Major scale", mode: 5 },
       },
       {
         shortName: "melodic minor ascending",
@@ -325,7 +326,7 @@ const scales = [
       {
         shortName: "double harmonic",
         fullName: "Double harmonic scale",
-        semitonesFromRoot: [0, 1, 4, 5, 6, 8, 11],
+        semitonesFromRoot: [0, 1, 4, 5, 7, 8, 11],
         modes: [
           {
             shortName: "double harmonic major",
@@ -366,7 +367,7 @@ const scales = [
             fullName: "Suspended pentatonic",
             aliases: "Egyptian pentatonic",
             subtitle: "based on the Dorian mode",
-            displayIntervals: ["R", 2, 4, 5, "♭6"],
+            displayIntervals: ["R", 2, 4, 5, "♭7"],
           },
           {
             shortName: "blues minor pentatonic",
@@ -391,7 +392,7 @@ const scales = [
       {
         shortName: "pentatonic minor",
         fullName: "Pentatonic minor scale",
-        relatedTo: { name: "Pentatonic major scale", mode: 5 },
+        relatedTo: { name: "Pentatonic major scale", mode: 4 },
       },
       {
         shortName: "blues hexatonic",
@@ -457,7 +458,7 @@ const scales = [
         fullName: "Whole tone scale",
         aliases: ["Messiaen's first mode"],
         semitonesFromRoot: [0, 2, 4, 6, 8, 10],
-        displayIntervals: ["R", "N", "N", "N", "N", "N"],
+        displayIntervals: ["R", "2", "3", "#4", "#5", "#6"],
       },
       {
         shortName: "augmented",
@@ -541,95 +542,74 @@ const ScalePickerForm = ({ onPick }) => {
   //const modeName = useSelector((state) => state.notePicker.scaleName);
   //const selected = useSelector((state) => state.notePicker.selected);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
-  const [tmpScaleName, setTmpScaleName] = useState("");
+  const [tmpScaleInfo, setTmpScaleInfo] = useState(null);
   const { getNoteName } = useNoteNames(noteNaming);
   const classes = useStyles();
 
   const rootName = getNoteName(rootNote, useFlats);
 
-  const computeModeSemitones = (scaleSemitonesFromRoot, mode) => {
-    return scaleSemitonesFromRoot
-      .slice(mode - 1)
-      .concat(scaleSemitonesFromRoot.slice(0, mode - 1))
-      .map((el) => (el + 12 - scaleSemitonesFromRoot[mode - 1]) % 12);
-  };
-
   const onUpdateRoot = (rootNote) => {
     return dispatch(actions.updateRoot(rootNote, noteNaming));
   };
   const onToggleFlats = () => dispatch(actions.toggleFlats(noteNaming));
-  const onUpdateScale = (scaleName, semitonesFromRoot, displayIntervals) => {
-    setTmpScaleName(scaleName);
-    let newSelected;
-    // if displayIntervals is an array: intervals can be mapped to semitones
-    if (displayIntervals != null) {
-      newSelected = semitonesFromRoot.map((el, i) => ({
-        semitonesFromRoot: el,
-        degree:
-          displayIntervals[i] === "R"
-            ? 1
-            : displayIntervals[i] === "N"
-            ? "N"
-            : parseInt(displayIntervals[i].toString().replace(/\D/g, "")),
-        displayInterval: displayIntervals[i],
-      }));
+
+  const onUpdateScale = (fullName, category) => {
+    let semitonesFromRoot = [];
+    let displayIntervals;
+    const catObj = scales.find((cat) => cat.category === category);
+    const scaleObj = {
+      ...catObj.scales.find((sc) => sc.fullName === fullName),
+    };
+    if (scaleObj.hasOwnProperty("relatedTo")) {
+      // find the related scale
+      const refScale = catObj.scales.find(
+        (sc) => sc.fullName === scaleObj.relatedTo.name
+      );
+      semitonesFromRoot = computeModeSemitones(
+        refScale.semitonesFromRoot,
+        scaleObj.relatedTo.mode
+      );
+      displayIntervals = refScale.modes[scaleObj.relatedTo.mode].hasOwnProperty(
+        "displayIntervals"
+      )
+        ? refScale.modes[scaleObj.relatedTo.mode].displayIntervals
+        : null;
+      scaleObj.relatedTo.scaleInfo = refScale;
+    } else {
+      semitonesFromRoot = scaleObj.semitonesFromRoot;
+      displayIntervals = scaleObj.hasOwnProperty("displayIntervals")
+        ? scaleObj.displayIntervals
+        : null;
     }
-    // otherwise we just map degrees to semitones, and the intervals will be calculated by the reducer&
-    else {
-      newSelected = semitonesFromRoot.map((el, i) => ({
-        semitonesFromRoot: el,
-        degree: i + 1,
-      }));
-    }
-    return dispatch(actions.updateScaleNotes(newSelected));
+    setTmpScaleInfo(scaleObj);
+    return dispatch(
+      actions.updateScaleNotes(semitonesFromRoot, displayIntervals)
+    );
   };
   const onPickScale = () => {
-    console.log("NAME: " + rootName + " " + tmpScaleName);
-    dispatch(actions.updateScaleName(rootName + " " + tmpScaleName));
+    dispatch(
+      actions.updateScaleInfo(
+        rootName +
+          " " +
+          (tmpScaleInfo.hasOwnProperty("shortName")
+            ? tmpScaleInfo.shortName
+            : tmpScaleInfo.fullName),
+        tmpScaleInfo
+      )
+    );
   };
 
   const scaleListContents = scales.map((cat) => {
     const catItems = cat.scales.map((el) => {
-      let semitonesFromRoot = [];
-      let displayIntervals;
-      if (el.hasOwnProperty("relatedTo")) {
-        // find the related scale
-        const refScale = cat.scales.find(
-          (sc) => sc.fullName === el.relatedTo.name
-        );
-        semitonesFromRoot = computeModeSemitones(
-          refScale.semitonesFromRoot,
-          el.relatedTo.mode
-        );
-        displayIntervals = refScale.modes[el.relatedTo.mode - 1].hasOwnProperty(
-          "displayIntervals"
-        )
-          ? refScale.modes[el.relatedTo.mode - 1].displayIntervals
-          : null;
-        console.log(refScale);
-      } else {
-        semitonesFromRoot = el.semitonesFromRoot;
-        displayIntervals = el.hasOwnProperty("displayIntervals")
-          ? el.displayIntervals
-          : null;
-      }
-      if (el.fullName === "Pentatonic minor scale") {
-      }
       return (
         <MenuItem
           key={el.name}
-          value={el.hasOwnProperty("shortName") ? el.shortName : el.fullName}
+          value={el.fullName}
           className={classes.option}
-          data-semitonesfromroot={JSON.stringify(semitonesFromRoot)}
-          data-displayintervals={
-            displayIntervals !== null ? JSON.stringify(displayIntervals) : ""
-          }
+          data-category={cat.category}
         >
           {el.fullName.replace(" scale", "")}
           {el.fullName.includes(" scale") && <span>&nbsp;scale</span>}
-          {/*el.hasOwnProperty("subtitle") && (
-          <span>&nbsp;{` (${el.subtitle})`}</span>
-        )*/}
         </MenuItem>
       );
     });
@@ -671,18 +651,12 @@ const ScalePickerForm = ({ onPick }) => {
                 select
                 label='Scale'
                 className={classes.textField}
-                value={tmpScaleName}
+                value={tmpScaleInfo !== null ? tmpScaleInfo.fullName : ""}
                 onChange={(e) => {
-                  console.log(e.target);
                   if (e.target.value !== undefined) {
                     onUpdateScale(
                       e.target.value,
-                      e.currentTarget.dataset.semitonesfromroot !== ""
-                        ? JSON.parse(e.currentTarget.dataset.semitonesfromroot)
-                        : null,
-                      e.currentTarget.dataset.displayintervals !== ""
-                        ? JSON.parse(e.currentTarget.dataset.displayintervals)
-                        : null
+                      e.currentTarget.dataset.category
                     );
                   } else {
                     e.preventDefault();
@@ -704,7 +678,12 @@ const ScalePickerForm = ({ onPick }) => {
             </FormControl>
           </div>
         </Fade>
-        <Fade in={tmpScaleName !== ""} mountOnEnter unmountOnExit timeout={700}>
+        <Fade
+          in={tmpScaleInfo !== null}
+          mountOnEnter
+          unmountOnExit
+          timeout={700}
+        >
           <div>
             <FormControl className={classes.buttonWrapper}>
               <Button
@@ -714,7 +693,12 @@ const ScalePickerForm = ({ onPick }) => {
                 size='large'
                 onClick={onPickScale}
               >
-                PICK {rootName} {tmpScaleName}
+                PICK {rootName}{" "}
+                {tmpScaleInfo !== null
+                  ? tmpScaleInfo.hasOwnProperty("shortName")
+                    ? tmpScaleInfo.shortName
+                    : tmpScaleInfo.fullName
+                  : null}
               </Button>
             </FormControl>
           </div>
