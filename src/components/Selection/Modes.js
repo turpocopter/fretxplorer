@@ -3,6 +3,7 @@ import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
+import Switch from "@material-ui/core/Switch";
 import useNotes from "hooks/noteNames";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -69,6 +70,7 @@ const Modes = ({
   current,
   setCurrent,
   parallelModes,
+  toggleParallelModes,
   namingConvention,
 }) => {
   const classes = useStyles();
@@ -102,7 +104,7 @@ const Modes = ({
             const rootForMode = translateNote(
               selected[
                 parallelModes
-                  ? current
+                  ? 0
                   : (selected.length + i - current) % selected.length
               ].displayName
             );
@@ -122,6 +124,18 @@ const Modes = ({
           })}
         </TextField>
       </FormControl>
+
+      <div className={classes.modeSwitch}>
+        <label className={classes.flatSwitch}>
+          <span>Relative modes</span>
+          <Switch
+            checked={parallelModes}
+            onChange={toggleParallelModes}
+            color='default'
+          />
+          <span>Parallel modes </span>
+        </label>
+      </div>
     </div>
   );
 };

@@ -89,7 +89,10 @@ const Selection = ({ type }) => {
     return dispatch(actions.reinitSelection());
   };
   const onChangeMode = (modeIndex, modeName) => {
-    return dispatch(actions.updateMode(modeIndex, modeName));
+    return dispatch(actions.updateMode(modeIndex, modeName, parallelModes));
+  };
+  const onToggleParallelModes = () => {
+    return dispatch(actions.toggleParallelModes());
   };
 
   return (
@@ -130,6 +133,7 @@ const Selection = ({ type }) => {
             setCurrent={onChangeMode}
             selected={selected}
             parallelModes={parallelModes}
+            toggleParallelModes={onToggleParallelModes}
             namingConvention={namingConvention}
           />
         )}

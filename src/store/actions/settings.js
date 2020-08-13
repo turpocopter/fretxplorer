@@ -52,6 +52,12 @@ export const setTuningPreset = (tuning) => {
   };
 };
 
+export const toggleParallelModes = () => {
+  return {
+    type: actionTypes.TOGGLE_PARALLEL_MODES,
+  };
+};
+
 export const checkLocalSettings = () => {
   return {
     type: actionTypes.CHECK_LOCAL_SETTINGS,

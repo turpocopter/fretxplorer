@@ -67,11 +67,12 @@ export const updateScaleNotes = (
   };
 };
 
-export const updateMode = (modeIndex, modeName) => {
+export const updateMode = (modeIndex, modeName, keepRoot = false) => {
   return {
     type: actionTypes.UPDATE_MODE,
     modeIndex,
     modeName,
+    keepRoot,
   };
 };
 

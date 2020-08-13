@@ -233,16 +233,22 @@ const chordPickerReducer = (state = initialState, action) => {
             state.scaleInfo.semitonesFromRoot[state.modeIndex] +
             state.scaleInfo.semitonesFromRoot[action.modeIndex]) %
           12;
-      // find current alteration of root for new mode, to know if we should force flats or sharps
-      const newRootDisplayName =
-        state.selected[
-          (state.selected.length + action.modeIndex - state.modeIndex) %
-            state.selected.length
-        ].displayName;
-      const forceFlats =
-        newRootDisplayName.alt === "♭" || newRootDisplayName.alt === "𝄫";
-      const forceSharps =
-        newRootDisplayName.alt === "♯" || newRootDisplayName.alt === "𝄪";
+      let forceFlats = false;
+      let forceSharps = false;
+      let newRootDisplayName = null;
+      //when using relative modes, check alteration of new tonic to determine if flats or sharps should be forced
+      if (!action.keepRoot) {
+        newRootDisplayName =
+          state.selected[
+            (state.selected.length + action.modeIndex - state.modeIndex) %
+              state.selected.length
+          ].displayName;
+        console.log(newRootDisplayName);
+        forceFlats =
+          newRootDisplayName.alt === "♭" || newRootDisplayName.alt === "𝄫";
+        forceSharps =
+          newRootDisplayName.alt === "♯" || newRootDisplayName.alt === "𝄪";
+      }
       return {
         ...state,
         modeIndex: action.modeIndex,

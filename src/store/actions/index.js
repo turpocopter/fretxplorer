@@ -29,5 +29,6 @@ export {
   tuneUpAll,
   tuneDownAll,
   setTuningPreset,
+  toggleParallelModes,
   checkLocalSettings,
 } from "./settings";

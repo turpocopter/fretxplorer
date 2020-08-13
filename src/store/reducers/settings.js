@@ -92,6 +92,11 @@ const settingsReducer = (state = initialState, action) => {
         JSON.stringify(newTuningPreset)
       );
       return { ...state, tuning: newTuningPreset };
+    case actionTypes.TOGGLE_PARALLEL_MODES:
+      return {
+        ...state,
+        parallelModes: !state.parallelModes,
+      };
     case actionTypes.CHECK_LOCAL_SETTINGS:
       const localNoteNaming = localStorage.getItem("fretxplorerNoteNaming");
       const localLeftHanded = localStorage.getItem("fretxplorerLeftHanded");
