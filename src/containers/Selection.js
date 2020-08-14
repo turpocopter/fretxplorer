@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 import { sanitize } from "dompurify";
 import Notes from "components/Selection/Notes";
-import Modes from "components/Selection/Modes";
+//import Modes from "components/Selection/Modes";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
@@ -46,7 +46,14 @@ const useStyles = makeStyles((theme) => {
         fontSize: "1em",
       },
     },
-    chordHeader: {
+    scaleInfo: {
+      //position: "sticky",
+      //top: 0,
+      //zIndex: 100,
+      //backgroundColor: theme.palette.background.main,
+      width: "100%",
+    },
+    scaleHeader: {
       width: "100%",
       display: "flex",
       flexDirection: "row",
@@ -70,9 +77,9 @@ const Selection = ({ type }) => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
   const scaleName = useSelector((state) => state.notePicker.scaleName);
-  const scaleInfo = useSelector((state) => state.notePicker.scaleInfo);
-  const modeIndex = useSelector((state) => state.notePicker.modeIndex);
-  const parallelModes = useSelector((state) => state.settings.parallelModes);
+  //const scaleInfo = useSelector((state) => state.notePicker.scaleInfo);
+  //const modeIndex = useSelector((state) => state.notePicker.modeIndex);
+  //const parallelModes = useSelector((state) => state.settings.parallelModes);
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
@@ -90,64 +97,45 @@ const Selection = ({ type }) => {
   const onDiscardSelection = () => {
     return dispatch(actions.reinitSelection());
   };
-  const onChangeMode = (newModeIndex) => {
-    return dispatch(actions.updateMode(newModeIndex, parallelModes));
-  };
-  const onPreviousMode = () => {
-    return dispatch(
-      actions.updateMode(
-        modeIndex > 0 ? modeIndex - 1 : selected.length - 1,
-        parallelModes
-      )
-    );
-  };
-  const onNextMode = () => {
-    return dispatch(
-      actions.updateMode(
-        modeIndex === selected.length - 1 ? 0 : modeIndex + 1,
-        parallelModes
-      )
-    );
-  };
-  const onToggleParallelModes = () => {
-    return dispatch(actions.toggleParallelModes());
-  };
+
   console.log("RENDER", selected.length);
   return (
     selected.length > 0 && (
       <div className={classes.paper}>
-        <div className={classes.chordHeader}>
-          <Typography
-            className={classes.title}
-            variant='h5'
-            component='h2'
-            color='primary'
-            dangerouslySetInnerHTML={{
-              __html: sanitize(
-                `${translateNote(selected[0].displayName)}${
-                  type === "scale" ? " " + scaleName : chordName
-                }`
-              ),
-            }}
-          />
-          <div className={classes.buttonWrapper}>
-            <Button
-              className={classes.button}
-              variant='contained'
+        <div className={classes.scaleInfo}>
+          <div className={classes.scaleHeader}>
+            <Typography
+              className={classes.title}
+              variant='h5'
+              component='h2'
               color='primary'
-              size={biggerButton ? "medium" : "small"}
-              onClick={onDiscardSelection}
-            >
-              Pick&nbsp;Another
-            </Button>
+              dangerouslySetInnerHTML={{
+                __html: sanitize(
+                  `${translateNote(selected[0].displayName)}${
+                    type === "scale" ? " " + scaleName : chordName
+                  }`
+                ),
+              }}
+            />
+            <div className={classes.buttonWrapper}>
+              <Button
+                className={classes.button}
+                variant='contained'
+                color='primary'
+                size={biggerButton ? "medium" : "small"}
+                onClick={onDiscardSelection}
+              >
+                Pick&nbsp;Another
+              </Button>
+            </div>
           </div>
+          <Notes
+            selectionType={type}
+            selectedWithValues={selectedWithValues}
+            namingConvention={namingConvention}
+          ></Notes>
         </div>
-        <Notes
-          selectionType={type}
-          selectedWithValues={selectedWithValues}
-          namingConvention={namingConvention}
-        ></Notes>
-        {scaleInfo !== null &&
+        {/*scaleInfo !== null &&
           scaleInfo.hasOwnProperty("modes") &&
           scaleInfo.modes !== null && (
             <Modes
@@ -161,7 +149,7 @@ const Selection = ({ type }) => {
               toggleParallelModes={onToggleParallelModes}
               namingConvention={namingConvention}
             />
-          )}
+          )*/}
       </div>
     )
   );

@@ -13,21 +13,38 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => {
   let formControlTablet;
+  let flexControls;
   return {
     root: {
-      marginTop: "1em",
+      /*marginTop: "1em",
       borderTop: `1px solid ${theme.palette.gray.light}`,
       paddingTop: 4,
-      width: "100%",
+      width: "100%",*/
+      paddingLeft: 16,
+      paddingRight: 16,
+      [theme.breakpoints.up("sm")]: {
+        paddingLeft: 24,
+        paddingRight: 24,
+      },
     },
     wrapper: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
+      borderBottom: "1px solid #ddd",
     },
     mainCtrlsWrapper: {
       flexGrow: 1,
       textAlign: "center",
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (orientation:landscape)`]: (flexControls = {
+        display: "flex",
+        flexFlow: "row nowrap",
+        justifyContent: "space-around",
+        alignItems: "center",
+      }),
+      "@media (min-width: 800px) and (orientation: portrait)": flexControls,
     },
     formControl: {
       textAlign: "left",
@@ -43,6 +60,11 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up(
         "md"
       )} and (orientation: landscape)`]: formControlTablet,
+    },
+    textField: {
+      [theme.breakpoints.up("sm")]: {
+        marginBottom: 16,
+      },
     },
     select: {
       fontSize: "0.95em",
@@ -78,6 +100,11 @@ const useStyles = makeStyles((theme) => {
     },
     modeSwitch: {
       textAlign: "center",
+      [`${theme.breakpoints.up(
+        "sm"
+      )} and (max-width: 799px) and (orientation: portrait)`]: {
+        marginBottom: "0.8em",
+      },
     },
     flatSwitch: {
       fontSize: "0.9em",
@@ -96,6 +123,12 @@ const useStyles = makeStyles((theme) => {
       },
       "@media (min-height: 768px) and (orientation: landscape)": {
         fontSize: "1em",
+      },
+    },
+    switchLabelExtras: {
+      //[`${theme.breakpoints.up("sm")} and ()`]: {
+      "@media (orientation: landscape)": {
+        display: "none",
       },
     },
     btnPrevious: {
@@ -123,7 +156,7 @@ const Modes = ({
   return (
     <div className={classes.root}>
       <div className={classes.wrapper}>
-        <div className={`${classes.btnWrapper} ${classes.btnPrevious}`}>
+        <div className={classes.btnPrevious}>
           <IconButton aria-label='delete' onClick={pickPrevious}>
             <NavigateBeforeIcon fontSize='large' />
           </IconButton>
@@ -181,17 +214,17 @@ const Modes = ({
           </FormControl>
           <div className={classes.modeSwitch}>
             <label className={classes.flatSwitch}>
-              Relative <span>modes</span>
+              Relative <span className={classes.switchLabelExtras}>modes</span>
               <Switch
                 checked={parallelModes}
                 onChange={toggleParallelModes}
                 color='default'
               />
-              Parallel <span>modes</span>
+              Parallel <span className={classes.switchLabelExtras}>modes</span>
             </label>
           </div>
         </div>
-        <div className={`${classes.btnWrapper} ${classes.btnNext}`}>
+        <div className={classes.btnNext}>
           <IconButton aria-label='delete' onClick={pickNext}>
             <NavigateNextIcon fontSize='large' />
           </IconButton>

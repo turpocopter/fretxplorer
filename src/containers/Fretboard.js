@@ -14,6 +14,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 const useStyles = makeStyles((theme) => ({
   fretboardRoot: {
     position: "relative",
+    marginTop: 8,
     "@media (orientation: landscape)": {
       display: "flex",
       flexFlow: "row nowrap",

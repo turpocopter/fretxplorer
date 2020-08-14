@@ -8,6 +8,7 @@ import Fretboard from "containers/Fretboard";
 import Selection from "containers/Selection";
 import Tuning from "containers/Tuning";
 import Fader from "react-fader";
+import Modes from "components/Selection/Modes";
 import { makeStyles } from "@material-ui/core/styles";
 
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -34,7 +35,6 @@ const useStyles = makeStyles((theme) => {
       paddingBottom: "0!important",
       paddingLeft: 16,
       paddingRight: 16,
-      marginBottom: 8,
       [theme.breakpoints.up("sm")]: {
         paddingLeft: 24,
         paddingRight: 24,
@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => {
         marginTop: -10,
       },
     },
+    modesContainer: {},
     persistentTuner: {
       display: "none",
       "@media (min-height: 768px) and (orientation: landscape)": {
@@ -96,8 +97,33 @@ const ScalePicker = () => {
   const dispatch = useDispatch();
   const scaleName = useSelector((state) => state.notePicker.scaleName);
   const showIntervals = useSelector((state) => state.settings.showIntervals);
-  //const selectedNotes = useSelector((state) => state.notePicker.selectedNotes);
-  //const [modes, setModes] = useState(null);
+  const scaleInfo = useSelector((state) => state.notePicker.scaleInfo);
+  const modeIndex = useSelector((state) => state.notePicker.modeIndex);
+  const parallelModes = useSelector((state) => state.settings.parallelModes);
+  const selected = useSelector((state) => state.notePicker.selected);
+  const namingConvention = useSelector((state) => state.settings.noteNaming);
+  const onChangeMode = (newModeIndex) => {
+    return dispatch(actions.updateMode(newModeIndex, parallelModes));
+  };
+  const onPreviousMode = () => {
+    return dispatch(
+      actions.updateMode(
+        modeIndex > 0 ? modeIndex - 1 : selected.length - 1,
+        parallelModes
+      )
+    );
+  };
+  const onNextMode = () => {
+    return dispatch(
+      actions.updateMode(
+        modeIndex === selected.length - 1 ? 0 : modeIndex + 1,
+        parallelModes
+      )
+    );
+  };
+  const onToggleParallelModes = () => {
+    return dispatch(actions.toggleParallelModes());
+  };
 
   const classes = useStyles({ scaleName });
 
@@ -139,6 +165,23 @@ const ScalePicker = () => {
           </div>
         </div>
       </div>
+      {scaleInfo !== null &&
+        scaleInfo.hasOwnProperty("modes") &&
+        scaleInfo.modes !== null && (
+          <div className={classes.modesContainer}>
+            <Modes
+              modes={scaleInfo.modes}
+              current={modeIndex}
+              setCurrent={onChangeMode}
+              pickPrevious={onPreviousMode}
+              pickNext={onNextMode}
+              selected={selected}
+              parallelModes={parallelModes}
+              toggleParallelModes={onToggleParallelModes}
+              namingConvention={namingConvention}
+            />
+          </div>
+        )}
       <div key='fretboardContainer' className={classes.fretboardContainer}>
         <Fretboard />
       </div>
