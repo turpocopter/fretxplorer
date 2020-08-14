@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         margin: "8px 0",
       },
     },
-    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
+    "@media (min-height: 740px) and (max-width: 1589px) and (orientation: landscape)": {
       "& > .MuiTextField-root": {
         margin: "8px 0",
       },
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: 32,
       },
     },
-    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
+    "@media (min-height: 740px) and (max-width: 1589px) and (orientation: landscape)": {
       fontSize: "0.9em",
       "& > .MuiSelect-root": {
         padding: 12,
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
         transform: "translate(11px, -6px) scale(0.7)",
       },
     },
-    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
+    "@media (min-height: 740px) and (max-width: 1589px) and (orientation: landscape)": {
       fontSize: "1em",
       transform: "translate(14px, 14px) scale(1)",
       "&.MuiInputLabel-shrink": {
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "1em!important",
       },
     },
-    "@media (min-height: 768px) and (max-width: 1589px) and (orientation: landscape)": {
+    "@media (min-height: 740px) and (max-width: 1589px) and (orientation: landscape)": {
       "& li": {
         fontSize: "1em!important",
       },

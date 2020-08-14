@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     "@media (orientation: landscape)": {
       marginLeft: 8,
     },
-    "@media (min-height: 768px) and (orientation: landscape)": {
+    "@media (min-height: 740px) and (orientation: landscape)": {
       fontSize: "1em",
     },
   },

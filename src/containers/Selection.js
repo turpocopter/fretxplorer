@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up(
         "md"
       )} and (orientation: landscape)`]: chordTablet,
-      "@media (min-height: 768px) and (orientation: landscape)": {
+      "@media (min-height: 740px) and (orientation: landscape)": {
         paddingTop: 12,
         borderBottom: "none",
         minHeight: "16.6em",
@@ -86,7 +86,7 @@ const Selection = ({ type }) => {
   const classes = useStyles();
   const biggerButton = useMediaQuery("(min-width: 600px)");
   const { translateNote } = useNoteNames(namingConvention);
-  //const largeScreen = useMediaQuery('(min-height: 768px) and (orientation: landscape)');
+  //const largeScreen = useMediaQuery('(min-height: 740px) and (orientation: landscape)');
 
   const rootNoteValue = rootNote + (rootNote >= 4 ? 36 : 48); // on la veut à la 3è octave de la librairie (ou 4è si entre C et D#)
   const selectedWithValues = selected.map((el) => ({
