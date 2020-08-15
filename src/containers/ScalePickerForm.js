@@ -43,10 +43,10 @@ const useStyles = makeStyles((theme) => ({
     },
     "@media (min-height: 740px) and (orientation: landscape)": {
       margin: "0 0 0 6px",
-      minHeight: "16.6em",
+      minHeight: "9.8em",
     },
     "@media (min-height: 840px) and (orientation: landscape)": {
-      minHeight: "19.7em" /*"23.1em",*/,
+      minHeight: "13em",
     },
   },
   paperInner: {

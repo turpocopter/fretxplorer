@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const Selection = ({ type }) => {
+const Selection = ({ children, type }) => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
   const scaleName = useSelector((state) => state.notePicker.scaleName);
@@ -135,21 +135,8 @@ const Selection = ({ type }) => {
             namingConvention={namingConvention}
           ></Notes>
         </div>
-        {/*scaleInfo !== null &&
-          scaleInfo.hasOwnProperty("modes") &&
-          scaleInfo.modes !== null && (
-            <Modes
-              modes={scaleInfo.modes}
-              current={modeIndex}
-              setCurrent={onChangeMode}
-              pickPrevious={onPreviousMode}
-              pickNext={onNextMode}
-              selected={selected}
-              parallelModes={parallelModes}
-              toggleParallelModes={onToggleParallelModes}
-              namingConvention={namingConvention}
-            />
-          )*/}
+        {/* we might have an instance of Modes as child when selection is a scale */}
+        {children}
       </div>
     )
   );

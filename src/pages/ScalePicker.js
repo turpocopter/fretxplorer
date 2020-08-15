@@ -43,10 +43,10 @@ const useStyles = makeStyles((theme) => {
         top: 106,
       },
       "@media (max-height: 739px) and (orientation: landscape)": {
-        display: (props) => props.chordName !== "" && "flex",
-        flexFlow: (props) => props.chordName !== "" && "column nowrap",
-        flexGrow: (props) => props.chordName !== "" && 1,
-        justifyContent: (props) => props.chordName !== "" && "center",
+        display: (props) => props.scaleName !== "" && "flex",
+        flexFlow: (props) => props.scaleName !== "" && "column nowrap",
+        flexGrow: (props) => props.scaleName !== "" && 1,
+        justifyContent: (props) => props.scaleName !== "" && "center",
       },
       "@media (min-height: 740px) and (orientation: landscape)": {
         display: "flex",
@@ -55,12 +55,16 @@ const useStyles = makeStyles((theme) => {
         justifyContent: "space-between",
         marginBottom: -54,
         alignItems: "normal",
-        padding: "0 88px",
+        padding: "0 24px",
+      },
+      "@media (min-height: 740px) and (orientation: landscape) and (min-width: 840px)": {
+        padding: "0 40px",
       },
       "@media (min-height: 840px) and (min-width: 1140px) and (orientation: landscape)": {
         justifyContent: "space-around",
         alignItems: "center",
         marginTop: -10,
+        padding: "0 88px",
       },
     },
     modesContainer: {},
@@ -137,6 +141,21 @@ const ScalePicker = () => {
   useEffect(() => {
     dispatch(actions.reinitSelection());
   }, [dispatch]);
+  const modesComponent = scaleInfo !== null &&
+    scaleInfo.hasOwnProperty("modes") &&
+    scaleInfo.modes !== null && (
+      <Modes
+        modes={scaleInfo.modes}
+        current={modeIndex}
+        setCurrent={onChangeMode}
+        pickPrevious={onPreviousMode}
+        pickNext={onNextMode}
+        selected={selected}
+        parallelModes={parallelModes}
+        toggleParallelModes={onToggleParallelModes}
+        namingConvention={namingConvention}
+      />
+    );
   return (
     <div className={classes.pageContent}>
       <div key='pickerContainer' className={classes.pickerContainer}>
@@ -151,7 +170,9 @@ const ScalePicker = () => {
             {scaleName === "" ? (
               <ScalePickerForm key='picker' />
             ) : (
-              <Selection key='selection' type='scale' />
+              <Selection key='selection' type='scale'>
+                {isBigScreen && modesComponent}
+              </Selection>
             )}
           </Fader>
         </div>
@@ -165,23 +186,9 @@ const ScalePicker = () => {
           </div>
         </div>
       </div>
-      {scaleInfo !== null &&
-        scaleInfo.hasOwnProperty("modes") &&
-        scaleInfo.modes !== null && (
-          <div className={classes.modesContainer}>
-            <Modes
-              modes={scaleInfo.modes}
-              current={modeIndex}
-              setCurrent={onChangeMode}
-              pickPrevious={onPreviousMode}
-              pickNext={onNextMode}
-              selected={selected}
-              parallelModes={parallelModes}
-              toggleParallelModes={onToggleParallelModes}
-              namingConvention={namingConvention}
-            />
-          </div>
-        )}
+      {!isBigScreen && (
+        <div className={classes.modesContainer}>{modesComponent}</div>
+      )}
       <div key='fretboardContainer' className={classes.fretboardContainer}>
         <Fretboard />
       </div>

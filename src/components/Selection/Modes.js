@@ -26,12 +26,22 @@ const useStyles = makeStyles((theme) => {
         paddingLeft: 24,
         paddingRight: 24,
       },
+      "@media (orientation: landscape) and (min-height: 740px)": {
+        paddingLeft: 0,
+        paddingRight: 0,
+        width: "100%",
+      },
     },
     wrapper: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
       borderBottom: "1px solid #ddd",
+      "@media (orientation: landscape) and (min-height: 740px)": {
+        borderBottom: "none",
+        borderTop: "1px solid #ddd",
+        marginTop: 12,
+      },
     },
     mainCtrlsWrapper: {
       flexGrow: 1,
@@ -60,6 +70,17 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up(
         "md"
       )} and (orientation: landscape)`]: formControlTablet,
+      "@media (min-height: 740px) and (orientation: landscape) and (max-width: 849px)": {
+        width: 130,
+        marginRight: 10,
+      },
+      "@media (min-height: 740px) and (orientation: landscape) and (min-width: 850px) and (max-width: 1023px)": {
+        width: 180,
+        marginRight: 10,
+      },
+      "@media (min-height: 740px) and (orientation: landscape) and (min-width: 1024px)": {
+        marginRight: "1em",
+      },
     },
     textField: {
       [theme.breakpoints.up("sm")]: {
