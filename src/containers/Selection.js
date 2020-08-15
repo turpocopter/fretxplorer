@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 import { sanitize } from "dompurify";
 import Notes from "components/Selection/Notes";
-//import Modes from "components/Selection/Modes";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => {
         minHeight: "16.6em",
       },
       "@media (min-height: 840px) and (orientation: landscape)": {
-        minHeight: "19.7em" /*"23.1em",*/,
+        minHeight: "19.7em",
       },
       "@media (min-height: 840px) and (min-width: 1140px) and (orientation: landscape)": {
         display: "flex",
@@ -60,13 +59,13 @@ const useStyles = makeStyles((theme) => {
       color: theme.palette.gray.main,
       fontSize: "0.8em",
       lineHeight: 1.5,
-      marginTop: "0.4em",
+      marginTop: "0.5em",
     },
     buttonWrapper: {
       marginLeft: "1em",
     },
     button: {
-      margin: "0.3em 0",
+      margin: "0.1em 0",
     },
   };
 });
@@ -75,18 +74,14 @@ const Selection = ({ children, type, extraInfo }) => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
   const scaleName = useSelector((state) => state.notePicker.scaleName);
-  //const scaleInfo = useSelector((state) => state.notePicker.scaleInfo);
-  //const modeIndex = useSelector((state) => state.notePicker.modeIndex);
-  //const parallelModes = useSelector((state) => state.settings.parallelModes);
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
   const classes = useStyles();
   const biggerButton = useMediaQuery("(min-width: 600px)");
   const { translateNote } = useNoteNames(namingConvention);
-  //const largeScreen = useMediaQuery('(min-height: 680px) and (orientation: landscape)');
 
-  const rootNoteValue = rootNote + (rootNote >= 4 ? 36 : 48); // on la veut à la 3è octave de la librairie (ou 4è si entre C et D#)
+  const rootNoteValue = rootNote + (rootNote >= 4 ? 36 : 48); // we want it at 3rd octave (or 4th if between C and D#)
   const selectedWithValues = selected.map((el) => ({
     ...el,
     midiValue: rootNoteValue + el.semitonesFromRoot + (el.degree > 7 ? 12 : 0),
@@ -115,9 +110,6 @@ const Selection = ({ children, type, extraInfo }) => {
                   ),
                 }}
               />
-              {extraInfo && (
-                <div className={classes.extraInfo}>({extraInfo})</div>
-              )}
             </div>
             <div className={classes.buttonWrapper}>
               <Button
@@ -131,6 +123,7 @@ const Selection = ({ children, type, extraInfo }) => {
               </Button>
             </div>
           </div>
+          {extraInfo && <div className={classes.extraInfo}>({extraInfo})</div>}
           <Notes
             selectionType={type}
             selectedWithValues={selectedWithValues}
