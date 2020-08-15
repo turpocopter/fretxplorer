@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.main,
     minHeight: "100%",
+    height: "100%",
   },
   active: {},
 }));

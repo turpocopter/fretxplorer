@@ -20,7 +20,7 @@ const Layout = (props) => {
   return (
     <>
       <CssBaseline />
-      <Box>
+      <Box style={{ minHeight: "100%", height: "100%" }}>
         <SideDrawer isOpened={drawerIsOpened} toggle={toggleDrawer} />
         <Header toggleDrawer={toggleDrawer} />
         <>{props.children}</>
