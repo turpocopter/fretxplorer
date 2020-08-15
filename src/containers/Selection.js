@@ -100,7 +100,6 @@ const Selection = ({ children, type, extraInfo }) => {
     return dispatch(actions.reinitSelection());
   };
 
-  console.log("RENDER", selected.length);
   return (
     selected.length > 0 && (
       <div className={classes.paper}>

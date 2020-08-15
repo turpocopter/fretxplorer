@@ -367,7 +367,7 @@ const scales = [
           {
             shortName: "suspended pentatonic",
             fullName: "Suspended pentatonic",
-            aliases: "Egyptian pentatonic",
+            aliases: ["Egyptian pentatonic"],
             displayIntervals: ["R", 2, 4, 5, "♭7"],
           },
           {

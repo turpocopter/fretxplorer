@@ -246,7 +246,6 @@ const chordPickerReducer = (state = initialState, action) => {
             (state.selected.length + action.modeIndex - state.modeIndex) %
               state.selected.length
           ].displayName;
-        console.log(newRootDisplayName);
         forceFlats =
           newRootDisplayName.alt === "♭" || newRootDisplayName.alt === "𝄫";
         forceSharps =

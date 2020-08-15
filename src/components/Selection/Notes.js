@@ -78,11 +78,20 @@ const Notes = ({
   let intervalID = null;
 
   useEffect(() => {
+    if (cancelSound) cancelSound();
     return () => {
       if (intervalID) clearInterval(intervalID);
-      cancelSound();
+      if (cancelSound) cancelSound();
+      setActiveNote(null);
+      setIsPlaying(false);
     };
-  }, [cancelSound, intervalID]);
+  }, [
+    cancelSound,
+    intervalID,
+    setActiveNote,
+    setIsPlaying,
+    selectedWithValues,
+  ]);
 
   const notes = selectedWithValues.map((el, i) => {
     return (
