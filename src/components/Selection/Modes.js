@@ -60,9 +60,10 @@ const useStyles = makeStyles((theme) => {
       textAlign: "left",
       margin: 0,
       width: 218,
-      [`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: portrait)`]: (formControlTablet = {
+      "@media (min-width: 590px) and (orientation: portrait)": {
+        marginTop: 4,
+      },
+      "@media (min-width: 800px) and (orientation: portrait)": (formControlTablet = {
         marginTop: 4,
         marginBottom: 8,
         width: "13.4em",

@@ -47,10 +47,6 @@ const useStyles = makeStyles((theme) => {
       },
     },
     scaleInfo: {
-      //position: "sticky",
-      //top: 0,
-      //zIndex: 100,
-      //backgroundColor: theme.palette.background.main,
       width: "100%",
     },
     scaleHeader: {
@@ -60,6 +56,12 @@ const useStyles = makeStyles((theme) => {
       justifyContent: "space-between",
     },
     title: {},
+    extraInfo: {
+      color: theme.palette.gray.main,
+      fontSize: "0.8em",
+      lineHeight: 1.5,
+      marginTop: "0.4em",
+    },
     buttonWrapper: {
       marginLeft: "1em",
       [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
@@ -73,7 +75,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const Selection = ({ children, type }) => {
+const Selection = ({ children, type, extraInfo }) => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
   const scaleName = useSelector((state) => state.notePicker.scaleName);
@@ -104,19 +106,24 @@ const Selection = ({ children, type }) => {
       <div className={classes.paper}>
         <div className={classes.scaleInfo}>
           <div className={classes.scaleHeader}>
-            <Typography
-              className={classes.title}
-              variant='h5'
-              component='h2'
-              color='primary'
-              dangerouslySetInnerHTML={{
-                __html: sanitize(
-                  `${translateNote(selected[0].displayName)}${
-                    type === "scale" ? " " + scaleName : chordName
-                  }`
-                ),
-              }}
-            />
+            <div>
+              <Typography
+                className={classes.title}
+                variant='h5'
+                component='h2'
+                color='primary'
+                dangerouslySetInnerHTML={{
+                  __html: sanitize(
+                    `${translateNote(selected[0].displayName)}${
+                      type === "scale" ? " " + scaleName : chordName
+                    }`
+                  ),
+                }}
+              />
+              {extraInfo && (
+                <div className={classes.extraInfo}>({extraInfo})</div>
+              )}
+            </div>
             <div className={classes.buttonWrapper}>
               <Button
                 className={classes.button}

@@ -362,32 +362,27 @@ const scales = [
           {
             shortName: "pentatonic major",
             fullName: "Pentatonic major scale",
-            subtitle: "based on the Ionian mode",
             displayIntervals: ["R", 2, 3, 5, 6],
           },
           {
             shortName: "suspended pentatonic",
             fullName: "Suspended pentatonic",
             aliases: "Egyptian pentatonic",
-            subtitle: "based on the Dorian mode",
             displayIntervals: ["R", 2, 4, 5, "♭7"],
           },
           {
             shortName: "blues minor pentatonic",
             fullName: "Blues minor pentatonic",
-            subtitle: "based on the Phrygian mode",
             displayIntervals: ["R", "♭3", 4, "♭6", "♭7"],
           },
           {
             shortName: "blues major pentatonic",
             fullName: "Blues major pentatonic",
-            subtitle: "based on the Mixolydian mode",
             displayIntervals: ["R", 2, 4, 5, 6],
           },
           {
             shortName: "pentatonic minor",
             fullName: "Pentatonic minor scale",
-            subtitle: "based on the Aeolian mode",
             displayIntervals: ["R", "♭3", 4, 5, "♭7"],
           },
         ],

@@ -106,6 +106,18 @@ const ScalePicker = () => {
   const parallelModes = useSelector((state) => state.settings.parallelModes);
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
+
+  const refForExtraInfo =
+    modeIndex > 0 ? scaleInfo.modes[modeIndex] : scaleInfo;
+  const extraInfo =
+    refForExtraInfo !== null
+      ? refForExtraInfo.hasOwnProperty("aliases")
+        ? `also known as: ${refForExtraInfo.aliases.join(", ")}`
+        : refForExtraInfo.hasOwnProperty("subtitle")
+        ? refForExtraInfo.subtitle
+        : null
+      : null;
+
   const onChangeMode = (newModeIndex) => {
     return dispatch(actions.updateMode(newModeIndex, parallelModes));
   };
@@ -170,7 +182,7 @@ const ScalePicker = () => {
             {scaleName === "" ? (
               <ScalePickerForm key='picker' />
             ) : (
-              <Selection key='selection' type='scale'>
+              <Selection key='selection' type='scale' extraInfo={extraInfo}>
                 {isBigScreen && modesComponent}
               </Selection>
             )}
