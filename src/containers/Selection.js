@@ -64,10 +64,6 @@ const useStyles = makeStyles((theme) => {
     },
     buttonWrapper: {
       marginLeft: "1em",
-      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
-        position: "relative",
-        top: 30,
-      },
     },
     button: {
       margin: "0.3em 0",
