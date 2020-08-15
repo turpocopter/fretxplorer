@@ -32,16 +32,16 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
       margin: "16px 32px",
     },
-    "@media (max-height: 739px) and (orientation: landscape)": {
+    "@media (max-height: 679px) and (orientation: landscape)": {
       minHeight: "calc(100vh - 150px)",
       display: "flex",
       flexFlow: "column nowrap",
       justifyContent: "center",
     },
-    "@media (max-height: 739px) and (min-width: 1024px) and (orientation: landscape)": {
+    "@media (max-height: 679px) and (min-width: 1024px) and (orientation: landscape)": {
       minHeight: "calc(100vh - 268px)",
     },
-    "@media (min-height: 740px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (orientation: landscape)": {
       margin: "0 0 0 6px",
       minHeight: "9.8em",
     },
@@ -53,10 +53,10 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
       height: "30.8em",
     },
-    "@media (max-height: 739px) and (orientation: landscape)": {
+    "@media (max-height: 679px) and (orientation: landscape)": {
       height: "23.1em",
     },
-    "@media (max-height: 739px) and (min-width: 1024px) and (orientation: landscape)": {
+    "@media (max-height: 679px) and (min-width: 1024px) and (orientation: landscape)": {
       height: "27em",
     },
   },
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
       marginBottom: theme.spacing(4),
     },
-    "@media (min-height: 740px) and (max-height: 839px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (max-height: 839px) and (orientation: landscape)": {
       display: "none",
     },
   },
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
         margin: "8px 0",
       },
     },
-    "@media (min-height: 740px) and (max-width: 1589px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
       "& > .MuiTextField-root": {
         margin: "8px 0",
       },
@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: 32,
       },
     },
-    "@media (min-height: 740px) and (max-width: 1589px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
       fontSize: "0.9em",
       "& > .MuiSelect-root": {
         padding: 12,
@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
         transform: "translate(11px, -6px) scale(0.7)",
       },
     },
-    "@media (min-height: 740px) and (max-width: 1589px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
       fontSize: "1em",
       transform: "translate(14px, 14px) scale(1)",
       "&.MuiInputLabel-shrink": {
@@ -141,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "1em!important",
       },
     },
-    "@media (min-height: 740px) and (max-width: 1589px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
       "& li": {
         fontSize: "1em!important",
       },
@@ -188,7 +188,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 8,
       padding: "8px 0",
     },
-    "@media (min-height: 740px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (orientation: landscape)": {
       marginTop: 8,
       padding: "8px 0",
     },

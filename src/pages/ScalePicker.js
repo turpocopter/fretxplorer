@@ -42,13 +42,13 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         top: 106,
       },
-      "@media (max-height: 739px) and (orientation: landscape)": {
+      "@media (max-height: 679px) and (orientation: landscape)": {
         display: (props) => props.scaleName !== "" && "flex",
         flexFlow: (props) => props.scaleName !== "" && "column nowrap",
         flexGrow: (props) => props.scaleName !== "" && 1,
         justifyContent: (props) => props.scaleName !== "" && "center",
       },
-      "@media (min-height: 740px) and (orientation: landscape)": {
+      "@media (min-height: 680px) and (orientation: landscape)": {
         display: "flex",
         flexFlow: "row nowrap",
         flexGrow: 1,
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => {
         alignItems: "normal",
         padding: "0 24px",
       },
-      "@media (min-height: 740px) and (orientation: landscape) and (min-width: 840px)": {
+      "@media (min-height: 680px) and (orientation: landscape) and (min-width: 840px)": {
         padding: "0 40px",
       },
       "@media (min-height: 840px) and (min-width: 1140px) and (orientation: landscape)": {
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => {
     modesContainer: {},
     persistentTuner: {
       display: "none",
-      "@media (min-height: 740px) and (orientation: landscape)": {
+      "@media (min-height: 680px) and (orientation: landscape)": {
         display: "block", //(props) => (props.chordName !== "" ? "block" : "none"),
         marginLeft: "2em",
       },
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => {
         flexGrow: (props) => props.chordName !== "" && 1,
         alignItems: (props) => props.chordName !== "" && "center",
       },
-      "@media (min-height: 740px) and (orientation: landscape)": {
+      "@media (min-height: 680px) and (orientation: landscape)": {
         display: "block !important",
         flexGrow: 1,
       },
@@ -148,11 +148,24 @@ const ScalePicker = () => {
   };
 
   const isBigScreen = useMediaQuery(
-    "(min-height: 740px) and (orientation: landscape)"
+    "(min-height: 680px) and (orientation: landscape)"
   );
   useEffect(() => {
     dispatch(actions.reinitSelection());
   }, [dispatch]);
+  /*useEffect(() => {
+    //alert(isBigScreen + " " + window.innerHeight + " " + window.innerWidth);
+    //document.querySelector(':root').style
+    //.setProperty('--vh', window.innerHeight/100 + 'px');
+    dispatch(actions.reinitSelection());
+  }, [dispatch, isBigScreen]);
+
+  window.addEventListener("resize", () => {
+    isBigScreen =
+      window.innerHeight >= 740 && window.innerWidth > window.innerHeight;
+    //alert(isBigScreen + " " + window.innerHeight);
+  });*/
+
   const modesComponent = scaleInfo !== null &&
     scaleInfo.hasOwnProperty("modes") &&
     scaleInfo.modes !== null && (

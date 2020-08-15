@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => {
         paddingLeft: 24,
         paddingRight: 24,
       },
-      "@media (orientation: landscape) and (min-height: 740px)": {
+      "@media (orientation: landscape) and (min-height: 680px)": {
         paddingLeft: 0,
         paddingRight: 0,
         width: "100%",
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => {
       justifyContent: "space-between",
       alignItems: "center",
       borderBottom: "1px solid #ddd",
-      "@media (orientation: landscape) and (min-height: 740px)": {
+      "@media (orientation: landscape) and (min-height: 680px)": {
         borderBottom: "none",
         borderTop: "1px solid #ddd",
         marginTop: 12,
@@ -71,15 +71,15 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up(
         "md"
       )} and (orientation: landscape)`]: formControlTablet,
-      "@media (min-height: 740px) and (orientation: landscape) and (max-width: 849px)": {
+      "@media (min-height: 680px) and (orientation: landscape) and (max-width: 849px)": {
         width: 130,
         marginRight: 10,
       },
-      "@media (min-height: 740px) and (orientation: landscape) and (min-width: 850px) and (max-width: 1023px)": {
+      "@media (min-height: 680px) and (orientation: landscape) and (min-width: 850px) and (max-width: 1023px)": {
         width: 180,
         marginRight: 10,
       },
-      "@media (min-height: 740px) and (orientation: landscape) and (min-width: 1024px)": {
+      "@media (min-height: 680px) and (orientation: landscape) and (min-width: 1024px)": {
         marginRight: "1em",
       },
     },
@@ -143,7 +143,7 @@ const useStyles = makeStyles((theme) => {
       "@media (orientation: landscape)": {
         marginLeft: 8,
       },
-      "@media (min-height: 740px) and (orientation: landscape)": {
+      "@media (min-height: 680px) and (orientation: landscape)": {
         fontSize: "1em",
       },
     },

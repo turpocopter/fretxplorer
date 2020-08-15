@@ -30,16 +30,16 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
       margin: "16px 32px",
     },
-    "@media (max-height: 739px) and (orientation: landscape)": {
+    "@media (max-height: 679px) and (orientation: landscape)": {
       minHeight: "calc(100vh - 150px)",
       display: "flex",
       flexFlow: "column nowrap",
       justifyContent: "center",
     },
-    "@media (max-height: 739px) and (min-width: 1024px) and (orientation: landscape)": {
+    "@media (max-height: 679px) and (min-width: 1024px) and (orientation: landscape)": {
       minHeight: "calc(100vh - 268px)",
     },
-    "@media (min-height: 740px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (orientation: landscape)": {
       margin: "0 0 0 6px",
       minHeight: "16.6em",
     },
@@ -51,10 +51,10 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
       height: "30.8em",
     },
-    "@media (max-height: 739px) and (orientation: landscape)": {
+    "@media (max-height: 679px) and (orientation: landscape)": {
       height: "23.1em",
     },
-    "@media (max-height: 739px) and (min-width: 1024px) and (orientation: landscape)": {
+    "@media (max-height: 679px) and (min-width: 1024px) and (orientation: landscape)": {
       height: "27em",
     },
   },
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
       marginBottom: theme.spacing(4),
     },
-    "@media (min-height: 740px) and (max-height: 839px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (max-height: 839px) and (orientation: landscape)": {
       display: "none",
     },
   },
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 8,
       padding: "8px 0",
     },
-    "@media (min-height: 740px) and (orientation: landscape)": {
+    "@media (min-height: 680px) and (orientation: landscape)": {
       marginTop: 8,
       padding: "8px 0",
     },

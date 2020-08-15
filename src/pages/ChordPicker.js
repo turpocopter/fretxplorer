@@ -42,13 +42,13 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
         top: 106,
       },
-      "@media (max-height: 739px) and (orientation: landscape)": {
+      "@media (max-height: 679px) and (orientation: landscape)": {
         display: (props) => props.chordName !== "" && "flex",
         flexFlow: (props) => props.chordName !== "" && "column nowrap",
         flexGrow: (props) => props.chordName !== "" && 1,
         justifyContent: (props) => props.chordName !== "" && "center",
       },
-      "@media (min-height: 740px) and (orientation: landscape)": {
+      "@media (min-height: 680px) and (orientation: landscape)": {
         display: "flex",
         flexFlow: "row nowrap",
         flexGrow: 1,
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => {
     },
     persistentTuner: {
       display: "none",
-      "@media (min-height: 740px) and (orientation: landscape)": {
+      "@media (min-height: 680px) and (orientation: landscape)": {
         display: "block", //(props) => (props.chordName !== "" ? "block" : "none"),
         marginLeft: "2em",
       },
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => {
         flexGrow: (props) => props.chordName !== "" && 1,
         alignItems: (props) => props.chordName !== "" && "center",
       },
-      "@media (min-height: 740px) and (orientation: landscape)": {
+      "@media (min-height: 680px) and (orientation: landscape)": {
         display: "block !important",
         flexGrow: 1,
       },
@@ -103,7 +103,7 @@ const ChordPicker = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
   const isBigScreen = useMediaQuery(
-    "(min-height: 740px) and (orientation: landscape)"
+    "(min-height: 680px) and (orientation: landscape)"
   );
   useEffect(() => {
     dispatch(actions.reinitSelection());
