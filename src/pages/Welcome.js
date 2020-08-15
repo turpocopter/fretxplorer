@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => {
   return {
     screen: {
       height: "100vh",
-      /*background: theme.palette.primary.main,*/
       display: "flex",
       flexFlow: "column nowrap",
       justifyContent: "center",
@@ -56,7 +55,7 @@ const useStyles = makeStyles((theme) => {
       width: "7%",
       height: 0,
       position: "absolute",
-      transform: "rotate(78.1deg) scaleY(1)",
+      transform: "rotate(78.1deg) scaleY(0)",
       paddingBottom: "42%",
       backgroundColor: "#c4c4c4",
       transformOrigin: "top center",
