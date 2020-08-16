@@ -45,10 +45,11 @@ export const tuneDownAll = () => {
   };
 };
 
-export const setTuningPreset = (tuning) => {
+export const setTuningPreset = (tuning, id) => {
   return {
     type: actionTypes.SET_TUNING_PRESET,
     tuning,
+    id,
   };
 };
 

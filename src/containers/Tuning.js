@@ -242,13 +242,14 @@ const Tuning = ({
 }) => {
   const dispatch = useDispatch();
   const tuning = useSelector((state) => state.settings.tuning);
+  const preset = useSelector((state) => state.settings.tuningPreset);
   const useFlats = useSelector((state) => state.settings.useFlats);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
   const isLeftHanded = useSelector((state) => state.settings.leftHanded);
   const { getNoteName } = useNoteNames(noteNaming);
   const [isOpen, setIsOpen] = useState(alwaysOpen);
   const [activePeg, setActivePeg] = useState(null);
-  const [preset, setPreset] = useState("");
+  //const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
@@ -268,29 +269,17 @@ const Tuning = ({
       }
     });
   }, [alwaysOpen]);
-  /*
-  useEffect(() => {
-    return () => {
-      if (intervalID) clearInterval(intervalID);
-      cancelSound();
-    };
-  }, [cancelSound, intervalID]);
-  */
 
   const onTuneUpString = (stringId) => {
-    setPreset("");
     return dispatch(actions.tuneUpString(stringId));
   };
   const onTuneDownString = (stringId) => {
-    setPreset("");
     return dispatch(actions.tuneDownString(stringId));
   };
   const onTuneUpAll = () => {
-    setPreset("");
     return dispatch(actions.tuneUpAll());
   };
   const onTuneDownAll = () => {
-    setPreset("");
     return dispatch(actions.tuneDownAll());
   };
   const onClickPeg = (stringId, note, octave) => {
@@ -327,8 +316,8 @@ const Tuning = ({
     }
   };
   const onSelectPreset = (id, tuning) => {
-    setPreset(id);
-    return dispatch(actions.setTuningPreset(tuning));
+    //setPreset(id);
+    return dispatch(actions.setTuningPreset(tuning, id));
   };
   const isGlobalTuningEnabled = (isDown = false) =>
     tuning.every((el) =>

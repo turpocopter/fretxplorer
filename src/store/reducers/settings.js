@@ -14,6 +14,7 @@ const initialState = {
   leftHanded: false,
   showIntervals: false, // show intervals instead of note names
   tuning: [...defaultTuning],
+  tuningPreset: "",
   parallelModes: false, // modes have common root instead of common notes
 };
 
@@ -38,7 +39,7 @@ const settingsReducer = (state = initialState, action) => {
           : { ...el }
       );
       localStorage.setItem("fretxplorerTuning", JSON.stringify(newTuningUp));
-      return { ...state, tuning: newTuningUp };
+      return { ...state, tuning: newTuningUp, tuningPreset: "" };
     case actionTypes.TUNE_DOWN_STRING:
       const newTuningDown = state.tuning.map((el) =>
         el.stringId === action.stringId
@@ -50,7 +51,7 @@ const settingsReducer = (state = initialState, action) => {
           : { ...el }
       );
       localStorage.setItem("fretxplorerTuning", JSON.stringify(newTuningDown));
-      return { ...state, tuning: newTuningDown };
+      return { ...state, tuning: newTuningDown, tuningPreset: "" };
     case actionTypes.TUNE_UP_ALL:
       const newTuningUpAll = state.tuning.map((s) => ({
         ...s,
@@ -61,6 +62,7 @@ const settingsReducer = (state = initialState, action) => {
       return {
         ...state,
         tuning: newTuningUpAll,
+        tuningPreset: "",
       };
     case actionTypes.TUNE_DOWN_ALL:
       const newTuningDownAll = state.tuning.map((s) => ({
@@ -75,6 +77,7 @@ const settingsReducer = (state = initialState, action) => {
       return {
         ...state,
         tuning: newTuningDownAll,
+        tuningPreset: "",
       };
     case actionTypes.SET_TUNING_PRESET:
       const newTuningPreset = state.tuning.map((el) => {
@@ -91,7 +94,7 @@ const settingsReducer = (state = initialState, action) => {
         "fretxplorerTuning",
         JSON.stringify(newTuningPreset)
       );
-      return { ...state, tuning: newTuningPreset };
+      return { ...state, tuning: newTuningPreset, tuningPreset: action.id };
     case actionTypes.TOGGLE_PARALLEL_MODES:
       return {
         ...state,
