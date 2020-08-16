@@ -69,42 +69,47 @@ function App(props) {
   }, [dispatch]);
   return (
     <div className={classes.root}>
-      <Route exact path='/'>
-        <Welcome />
-      </Route>
-      <Route
-        path={[
-          "/chordpicker",
-          "/scalepicker",
-          "/chordguesser",
-          "/settings",
-          "/about",
-        ]}
-      >
-        <Layout>
+      {
+        <>
           <Suspense fallback={<Spinner />}>
             <TransitionSwitch component={Fader}>
-              <Route path='/chordpicker' exact>
-                <ChordPicker />
-              </Route>
-              <Route path='/scalepicker' exact>
-                <ScalePicker />
-              </Route>
-              <Route path='/chordguesser' exact>
-                <ChordGuesser />
-              </Route>
-              <Route path='/settings' exact>
-                <Settings />
-              </Route>
-              <Route path='/about' exact>
-                <About />
-              </Route>
+              <Route exact path='/' component={Welcome} />
+              <RouteWithLayout
+                path='/chordpicker'
+                component={ChordPicker}
+                exact
+              />
+              <RouteWithLayout
+                path='/scalepicker'
+                component={ScalePicker}
+                exact
+              />
+              <RouteWithLayout
+                path='/chordguesser'
+                component={ChordGuesser}
+                exact
+              />
+              <RouteWithLayout path='/settings' component={Settings} exact />
+              <RouteWithLayout path='/about' component={About} exact />
+              <Redirect to='/' />
             </TransitionSwitch>
           </Suspense>
-        </Layout>
-      </Route>
-      <Redirect to='/' />
+        </>
+      }
     </div>
+  );
+}
+
+function RouteWithLayout({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => (
+        <Layout {...props}>
+          <Component {...props} />
+        </Layout>
+      )}
+    />
   );
 }
 
