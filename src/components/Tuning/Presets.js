@@ -138,7 +138,7 @@ const tuningPresets = [
         ],
       },
       {
-        id: "CGCGCD♭",
+        id: "CGCGCE♭",
         name: "Open C minor",
         tuning: [
           { stringId: 6, note: 0, octave: 2 },
