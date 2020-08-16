@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   fretboardScroller: {
+    position: "relative",
     "@media (orientation: landscape)": {
       display: "flex",
       flexFlow: (props) =>

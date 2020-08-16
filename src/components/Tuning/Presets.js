@@ -9,12 +9,18 @@ const useStyles = makeStyles((theme) => {
   let formControlTablet;
   return {
     wrapper: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 10,
       display: "flex",
       justifyContent: "center",
     },
     formControl: {
       margin: 0,
       width: 218,
+      transition: "opacity 0.2s",
       [`${theme.breakpoints.up(
         "sm"
       )} and (orientation: portrait)`]: (formControlTablet = {
@@ -58,6 +64,7 @@ const useStyles = makeStyles((theme) => {
         fontSize: "0.9em",
       },
     },
+    hidden: { opacity: 0 },
   };
 });
 
@@ -447,7 +454,7 @@ const tuningPresets = [
   },
 ];
 
-const Presets = ({ preset, selectPreset }) => {
+const Presets = ({ preset, selectPreset, isOpening, isClosing }) => {
   const classes = useStyles();
   const listContents = tuningPresets.map((cat) => {
     const catItems = cat.tunings.map((el) => (
@@ -478,9 +485,11 @@ const Presets = ({ preset, selectPreset }) => {
       e.preventDefault();
     }
   };
+  const formClasses = [classes.formControl];
+  if (isOpening || isClosing) formClasses.push(classes.hidden);
   return (
     <div className={classes.wrapper}>
-      <FormControl variant='outlined' className={classes.formControl}>
+      <FormControl variant='outlined' className={formClasses.join(" ")}>
         <TextField
           variant='outlined'
           id='tuningPreset'

@@ -11,10 +11,12 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       flexFlow: "column nowrap",
       position: "relative",
+      alignItems: "center",
       zIndex: 1,
       order: 1,
       width: "2.4em",
       color: theme.palette.gray.main,
+      transition: "all 0.2s",
       "@media (orientation: landscape)": {
         height: (props) => (!props.alwaysOpen ? "2.4em" : "auto"),
         flexFlow: (props) =>
@@ -25,6 +27,7 @@ const useStyles = makeStyles((theme) => {
       "&$open": {
         color: theme.palette.gray.dark,
         fontWeight: 500,
+        padding: "6.25em 0 1.95em",
       },
       "&$active": {
         color: theme.palette.secondary.main,
@@ -34,9 +37,9 @@ const useStyles = makeStyles((theme) => {
         display: (props) => (props.isLinked ? "block" : "none"),
         position: "absolute",
         width: 1,
-        height: "2.8rem",
+        height: "3.6em",
         backgroundColor: theme.palette.gray.light,
-        top: 0,
+        top: "4.5em",
         bottom: 0,
         left: 0,
         right: 0,
@@ -56,19 +59,34 @@ const useStyles = makeStyles((theme) => {
       [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: pegTablet,*/
     },
     tuneBtn: {
+      position: "absolute",
+      left: 0,
+      right: 0,
+      width: "100%",
       display: "block",
       color: theme.palette.gray.dark,
       border: "none",
-      margin: 0,
+      margin: "0 auto",
       padding: 0,
       background: "transparent",
       outline: "none",
+      fontSize: "inherit",
+      transition: "opacity 0.3s",
       "&:disabled": {
         color: theme.palette.gray.light,
       },
+      "& svg": {
+        display: "block",
+        margin: "auto",
+      },
     },
+    tuneDownBtn: { top: "4.3em" },
+    tuneUpBtn: { bottom: 0 },
     open: {},
     active: {},
+    hidden: {
+      opacity: 0,
+    },
   };
 });
 
@@ -79,6 +97,8 @@ const Peg = ({
   onClickPeg,
   isActive,
   isOpen,
+  isOpening,
+  isClosing,
   alwaysOpen,
   isLinked,
   stringId,
@@ -90,13 +110,19 @@ const Peg = ({
   const classes = useStyles({ isLinked, alwaysOpen });
 
   const pegClasses = [classes.peg];
+  const tuneUpClasses = [classes.tuneBtn, classes.tuneUpBtn];
+  const tuneDownClasses = [classes.tuneBtn, classes.tuneDownBtn];
   if (isOpen) pegClasses.push(classes.open);
   if (isActive) pegClasses.push(classes.active);
+  if (isOpening || isClosing) {
+    tuneUpClasses.push(classes.hidden);
+    tuneDownClasses.push(classes.hidden);
+  }
   return (
     <div className={pegClasses.join(" ")}>
       {isOpen && !isLinked && (
         <button
-          className={classes.tuneBtn}
+          className={tuneDownClasses.join(" ")}
           onClick={() => tuneDown(stringId)}
           disabled={tuneDownDisabled}
         >
@@ -106,7 +132,7 @@ const Peg = ({
       <div onClick={onClickPeg}>{getNoteName(tuning.n, useFlats)}</div>
       {isOpen && !isLinked && (
         <button
-          className={classes.tuneBtn}
+          className={tuneUpClasses.join(" ")}
           onClick={() => tuneUp(stringId)}
           disabled={tuneUpDisabled}
         >

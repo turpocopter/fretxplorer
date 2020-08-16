@@ -24,16 +24,16 @@ const useStyles = makeStyles((theme) => {
   return {
     tuning: {
       position: "relative",
-      borderColor: (props) =>
-        !props.isCollapsing ? theme.palette.gray.light : "transparent",
+      borderColor: "transparent",
       borderStyle: "solid",
-      borderWidth: 0,
+      borderWidth: 3,
+      borderRadius: 10,
+      margin: "0 auto",
+      width: "18.8em",
+      transition: "all 0.5s",
       "&$active": {
-        borderRadius: 10,
-        borderWidth: 3,
-        width: "18.8em",
+        borderColor: theme.palette.gray.light,
         paddingBottom: "0.6em",
-        margin: "0 auto",
         [`${theme.breakpoints.up(
           "sm"
         )} and (orientation: portrait)`]: tuningTablet,
@@ -43,10 +43,11 @@ const useStyles = makeStyles((theme) => {
       },
       [theme.breakpoints.up("sm")]: tuningTablet,
       "@media (orientation: landscape)": {
+        width: (props) => (!props.alwaysOpen ? "auto" : "18.8em"),
         paddingLeft: (props) => (!props.alwaysOpen ? 16 : 0),
         paddingRight: (props) => (!props.alwaysOpen ? 16 : 0),
         display: (props) => !props.alwaysOpen && "flex",
-        margin: (props) => !props.alwaysOpen && "1.1em 0 0",
+        margin: (props) => !props.alwaysOpen && "3.3em 0 0",
       },
     },
     pegs: (props) => ({
@@ -66,32 +67,38 @@ const useStyles = makeStyles((theme) => {
       },
     }),
     forkWrapper: {
-      display: "inline-flex",
+      /*display: "inline-flex",
       order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 10 : 0),
       "@media (orientation: landscape)": {
         order: (props) => (!props.alwaysOpen ? 10 : 0),
+      },*/
+      position: "absolute",
+      left: "-1em",
+      width: "1.7em",
+      height: "1.7em",
+      zIndex: 1,
+      transition: "opacity 0.2s",
+      "@media (orientation: landscape)": {
+        top: "-1em",
+        left: 0,
+        right: 0,
+        margin: "auto",
       },
     },
     fork: {
-      height: "1.35rem",
-      marginRight: "1.2rem",
-      marginLeft: 0,
-      "@media (orientation: landscape)": {
-        marginRight: (props) => (!props.alwaysOpen ? 0 : 8),
-        marginLeft: (props) => (!props.alwaysOpen ? 0 : 5),
-        marginTop: (props) => (!props.alwaysOpen ? 5 : 0),
-        marginBottom: (props) => (!props.alwaysOpen ? 8 : 0),
-      },
+      height: "1.7em",
     },
     settings: {
-      display: "inline-block",
+      position: "absolute",
+      zIndex: 1,
+      fontSize: "1.2em",
+      right: "-0.75em",
+      width: "1.4em",
+      height: "1.4em",
       border: "2px solid black",
       borderRadius: "50%",
-      width: "1.5rem",
-      height: "1.5rem",
-      fontSize: "1.1rem",
-      marginLeft: "1.2rem",
-      order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 0 : 10),
+      display: "inline-block",
+      transition: "opacity 0.2s",
       "@media (orientation: landscape)": {
         display: (props) => (!props.isAlwaysOpen ? "none" : "inline-block"),
       },
@@ -106,6 +113,7 @@ const useStyles = makeStyles((theme) => {
       right: "-0.95rem",
       fontSize: "1.7rem",
       zIndex: 0,
+      transition: "opacity 0.3s",
       "&::before": {
         content: `''`,
         position: "absolute",
@@ -127,6 +135,7 @@ const useStyles = makeStyles((theme) => {
       right: "-0.5rem",
       width: "1rem",
       fontSize: "1.1rem",
+      transition: "opacity 0.3s",
       "&::before": {
         content: `''`,
         position: "absolute",
@@ -136,7 +145,7 @@ const useStyles = makeStyles((theme) => {
         borderRadius: "50%",
         border: "2.4px solid black",
         top: "-0.1rem",
-        left: "-0.2rem",
+        left: "-0.17rem",
         width: "1.45rem",
         height: "1.45rem",
       },
@@ -155,6 +164,7 @@ const useStyles = makeStyles((theme) => {
       left: "-0.5rem",
       width: "1rem",
       fontSize: "1.1rem",
+      transition: "opacity 0.3s",
       "&::before": {
         content: `''`,
         position: "absolute",
@@ -178,8 +188,8 @@ const useStyles = makeStyles((theme) => {
     tuneBtnWrapper: {
       display: "flex",
       justifyContent: "center",
-      position: "relative",
-      zIndex: 0,
+      position: "absolute",
+      zIndex: 10,
       "&::before": {
         content: `''`,
         position: "absolute",
@@ -198,6 +208,12 @@ const useStyles = makeStyles((theme) => {
         "sm"
       )} and (orientation: landscape)`]: tuneBtnWrapperTablet,
     },
+    tuneBtnDownWrapper: {
+      top: "4.3em",
+    },
+    tuneBtnUpWrapper: {
+      bottom: "0.4em",
+    },
     tuneBtn: {
       display: "block",
       color: theme.palette.gray.dark,
@@ -211,6 +227,9 @@ const useStyles = makeStyles((theme) => {
       },
     },
     active: {},
+    hidden: {
+      opacity: 0,
+    },
   };
 });
 
@@ -232,12 +251,12 @@ const Tuning = ({
   const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isCollapsing, setIsCollapsing] = useState(false);
+  const [isOpening, setIsOpening] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const classes = useStyles({
     doNotFlipOver,
     isLeftHanded,
     alwaysOpen,
-    isCollapsing,
   });
 
   let intervalID = null;
@@ -317,7 +336,25 @@ const Tuning = ({
         ? el.reference - getNoteVal(el.note, el.octave) < 9
         : getNoteVal(el.note, el.octave) - el.reference < 9
     );
-
+  const onOpen = () => {
+    setIsOpening(true);
+    setTimeout(() => {
+      setIsOpen(true);
+    }, 100);
+    setTimeout(() => {
+      setIsOpening(false);
+    }, 300);
+  };
+  const onClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 200);
+    setTimeout(() => {
+      setIsClosing(false);
+      setIsLinked(false);
+    }, 400);
+  };
   const pegList = tuning.map((el) => (
     <Peg
       key={el.stringId}
@@ -328,8 +365,10 @@ const Tuning = ({
       getNoteName={getNoteName}
       isActive={activePeg === el.stringId}
       isLinked={isLinked}
+      isOpening={isOpening}
+      isClosing={isClosing}
       onClickPeg={() => onClickPeg(el.stringId, el.note, el.octave)}
-      isOpen={isOpen}
+      isOpen={isOpen || isOpening}
       alwaysOpen={alwaysOpen}
       tuneUp={onTuneUpString}
       tuneDown={onTuneDownString}
@@ -339,9 +378,12 @@ const Tuning = ({
   ));
   const wrapperClasses = [classes.tuning];
   const pegsClasses = [classes.pegs];
+  const discardClasses = [classes.discard];
   const playBtnClasses = [classes.playBtnOpen];
   const linkStringsClasses = [classes.linkStrings];
-  if (isOpen) {
+  const settingClasses = [classes.settings];
+  const forkClasses = [classes.forkWrapper];
+  if (isOpen || isOpening) {
     wrapperClasses.push(classes.active);
     pegsClasses.push(classes.active);
   }
@@ -351,70 +393,73 @@ const Tuning = ({
   if (isLinked) {
     linkStringsClasses.push(classes.active);
   }
-  /*
-<Collapse
-      in={(isOpen || alwaysOpen) && !isCollapsing}
-      collapsedHeight={56}
-      timeout={300}
-    >
-  */
-
+  if (isOpening || isClosing) {
+    settingClasses.push(classes.hidden);
+    forkClasses.push(classes.hidden);
+    discardClasses.push(classes.hidden);
+    playBtnClasses.push(classes.hidden);
+    linkStringsClasses.push(classes.hidden);
+  }
   return (
     <>
       <div className={wrapperClasses.join(" ")}>
-        {isOpen && <Presets preset={preset} selectPreset={onSelectPreset} />}
-        {isOpen && isLinked && (
-          <div className={classes.tuneBtnWrapper}>
-            <button
-              className={classes.tuneBtn}
-              onClick={onTuneDownAll}
-              disabled={!isGlobalTuningEnabled(true)}
-            >
-              <RemoveCircleIcon />
-            </button>
-          </div>
+        {isOpen && (
+          <Presets
+            preset={preset}
+            isOpening={isOpening}
+            isClosing={isClosing}
+            selectPreset={onSelectPreset}
+          />
         )}
+
         <div className={pegsClasses.join(" ")}>
           {!isOpen && (
-            <div className={classes.forkWrapper} onClick={onClickPlay}>
+            <div className={forkClasses.join(" ")} onClick={onClickPlay}>
               <img className={classes.fork} src={fork} alt='Tuning' />
             </div>
           )}
+          {isOpen && isLinked && (
+            <div
+              className={`${classes.tuneBtnWrapper} ${classes.tuneBtnDownWrapper}`}
+            >
+              <button
+                className={classes.tuneBtn}
+                onClick={onTuneDownAll}
+                disabled={!isGlobalTuningEnabled(true)}
+              >
+                <RemoveCircleIcon />
+              </button>
+            </div>
+          )}
           {pegList}
+          {isOpen && isLinked && (
+            <div
+              className={`${classes.tuneBtnWrapper} ${classes.tuneBtnUpWrapper}`}
+            >
+              <button
+                className={classes.tuneBtn}
+                onClick={onTuneUpAll}
+                disabled={!isGlobalTuningEnabled()}
+              >
+                <AddCircleIcon />
+              </button>
+            </div>
+          )}
           {!isOpen && (
-            <div className={classes.settings} onClick={() => setIsOpen(true)}>
+            <div className={settingClasses.join(" ")} onClick={onOpen}>
               <SettingsIcon fontSize='inherit' />
             </div>
           )}
         </div>
-        {isOpen && isLinked && (
-          <div className={classes.tuneBtnWrapper}>
-            <button
-              className={classes.tuneBtn}
-              onClick={onTuneUpAll}
-              disabled={!isGlobalTuningEnabled()}
-            >
-              <AddCircleIcon />
-            </button>
+
+        {isOpen && !alwaysOpen && (
+          <div className={discardClasses.join(" ")} onClick={onClose}>
+            <CancelIcon fontSize='inherit' />
           </div>
         )}
+
         {isOpen && (
           <>
-            {!alwaysOpen && (
-              <div
-                className={classes.discard}
-                onClick={() => {
-                  setIsCollapsing(true);
-                  setTimeout(() => {
-                    setIsOpen(false);
-                    setIsLinked(false);
-                    setIsCollapsing(false);
-                  }, 300);
-                }}
-              >
-                <CancelIcon fontSize='inherit' />
-              </div>
-            )}
             <div className={playBtnClasses.join(" ")} onClick={onClickPlay}>
               <PlayArrowIcon fontSize='inherit' />
             </div>
