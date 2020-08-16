@@ -16,10 +16,6 @@ const useStyles = makeStyles((theme) => {
   let flexControls;
   return {
     root: {
-      /*marginTop: "1em",
-      borderTop: `1px solid ${theme.palette.gray.light}`,
-      paddingTop: 4,
-      width: "100%",*/
       paddingLeft: 16,
       paddingRight: 16,
       [theme.breakpoints.up("sm")]: {
