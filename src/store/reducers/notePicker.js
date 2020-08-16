@@ -251,6 +251,11 @@ const chordPickerReducer = (state = initialState, action) => {
         forceSharps =
           newRootDisplayName.alt === "♯" || newRootDisplayName.alt === "𝄪";
       }
+      // when using parallel modes, if tonic had a simple flat or sharp we keep it (doubles are discarded though)
+      else {
+        forceFlats = state.selected[0].displayName.alt === "♭";
+        forceSharps = state.selected[0].displayName.alt === "#";
+      }
       const modeName = state.scaleInfo.modes[action.modeIndex].hasOwnProperty(
         "shortName"
       )
