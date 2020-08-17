@@ -21,24 +21,34 @@ const initialState = {
  * @param {boolean} useFlats
  * @param {array} selected selected notes
  * @param {boolean} force whether existing display infos should be refreshed or not (can be set to false when only a new element has just been added to selected, must be kept to true when rootNote or useFlats has just changed)
+ * @param {boolean} forceRoot when root already has a display name, whether it should be kept or not
  * return array of selected notes with extra name display info
  */
-const updateDisplayNames = (rootNote, useFlats, selected, force = true) => {
+const updateDisplayNames = (
+  rootNote,
+  useFlats,
+  selected,
+  force = true,
+  forceRoot = true
+) => {
   const selectedWithNames = [];
+  console.log(selected);
   selected.forEach(function (value, index) {
     selectedWithNames[index] = { ...value };
     if (force || !value.hasOwnProperty("displayName")) {
+      console.log("GET IN CONDITION");
       selectedWithNames[index].displayName = computeDisplayName(
         rootNote,
         useFlats,
         value.degree,
         value.semitonesFromRoot,
-        selected[0].hasOwnProperty("displayName")
+        forceRoot && selected[0].hasOwnProperty("displayName")
           ? selected[0].displayName.id
           : null
       );
     }
   });
+  console.log(selectedWithNames);
   return selectedWithNames;
 };
 
@@ -132,7 +142,9 @@ const chordPickerReducer = (state = initialState, action) => {
                 degree: 1,
                 displayInterval: "R",
               },
-            ]
+            ],
+        true,
+        false
       );
       return {
         ...state,
