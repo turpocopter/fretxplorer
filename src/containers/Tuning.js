@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => {
       zIndex: 1,
       transition: "opacity 0.2s",
       "@media (orientation: landscape)": {
-        top: "-1em",
+        top: "calc(50% - 10em)",
         left: 0,
         right: 0,
         margin: "auto",

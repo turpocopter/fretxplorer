@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => {
         flexFlow: "column nowrap",
         justifyContent: "space-between",
       },
-      [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
-        height: "calc(100vh - 110px)",
+      "@media (min-width: 800px) and (orientation: landscape)": {
+        height: "calc(100vh - 116px)",
       },
     },
     pickerContainer: {

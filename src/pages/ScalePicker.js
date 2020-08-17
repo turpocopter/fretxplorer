@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => {
         flexFlow: "column nowrap",
         justifyContent: "space-between",
       },
-      [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
-        height: "calc(100vh - 110px)",
+      "@media (min-width: 800px) and (orientation: landscape)": {
+        height: "calc(100vh - 116px)",
       },
     },
     pickerContainer: {
@@ -58,13 +58,13 @@ const useStyles = makeStyles((theme) => {
         padding: "0 24px",
       },
       "@media (min-height: 680px) and (orientation: landscape) and (min-width: 840px)": {
-        padding: "0 40px",
+        padding: "0 88px",
       },
       "@media (min-height: 840px) and (min-width: 1140px) and (orientation: landscape)": {
         justifyContent: "space-around",
         alignItems: "center",
         marginTop: -10,
-        padding: "0 88px",
+        //padding: "0 88px",
       },
     },
     modesContainer: {},
