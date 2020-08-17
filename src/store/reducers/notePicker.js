@@ -32,11 +32,9 @@ const updateDisplayNames = (
   forceRoot = true
 ) => {
   const selectedWithNames = [];
-  console.log(selected);
   selected.forEach(function (value, index) {
     selectedWithNames[index] = { ...value };
     if (force || !value.hasOwnProperty("displayName")) {
-      console.log("GET IN CONDITION");
       selectedWithNames[index].displayName = computeDisplayName(
         rootNote,
         useFlats,
@@ -48,7 +46,6 @@ const updateDisplayNames = (
       );
     }
   });
-  console.log(selectedWithNames);
   return selectedWithNames;
 };
 
@@ -156,9 +153,13 @@ const chordPickerReducer = (state = initialState, action) => {
       return {
         ...state,
         useFlats: !state.useFlats,
-        selected: updateDisplayNames(state.rootNote, !state.useFlats, [
-          ...state.selected,
-        ]),
+        selected: updateDisplayNames(
+          state.rootNote,
+          !state.useFlats,
+          [...state.selected],
+          true,
+          false
+        ),
       };
 
     case actionTypes.UPDATE_QUALITY:
