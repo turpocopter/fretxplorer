@@ -98,7 +98,7 @@ const tuningPresets = [
       },
       {
         id: "DADBGD",
-        name: "D modal",
+        name: "Double drop D",
         tuning: [
           { stringId: 6, note: 2, octave: 2 },
           { stringId: 5, note: 9, octave: 2 },
