@@ -304,7 +304,7 @@ const scales = [
         modes: [
           { shortName: "harmonic minor", fullName: "Harmonic minor scale" },
           { fullName: "Locrian ♮6", aliases: ["Locrian ♮13"] },
-          { fullName: "Ionian #5" },
+          { fullName: "Ionian ♯5" },
           {
             shortName: "Dorian altered",
             fullName: "Altered Dorian scale",
@@ -319,7 +319,7 @@ const scales = [
               "Freygish scale",
             ],
           },
-          { fullName: "Lydian 2" },
+          { fullName: "Lydian ♯2" },
           {
             shortName: "altered diminished",
             fullName: "Altered Diminished scale",
