@@ -67,11 +67,6 @@ const useStyles = makeStyles((theme) => {
       },
     }),
     forkWrapper: {
-      /*display: "inline-flex",
-      order: (props) => (props.isLeftHanded && !props.doNotFlipOver ? 10 : 0),
-      "@media (orientation: landscape)": {
-        order: (props) => (!props.alwaysOpen ? 10 : 0),
-      },*/
       position: "absolute",
       left: "-1em",
       width: "1.7em",
@@ -249,7 +244,6 @@ const Tuning = ({
   const { getNoteName } = useNoteNames(noteNaming);
   const [isOpen, setIsOpen] = useState(alwaysOpen);
   const [activePeg, setActivePeg] = useState(null);
-  //const [preset, setPreset] = useState("");
   const [isLinked, setIsLinked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isOpening, setIsOpening] = useState(false);

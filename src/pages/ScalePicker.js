@@ -153,18 +153,6 @@ const ScalePicker = () => {
   useEffect(() => {
     dispatch(actions.reinitSelection());
   }, [dispatch]);
-  /*useEffect(() => {
-    //alert(isBigScreen + " " + window.innerHeight + " " + window.innerWidth);
-    //document.querySelector(':root').style
-    //.setProperty('--vh', window.innerHeight/100 + 'px');
-    dispatch(actions.reinitSelection());
-  }, [dispatch, isBigScreen]);
-
-  window.addEventListener("resize", () => {
-    isBigScreen =
-      window.innerHeight >= 740 && window.innerWidth > window.innerHeight;
-    //alert(isBigScreen + " " + window.innerHeight);
-  });*/
 
   const modesComponent = scaleInfo !== null &&
     scaleInfo.hasOwnProperty("modes") &&

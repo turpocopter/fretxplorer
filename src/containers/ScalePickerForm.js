@@ -536,9 +536,6 @@ const ScalePickerForm = ({ onPick }) => {
   const dispatch = useDispatch();
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const useFlats = useSelector((state) => state.notePicker.useFlats);
-  //const scaleName = useSelector((state) => state.notePicker.scaleName);
-  //const modeName = useSelector((state) => state.notePicker.scaleName);
-  //const selected = useSelector((state) => state.notePicker.selected);
   const noteNaming = useSelector((state) => state.settings.noteNaming);
   const [tmpScaleInfo, setTmpScaleInfo] = useState(null);
   const { getNoteName } = useNoteNames(noteNaming);

@@ -13,7 +13,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import settingsReducer from "./store/reducers/settings";
 import notePickerReducer from "./store/reducers/notePicker";
 import authReducer from "./store/reducers/auth";
-import "./index.css";
+import "./index.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 

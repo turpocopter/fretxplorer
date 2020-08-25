@@ -1,0 +1,361 @@
+@function pow($number, $exponent) {
+  $value: 1;
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  }
+  @return $value;
+}
+
+@mixin fret-heights {
+  &.fret-0 {
+    height: 0;
+  }
+  @for $i from 1 through 24 {
+    &.fret-#{$i} {
+      height: pow(0.9438, $i) * 6em;
+    }
+  }
+  @media (orientation: landscape) {
+    &.fret-0 {
+      width: 2.5em;
+    }
+    @for $i from 1 through 24 {
+      &.fret-#{$i} {
+        width: pow(0.9438, $i) * 6em;
+      }
+    }
+  }
+}
+
+.StringList {
+  display: flex;
+  flex-flow: row nowrap;
+  padding-right: 2em;
+  &.leftHanded {
+    flex-flow: row-reverse nowrap;
+  }
+}
+.String {
+  width: 2.4em;
+  position: relative;
+  &::before {
+    content: "";
+    display: block;
+    width: 1px;
+    position: absolute;
+    top: 0.9em;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    background: linear-gradient(
+      90deg,
+      #797265 0%,
+      #eee4d8 49%,
+      #ededed 50%,
+      #ededed 55%,
+      #999080 100%
+    );
+    z-index: 1;
+  }
+  &:nth-child(5)::before {
+    width: 1.3px;
+  }
+  &:nth-child(4)::before {
+    width: 1.7px;
+  }
+  &:nth-child(3)::before,
+  &:nth-child(2)::before,
+  &:first-child::before {
+    background: repeating-linear-gradient(
+        3deg,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0) 0.5px,
+        rgba(0, 0, 0, 0.15) 0.5px,
+        rgba(0, 0, 0, 0.15) 1px
+      ),
+      linear-gradient(
+        90deg,
+        #797265 0%,
+        #eee4d8 49%,
+        #ededed 50%,
+        #ededed 55%,
+        #999080 100%
+      );
+  }
+  &:nth-child(3)::before {
+    width: 3px;
+  }
+  &:nth-child(2)::before {
+    width: 4.2px;
+  }
+  &:first-child::before {
+    width: 5.2px;
+  }
+}
+.Fret {
+  @include fret-heights;
+  display: flex;
+  position: relative;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing: content-box;
+  background-color: #5f4035;
+  min-height: 2.35em;
+  &.openString {
+    background-color: transparent;
+  }
+  &.leftMost:not(.openString) {
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.05), transparent);
+  }
+  &.rightMost:not(.openString) {
+    background-image: linear-gradient(-90deg, rgba(0, 0, 0, 0.05), transparent);
+  }
+  &.openString::before {
+    content: "";
+    position: absolute;
+    background-color: #c0ac87;
+    height: calc(1.5em - 1px);
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  &::before {
+    border-bottom: 1px solid #917f5f;
+  }
+  &.leftMost::before {
+    background-image: linear-gradient(90deg, #9d8c64 0%, #c0ac87 50%);
+  }
+  &.rightMost::before {
+    background-image: linear-gradient(-90deg, #9d8c64 0%, #c0ac87 50%);
+  }
+}
+.FretInner {
+  position: relative;
+  background-color: $colorSecondary;
+  color: white;
+  width: 2.2em;
+  height: 2.2em;
+  line-height: 2.2em;
+  border-radius: 50%;
+  font-size: 0.9em;
+  font-weight: 500;
+  z-index: 2;
+  cursor: pointer;
+  border: 2px solid $colorSecondary;
+  &.active {
+    background-color: white;
+    color: $colorSecondary;
+  }
+  &.isRoot {
+    background-color: $colorPrimary;
+    border: 2px solid $colorPrimary;
+    &.active {
+      background-color: white;
+      color: $colorPrimary;
+    }
+  }
+}
+.FretDelimiter {
+  display: block;
+  width: 100%;
+  height: 0.25em;
+  background-image: linear-gradient(
+    0deg,
+    rgb(140, 140, 140) 0%,
+    white 35%,
+    white 65%,
+    rgb(140, 140, 140) 100%
+  );
+  &.leftMost {
+    background-image: linear-gradient(
+        -90deg,
+        transparent 0%,
+        transparent 70%,
+        rgb(90, 90, 90) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgb(140, 140, 140) 0%,
+        white 35%,
+        white 65%,
+        rgb(140, 140, 140) 100%
+      );
+  }
+  &.rightMost {
+    background-image: linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent 70%,
+        rgb(90, 90, 90) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgb(140, 140, 140) 0%,
+        white 35%,
+        white 65%,
+        rgb(140, 140, 140) 100%
+      );
+  }
+  &:last-child {
+    display: none;
+  }
+}
+
+@media (orientation: landscape) {
+  .StringList {
+    flex-flow: column-reverse nowrap !important;
+    padding-right: 0;
+  }
+  .String {
+    height: 2.4em;
+    width: auto;
+    position: relative;
+    &::before {
+      height: 1px;
+      width: auto !important;
+      top: 0;
+      left: 1em;
+      right: 0;
+      margin: auto;
+      background: linear-gradient(
+        0deg,
+        #797265 0%,
+        #eee4d8 49%,
+        #ededed 50%,
+        #ededed 55%,
+        #999080 100%
+      );
+      z-index: 1;
+    }
+    &.leftHanded::before {
+      left: 0;
+      right: 1em;
+    }
+    &:nth-child(5)::before {
+      height: 1.3px;
+    }
+    &:nth-child(4)::before {
+      height: 1.7px;
+    }
+    &:nth-child(3)::before,
+    &:nth-child(2)::before,
+    &:first-child::before {
+      background: repeating-linear-gradient(
+          -87deg,
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0) 0.5px,
+          rgba(0, 0, 0, 0.15) 0.5px,
+          rgba(0, 0, 0, 0.15) 1px
+        ),
+        linear-gradient(
+          0deg,
+          #797265 0%,
+          #eee4d8 49%,
+          #ededed 50%,
+          #ededed 55%,
+          #999080 100%
+        );
+    }
+    &:nth-child(3)::before {
+      height: 3px;
+    }
+    &:nth-child(2)::before {
+      height: 4.2px;
+    }
+    &:first-child::before {
+      height: 5.2px;
+    }
+  }
+  .Frets {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+    &.leftHanded {
+      flex-flow: row-reverse nowrap;
+    }
+  }
+  .Fret {
+    flex-flow: row nowrap;
+    height: auto !important;
+    min-height: auto !important;
+    min-width: 2.35em;
+    &.firstString:not(.openString) {
+      background-image: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.05),
+        transparent
+      );
+    }
+    &.lastString:not(.openString) {
+      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.05), transparent);
+    }
+    &.openString::before {
+      width: calc(1.5em - 1px);
+      height: 100%;
+      border-bottom: none;
+    }
+    &.firstString::before {
+      background-image: linear-gradient(180deg, #9d8c64 0%, #c0ac87 50%);
+    }
+    &.lastString::before {
+      background-image: linear-gradient(0deg, #9d8c64 0%, #c0ac87 50%);
+    }
+    &.openString.leftHanded::before {
+      left: 0;
+      right: auto;
+      border-left: 1px solid #917f5f;
+      border-right: none;
+    }
+    &.openString:not(.leftHanded)::before {
+      left: auto;
+      right: 0;
+      border-left: none;
+      border-right: 1px solid #917f5f;
+    }
+  }
+  .FretDelimiter {
+    width: 0.25em;
+    height: 100%;
+    background-image: linear-gradient(
+      90deg,
+      rgb(140, 140, 140) 0%,
+      white 35%,
+      white 65%,
+      rgb(140, 140, 140) 100%
+    );
+    &.lastString {
+      background-image: linear-gradient(
+          180deg,
+          transparent 0%,
+          transparent 70%,
+          rgb(90, 90, 90) 100%
+        ),
+        linear-gradient(
+          90deg,
+          rgb(140, 140, 140) 0%,
+          white 35%,
+          white 65%,
+          rgb(140, 140, 140) 100%
+        );
+    }
+    &.firstString {
+      background-image: linear-gradient(
+          0deg,
+          transparent 0%,
+          transparent 70%,
+          rgb(90, 90, 90) 100%
+        ),
+        linear-gradient(
+          90deg,
+          rgb(140, 140, 140) 0%,
+          white 35%,
+          white 65%,
+          rgb(140, 140, 140) 100%
+        );
+    }
+  }
+}
