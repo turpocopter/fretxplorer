@@ -28,7 +28,27 @@
     }
   }
 }
-
+.FretMarkerList {
+  margin-top: 2.5em;
+  width: 2em;
+  text-align: right;
+}
+.FretMarker {
+  @include fret-heights;
+  margin-right: 1em;
+  box-sizing: content-box;
+  border-bottom: 0.25em solid transparent;
+  min-height: 2.35em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  & small {
+    color: #aaa;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+}
 .StringList {
   display: flex;
   flex-flow: row nowrap;
@@ -206,6 +226,32 @@
 }
 
 @media (orientation: landscape) {
+  .FretMarkerList {
+    margin-top: 0;
+    display: flex;
+    width: auto;
+    height: 2em;
+    flex-flow: row nowrap;
+    margin-left: 2.5em;
+    &.leftHanded {
+      flex-flow: row-reverse nowrap;
+      margin-left: 0;
+      margin-right: 2.5em;
+    }
+  }
+  .FretMarker {
+    height: auto !important;
+    min-height: auto !important;
+    text-align: center;
+    margin-right: 0;
+    border-bottom: 0;
+    min-width: 2.35em;
+    border-right: 0.25em solid transparent;
+    &.leftHanded {
+      border-right: none;
+      border-left: 0.25em solid transparent;
+    }
+  }
   .StringList {
     flex-flow: column-reverse nowrap !important;
     padding-right: 0;
