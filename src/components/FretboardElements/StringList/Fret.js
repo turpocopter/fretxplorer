@@ -49,17 +49,28 @@ export default function Fret(props) {
   const content = (
     <Fade in={Boolean(display)} timeout={{ enter: 300, exit: 0 }}>
       <div
+        data-test='fret-content'
         className={fretClasses.join(" ")}
         onClick={() => onPlay(note, octave)}
       >
-        {display !== "N" && display}
+        {display}
       </div>
     </Fade>
   );
   return (
     <>
-      <div className={wrapperClasses.join(" ")}>{content}</div>
+      <div data-test='fret' className={wrapperClasses.join(" ")}>
+        {content}
+      </div>
       {props.position > 0 && <div className={delimiterClasses.join(" ")} />}
     </>
   );
 }
+
+Fret.propTypes = {
+  display: PropTypes.string.isRequired,
+  isRoot: PropTypes.bool.isRequired,
+  note: PropTypes.number.isRequired,
+  octave: PropTypes.number.isRequired,
+  playNote: PropTypes.func.isRequired,
+};

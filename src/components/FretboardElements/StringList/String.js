@@ -1,8 +1,9 @@
 import React from "react";
 
 import Fret from "./Fret";
-
 import useNoteNames from "hooks/noteNames";
+
+import PropTypes from "prop-types";
 
 const String = (props) => {
   const {
@@ -34,6 +35,7 @@ const String = (props) => {
     }
     return (
       <Fret
+        data-test='fret'
         key={`${name}-${v}`}
         position={v}
         display={display}
@@ -53,10 +55,37 @@ const String = (props) => {
     fretsClasses += " leftHanded";
   }
   return (
-    <div className={stringClasses}>
+    <div data-test='string' className={stringClasses}>
       <div className={fretsClasses}>{frets}</div>
     </div>
   );
+};
+
+String.propTypes = {
+  rootNote: PropTypes.oneOf(["", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+    .isRequired,
+  showIntervals: PropTypes.bool.isRequired,
+  name: PropTypes.number.isRequired,
+  tuning: PropTypes.shape({
+    stringId: PropTypes.number.isRequired,
+    note: PropTypes.number.isRequired,
+    octave: PropTypes.number.isRequired,
+  }).isRequired,
+  selectedNotes: PropTypes.arrayOf(
+    PropTypes.shape({
+      degree: PropTypes.number.isRequired,
+      displayInterval: PropTypes.string.isRequired,
+      displayName: PropTypes.exact({
+        alt: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+      }).isRequired,
+      semitonesFromRoot: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  nbFrets: PropTypes.number.isRequired,
+  noteNaming: PropTypes.string.isRequired,
+  playNote: PropTypes.func.isRequired,
+  isLeftHanded: PropTypes.bool.isRequired,
 };
 
 export default String;
