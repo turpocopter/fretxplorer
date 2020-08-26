@@ -74,7 +74,8 @@ String.propTypes = {
   selectedNotes: PropTypes.arrayOf(
     PropTypes.shape({
       degree: PropTypes.number.isRequired,
-      displayInterval: PropTypes.string.isRequired,
+      displayInterval: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
       displayName: PropTypes.exact({
         alt: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
