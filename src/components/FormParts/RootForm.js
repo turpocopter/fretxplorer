@@ -7,17 +7,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import useNoteNames from "hooks/noteNames";
 
+import PropTypes from "prop-types";
+
 const RootForm = (props) => {
   const { getNoteNames } = useNoteNames(props.noteNaming);
 
   const noteList = getNoteNames(props.useFlats).map((noteName, k) => (
-    <MenuItem key={`rootNote${k}`} value={k}>
+    <MenuItem className='rootNoteItem' key={`rootNote${k}`} value={k}>
       {noteName}
     </MenuItem>
   ));
 
   return (
-    <div className='rootForm'>
+    <div data-test='root-form' className='rootForm'>
       <FormControl variant='outlined' className='formControl -root'>
         <TextField
           variant='outlined'
@@ -52,6 +54,15 @@ const RootForm = (props) => {
       </label>
     </div>
   );
+};
+
+RootForm.propTypes = {
+  rootNote: PropTypes.oneOf(["", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+    .isRequired,
+  useFlats: PropTypes.bool.isRequired,
+  noteNaming: PropTypes.oneOf(["letters", "latin"]).isRequired,
+  updateRoot: PropTypes.func.isRequired,
+  toggleFlats: PropTypes.func.isRequired,
 };
 
 export default RootForm;

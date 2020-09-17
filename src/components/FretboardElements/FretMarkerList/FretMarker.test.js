@@ -13,11 +13,11 @@ const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props };
   return shallow(<FretMarker {...setupProps} />);
 };
-test("renders without error", () => {
+it("renders without error", () => {
   const wrapper = setup();
   const component = findByTestAttr(wrapper, "fret-marker");
   expect(component.length).toBe(1);
 });
-test("does not throw warning with expected props", () => {
+it("does not throw warning with expected props", () => {
   checkProps(FretMarker, defaultProps);
 });

@@ -1,10 +1,10 @@
 import React from "react";
-
 import Switch from "@material-ui/core/Switch";
+import PropTypes from "prop-types";
 
 const NoteIntervalSwitch = ({ showIntervals, toggleNotesIntervals }) => {
   return (
-    <div className='noteIntervalSwitch'>
+    <div data-test='note-interval-switch' className='noteIntervalSwitch'>
       <label className='noteIntervalSwitchLabel'>
         <span>Show notes</span>
         <Switch
@@ -16,6 +16,11 @@ const NoteIntervalSwitch = ({ showIntervals, toggleNotesIntervals }) => {
       </label>
     </div>
   );
+};
+
+NoteIntervalSwitch.propTypes = {
+  showIntervals: PropTypes.bool.isRequired,
+  toggleNotesIntervals: PropTypes.func.isRequired,
 };
 
 export default NoteIntervalSwitch;

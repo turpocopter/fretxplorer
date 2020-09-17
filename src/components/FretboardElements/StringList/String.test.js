@@ -39,15 +39,15 @@ const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props };
   return shallow(<String {...setupProps} />);
 };
-test("renders without error", () => {
+it("renders without error", () => {
   const wrapper = setup();
   const component = findByTestAttr(wrapper, "string");
   expect(component.length).toBe(1);
 });
-test("does not throw warning with expected props", () => {
+it("does not throw warning with expected props", () => {
   checkProps(String, defaultProps);
 });
-test("renders correct number of frets - including open string", () => {
+it("renders correct number of frets - including open string", () => {
   const wrapper = setup({ nbFrets: 22 });
   const component = findByTestAttr(wrapper, "fret");
   expect(component.length).toBe(23);

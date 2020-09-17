@@ -5,61 +5,10 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const chordQualities = {
-  major: {
-    symbol: "",
-    notes: [
-      { semitonesFromRoot: 4, degree: 3 },
-      { semitonesFromRoot: 7, degree: 5 },
-    ],
-  },
-  minor: {
-    symbol: "m",
-    notes: [
-      { semitonesFromRoot: 3, degree: 3 },
-      { semitonesFromRoot: 7, degree: 5 },
-    ],
-  },
-  augmented: {
-    symbol: "+",
-    notes: [
-      { semitonesFromRoot: 4, degree: 3 },
-      { semitonesFromRoot: 8, degree: 5 },
-    ],
-  },
-  diminished: {
-    symbol: "<sup>o</sup>",
-    notes: [
-      { semitonesFromRoot: 3, degree: 3 },
-      { semitonesFromRoot: 6, degree: 5 },
-    ],
-  },
-  sus2: {
-    symbol: "sus2",
-    notes: [
-      { semitonesFromRoot: 2, degree: 2 },
-      { semitonesFromRoot: 7, degree: 5 },
-    ],
-  },
-  sus4: {
-    symbol: "sus4",
-    notes: [
-      { semitonesFromRoot: 5, degree: 4 },
-      { semitonesFromRoot: 7, degree: 5 },
-    ],
-  },
-  "major ♭5": {
-    symbol: "♭5",
-    notes: [
-      { semitonesFromRoot: 4, degree: 3 },
-      { semitonesFromRoot: 6, degree: 5 },
-    ],
-  },
-  powerchord: {
-    symbol: "5",
-    notes: [{ semitonesFromRoot: 7, degree: 5 }],
-  },
-};
+import chordQualities from "data/chords/qualities";
+
+import PropTypes from "prop-types";
+
 const QualityForm = (props) => {
   const { rootName, quality, selected, updateQuality, setTmpChordName } = props;
 
@@ -73,7 +22,7 @@ const QualityForm = (props) => {
     updateQuality(e.target.value, chordQualities[e.target.value].notes);
   };
   const qualityList = Object.keys(chordQualities).map((key) => (
-    <MenuItem key={key} value={key}>
+    <MenuItem className='qualityItem' key={key} value={key}>
       <span
         dangerouslySetInnerHTML={{
           __html: sanitize(`${key} (${rootName}${chordQualities[key].symbol})`),
@@ -83,7 +32,7 @@ const QualityForm = (props) => {
   ));
 
   return (
-    <div className='subFormWrapper'>
+    <div data-test='quality-form' className='subFormWrapper'>
       <FormControl variant='outlined' className='formControl'>
         <TextField
           variant='outlined'
@@ -109,6 +58,24 @@ const QualityForm = (props) => {
       </FormControl>
     </div>
   );
+};
+
+QualityForm.propTypes = {
+  rootName: PropTypes.string.isRequired,
+  quality: PropTypes.string,
+  selected: PropTypes.arrayOf(
+    PropTypes.shape({
+      degree: PropTypes.number.isRequired,
+      displayInterval: PropTypes.string.isRequired,
+      semitonesFromRoot: PropTypes.number.isRequired,
+      displayName: PropTypes.shape({
+        alt: PropTypes.string,
+        id: PropTypes.number.isRequired,
+      }).isRequired,
+    })
+  ),
+  updateQuality: PropTypes.func.isRequired,
+  setTmpChordName: PropTypes.func.isRequired,
 };
 
 export default QualityForm;

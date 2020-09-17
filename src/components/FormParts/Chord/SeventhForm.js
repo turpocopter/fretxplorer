@@ -4,65 +4,9 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { hasNote } from "utility/intervals";
+import seventhList from "data/chords/seventh";
 
-const seventhList = {
-  none: {
-    semitonesFromRoot: null,
-    isAvailable: (selected) =>
-      (hasNote(selected, 4, 3) ||
-        hasNote(selected, 3, 3) ||
-        hasNote(selected, 2, 2) ||
-        hasNote(selected, 5, 4)) &&
-      (hasNote(selected, 7, 5) ||
-        hasNote(selected, 6, 5) ||
-        hasNote(selected, 8, 5)),
-    nameChord: () => null,
-  },
-  major: {
-    semitonesFromRoot: 11,
-    isAvailable: (selected) =>
-      (hasNote(selected, 3, 3) && !hasNote(selected, 6, 5)) ||
-      (hasNote(selected, 4, 3) && !hasNote(selected, 6, 5)) ||
-      hasNote(selected, 2, 2) ||
-      hasNote(selected, 5, 4),
-    nameChord: (selected) => {
-      if (hasNote(selected, 8, 5)) return "+<sup>M7</sup>";
-      //else if (hasNote(selected, 4, 3) && hasNote(selected, 6, 5)) return "M7♭5";
-      else if (hasNote(selected, 4, 3)) return "M7";
-      else if (hasNote(selected, 5, 4)) return "M7sus4";
-      else if (hasNote(selected, 2, 2)) return "M7sus2";
-      else if (hasNote(selected, 3, 3)) return "m<sup>M7</sup>";
-    },
-  },
-  minor: {
-    semitonesFromRoot: 10,
-    isAvailable: (selected) =>
-      hasNote(selected, 3, 3) ||
-      hasNote(selected, 4, 3) ||
-      hasNote(selected, 2, 2) ||
-      hasNote(selected, 5, 4),
-
-    nameChord: (selected) => {
-      if (hasNote(selected, 8, 5)) return "+7";
-      else if (hasNote(selected, 3, 3) && hasNote(selected, 6, 5))
-        return "<sup>ø</sup>7";
-      else if (hasNote(selected, 4, 3) && hasNote(selected, 6, 5)) return "7♭5";
-      else if (hasNote(selected, 4, 3)) return "7";
-      else if (hasNote(selected, 3, 3)) return "m7";
-      else if (hasNote(selected, 5, 4)) return "7sus4";
-      else if (hasNote(selected, 2, 2)) return "7sus2";
-    },
-  },
-  diminished: {
-    semitonesFromRoot: 9,
-    isAvailable: (selected) =>
-      hasNote(selected, 3, 3) && hasNote(selected, 6, 5),
-    nameChord: (selected) => {
-      return "<sup>o</sup>7";
-    },
-  },
-};
+import PropTypes from "prop-types";
 
 const SeventhForm = (props) => {
   const { rootName, selected, seventh, updateSeventh, setTmpChordName } = props;
@@ -103,7 +47,7 @@ const SeventhForm = (props) => {
     ));
   return (
     filteredSeventhList.length > 0 && (
-      <div className='wrapper'>
+      <div data-test='seventh-form' className='wrapper'>
         <FormControl variant='outlined' className='formControl'>
           <TextField
             variant='outlined'
@@ -130,6 +74,24 @@ const SeventhForm = (props) => {
       </div>
     )
   );
+};
+
+SeventhForm.propTypes = {
+  rootName: PropTypes.string.isRequired,
+  seventh: PropTypes.string,
+  selected: PropTypes.arrayOf(
+    PropTypes.shape({
+      degree: PropTypes.number.isRequired,
+      displayInterval: PropTypes.string.isRequired,
+      semitonesFromRoot: PropTypes.number.isRequired,
+      displayName: PropTypes.shape({
+        alt: PropTypes.string,
+        id: PropTypes.number.isRequired,
+      }).isRequired,
+    })
+  ),
+  updateSeventh: PropTypes.func.isRequired,
+  setTmpChordName: PropTypes.func.isRequired,
 };
 
 export default SeventhForm;
