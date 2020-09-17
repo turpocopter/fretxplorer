@@ -1,80 +1,10 @@
 import React, { useEffect } from "react";
 import { sanitize } from "dompurify";
-import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import { hasNote } from "utility/intervals";
-
-const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
-      margin: "8px 0",
-    },
-  },
-  formControl: {
-    margin: 0,
-    minWidth: 250,
-    [theme.breakpoints.up("sm")]: {
-      minWidth: 400,
-    },
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      "& > .MuiTextField-root": {
-        margin: "8px 0",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      "& > .MuiTextField-root": {
-        margin: "8px 0",
-      },
-    },
-  },
-  select: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      fontSize: "0.9em",
-      "& > .MuiSelect-root": {
-        padding: 12,
-        paddingRight: 32,
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      fontSize: "0.9em",
-      "& > .MuiSelect-root": {
-        padding: 12,
-        paddingRight: 32,
-      },
-    },
-  },
-  label: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      fontSize: "1em",
-      transform: "translate(14px, 14px) scale(1)",
-      "&.MuiInputLabel-shrink": {
-        transform: "translate(11px, -6px) scale(0.7)",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      fontSize: "1em",
-      transform: "translate(14px, 14px) scale(1)",
-      "&.MuiInputLabel-shrink": {
-        transform: "translate(11px, -6px) scale(0.7)",
-      },
-    },
-  },
-  menu: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      "& li": {
-        fontSize: "1em!important",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      "& li": {
-        fontSize: "1em!important",
-      },
-    },
-  },
-}));
 
 const seventhList = {
   none: {
@@ -136,7 +66,6 @@ const seventhList = {
 
 const SeventhForm = (props) => {
   const { rootName, selected, seventh, updateSeventh, setTmpChordName } = props;
-  const classes = useStyles();
 
   useEffect(() => {
     if (
@@ -174,24 +103,24 @@ const SeventhForm = (props) => {
     ));
   return (
     filteredSeventhList.length > 0 && (
-      <div className={classes.wrapper}>
-        <FormControl variant='outlined' className={classes.formControl}>
+      <div className='wrapper'>
+        <FormControl variant='outlined' className='formControl'>
           <TextField
             variant='outlined'
             id='seventh-note'
             select
             label='Seventh note'
-            className={classes.textField}
+            className='textField'
             value={seventh}
             onChange={handleSeventh}
             SelectProps={{
-              className: classes.select,
+              className: "select",
               MenuProps: {
-                classes: { list: classes.menu },
+                classes: { list: "menu" },
               },
             }}
             InputLabelProps={{
-              className: classes.label,
+              className: "label",
             }}
             margin='normal'
           >

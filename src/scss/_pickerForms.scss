@@ -1,0 +1,90 @@
+@mixin largeLandscape {
+  .formControl > .MuiTextField-root {
+    margin: 8px 0;
+  }
+  .flatSwitch {
+    font-size: 1.1em;
+  }
+  .select {
+    font-size: 0.9em;
+    & > .MuiSelect-root {
+      padding: 12px 32px 12px 12px;
+    }
+  }
+  .label {
+    font-size: 1em;
+    transform: translate(14px, 14px) scale(1);
+    &.MuiInputLabel-shrink {
+      transform: translate(11px, -6px) scale(0.7);
+    }
+  }
+  .menu li {
+    font-size: 1em !important;
+  }
+}
+
+.pickerForm {
+  .rootForm {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include media(">=sm") {
+      width: 400px;
+    }
+    @include media(">=sm", "portrait") {
+      margin: 8px 0;
+    }
+  }
+  .flatSwitch {
+    font-size: 1.4em, & span {
+      vertical-align: "middle";
+    }
+  }
+  .subFormWrapper {
+    @include media(">=sm", "portrait") {
+      margin: 8px 0;
+    }
+  }
+  .formControl {
+    margin: 0;
+    min-width: 250px;
+    @include media(">=sm") {
+      min-width: 400px;
+    }
+    &.-root {
+      width: 120px;
+      min-width: auto;
+      @include media(">=sm") {
+        width: 200px;
+      }
+    }
+  }
+  @include media("<desktop", "landscape") {
+    @include largeLandscape;
+  }
+  @include media("^=tabletH", "<=xl", "landscape") {
+    @include largeLandscape;
+  }
+}
+.noteIntervalSwitch {
+  text-align: center;
+  @include media(">=sm") {
+    margin-top: 0.8em;
+  }
+  .noteIntervalSwitchLabel {
+    font-size: 0.9em;
+    display: inline-block;
+    margin: 0 0 8px;
+    min-width: 120px;
+    @include media(">=sm", "portrait") {
+      font-size: 1em;
+    }
+    @include media("landscape") {
+      margin-left: 8px;
+    }
+    @include media("^=tabletH", "landscape") {
+      font-size: 1em;
+    }
+  }
+}

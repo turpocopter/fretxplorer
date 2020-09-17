@@ -4,10 +4,9 @@ $breakpoints: (
   "desktop": 1024px,
   "xl": 1590px,
   "xxl": 1780px,
+  "tabletH": 680px,
+  "desktopH": 840px,
 ) !default;
-
-$tabletH: 680px;
-$desktopH: 840px;
 
 $colorPrimary: #468189;
 $colorSecondary: #e54b4b;

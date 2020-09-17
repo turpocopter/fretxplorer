@@ -618,7 +618,7 @@ const ScalePickerForm = ({ onPick }) => {
   });
 
   return (
-    <div className={classes.paper}>
+    <div className={`${classes.paper} pickerForm`}>
       <div className={classes.paperInner}>
         <Typography
           className={classes.title}

@@ -147,7 +147,7 @@ const ChordPickerForm = () => {
   const rootName = getNoteName(rootNote, useFlats);
 
   return (
-    <div className={classes.paper}>
+    <div className={`${classes.paper} pickerForm`}>
       <div className={classes.paperInner}>
         <Typography
           className={classes.title}
