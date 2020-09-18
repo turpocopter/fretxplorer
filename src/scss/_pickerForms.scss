@@ -24,6 +24,102 @@
 }
 
 .pickerForm {
+  &.paper {
+    margin: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $colorBackground;
+    @include media(">=sm", "portrait") {
+      min-height: calc(100vh - 262px);
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+    }
+    @include media(">=sm", "landscape") {
+      margin: 16px 32px;
+    }
+    @include media("ˇtabletH", "landscape") {
+      min-height: calc(100vh - 150px);
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+    }
+    @include media("ˇtabletH", ">=desktop", "landscape") {
+      min-height: calc(100vh - 268px);
+    }
+    @include media("^=tabletH", "landscape") {
+      margin: 0 0 0 6px;
+      min-height: 16.6em;
+    }
+    @include media("^=desktopH", "landscape") {
+      min-height: 19.7em;
+    }
+    &.scalePickerForm {
+      @include media("^=tabletH", "landscape") {
+        min-height: 9.8em;
+      }
+      @include media("^=desktopH", "landscape") {
+        min-height: 13em;
+      }
+    }
+    .paperInner {
+      @include media(">=sm", "portrait") {
+        height: 30.8em;
+      }
+      @include media("ˇtabletH", "landscape") {
+        height: 23.1em;
+      }
+      @include media("ˇtabletH", ">=desktop", "landscape") {
+        height: 27em;
+      }
+      .title {
+        margin-bottom: 16px;
+        @include media(">=sm", "portrait") {
+          margin-bottom: 32px;
+        }
+        @include media("^=tabletH", "ˇdesktopH", "landscape") {
+          display: none;
+        }
+      }
+      .buttonWrapper {
+        @include media(">=sm", "portrait") {
+          margin-top: 8px;
+        }
+      }
+      .submitButton {
+        width: 250px;
+        margin-top: 16px;
+        padding: 16px 0;
+        text-transform: none;
+        & sup {
+          vertical-align: top;
+          position: relative;
+          top: -0.25em;
+        }
+        @include media(">=sm") {
+          width: 400px;
+        }
+        @include media("<tablet", "landscape") {
+          margin-top: 8px;
+          padding: 8px 0;
+        }
+        @include media("^=tabletH", "landscape") {
+          margin-top: 8px;
+          padding: 8px 0;
+        }
+        @include media(">=xl", "%1.6") {
+          margin-top: 16px;
+          padding: 16px 0;
+        }
+      }
+    }
+  }
+  .scaleFieldWrapper {
+    @include media(">=sm", "portrait") {
+      margin: 8px 0;
+    }
+  }
   .rootForm {
     width: 250px;
     display: flex;
@@ -65,6 +161,20 @@
   }
   @include media("^=tabletH", "<=xl", "landscape") {
     @include largeLandscape;
+  }
+}
+.menuScale {
+  .group {
+    font-size: 1em;
+    text-align: center;
+    color: $colorGray;
+    & span {
+      font-size: 0.85em;
+    }
+  }
+  .option {
+    font-size: 1em;
+    min-height: 34px;
   }
 }
 .noteIntervalSwitch {

@@ -236,12 +236,14 @@ $unit-intervals: (
       $element: "(max-width: #{$result})";
     } @else if ($operator == "^") {
       $element: "(min-height: #{$result + $interval})";
-    } @else if ($operator == "v") {
+    } @else if ($operator == "ˇ") {
       $element: "(max-height: #{$result - $interval})";
     } @else if ($operator == "^=") {
       $element: "(min-height: #{$result})";
-    } @else if ($operator == "v=") {
+    } @else if ($operator == "ˇ=") {
       $element: "(max-height: #{$result})";
+    } @else if ($operator == "%") {
+      $element: "(max-aspect-ratio: #{$result})";
     } @else {
       @warn '#{$expression} is missing an operator.';
     }
