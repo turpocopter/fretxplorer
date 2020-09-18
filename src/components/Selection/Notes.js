@@ -6,7 +6,7 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
 import PropTypes from "prop-types";
 
-const Notes = ({
+export const Notes = ({
   selectionType,
   playNote,
   playChord,
@@ -104,7 +104,7 @@ const Notes = ({
   const playChordClasses = ["playChord"];
   if (isPlaying === true) playChordClasses.push("active");
   return (
-    <ul className='notes'>
+    <ul data-test='notes' className='notes'>
       {notes}
       <li
         className={playChordClasses.join(" ")}

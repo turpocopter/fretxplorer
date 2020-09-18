@@ -40,7 +40,7 @@ const Presets = ({ preset, selectPreset, isOpening, isClosing }) => {
   const formClasses = ["formControl"];
   if (isOpening || isClosing) formClasses.push("hidden");
   return (
-    <div className='presets'>
+    <div data-test='presets' className='presets'>
       <FormControl variant='outlined' className={formClasses.join(" ")}>
         <TextField
           variant='outlined'

@@ -33,7 +33,7 @@ const Peg = ({
     tuneDownClasses.push("hidden");
   }
   return (
-    <div className={pegClasses.join(" ")}>
+    <div data-test='peg' className={pegClasses.join(" ")}>
       {isOpen && !isLinked && (
         <button
           className={tuneDownClasses.join(" ")}

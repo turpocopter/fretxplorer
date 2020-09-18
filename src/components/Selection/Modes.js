@@ -24,7 +24,7 @@ const Modes = ({
 }) => {
   const { translateNote } = useNotes(namingConvention);
   return (
-    <div className='modes'>
+    <div data-test='modes' className='modes'>
       <div className='wrapper'>
         <div className='btnPrevious'>
           <IconButton aria-label='delete' onClick={pickPrevious}>
