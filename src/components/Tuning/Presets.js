@@ -53,7 +53,7 @@ const Presets = ({ preset, selectPreset, isOpening, isClosing }) => {
           SelectProps={{
             className: "select",
             MenuProps: {
-              className: "menu",
+              className: "menu menuTuningPresets",
             },
           }}
           InputLabelProps={{
