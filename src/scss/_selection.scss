@@ -1,0 +1,181 @@
+@mixin largeCtrls {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modes {
+  padding: 0 16px;
+  @include media(">=sm") {
+    padding: 0 16px;
+  }
+  @include media("^=tabletH", "landscape") {
+    padding: 0;
+    width: 100%;
+  }
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    @include media("^=tabletH", "landscape") {
+      border-bottom: none;
+      border-top: 1px solid #ddd;
+      margin-top: 12px;
+    }
+    .mainCtrlsWrapper {
+      flex-grow: 1;
+      text-align: center;
+      @include media(">=sm", "landscape") {
+        @include largeCtrls;
+      }
+      @include media(">=tablet", "portrait") {
+        @include largeCtrls;
+      }
+      .formControl {
+        text-align: left;
+        margin: 0;
+        width: 218px;
+        @include media(">=sm", "portrait") {
+          margin-top: 4px;
+        }
+        @include media(">=tablet") {
+          margin-top: 4px;
+          margin-bottom: 8px;
+          width: 13.4em;
+        }
+        @include media("^=tabletH", "landscape") {
+          margin-right: 1em;
+        }
+        @include media("^=tabletH", "landscape", "<desktop") {
+          width: 180px;
+          margin-right: 10px;
+        }
+        @include media("^=tabletH", "landscape", "<tablet") {
+          width: 130px;
+        }
+        .textField {
+          @include media(">=sm") {
+            margin-bottom: 16px;
+          }
+          .select {
+            font-size: 0.95em;
+            @include media(">=sm", "portrait") {
+              font-size: 1em;
+            }
+            @include media(">=tablet", "landscape") {
+              font-size: 1em;
+            }
+            & span {
+              color: $colorGray;
+              font-size: 0.9em;
+            }
+            .menu {
+              font-size: 0.95em;
+            }
+          }
+          .label {
+            font-size: 0.92em;
+          }
+          .option {
+            font-size: 1em;
+            min-height: 34px;
+            & span {
+              color: $colorGray;
+              font-size: 0.9em;
+            }
+          }
+        }
+      }
+      .modeSwitch {
+        text-align: center;
+        @include media(">=sm", "<tablet", "portrait") {
+          margin-bottom: 0.8em;
+        }
+        .flatSwitch {
+          font-size: 0.9em;
+          display: inline-block;
+          margin-left: 0;
+          margin-right: 0;
+          margin-bottom: 0;
+          margin-top: 0;
+          min-width: 120px;
+          white-space: nowrap;
+          @include media(">=sm", "portrait") {
+            font-size: 1em;
+          }
+          @include media("landscape") {
+            margin-left: 8px;
+          }
+          @include media("^=tabletH", "landscape") {
+            font-size: 1em;
+          }
+          .switchLabelExtras {
+            @include media("landscape") {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    .btnPrevious {
+      margin-left: -16px;
+    }
+    .btnNext {
+      margin-right: -16px;
+    }
+  }
+}
+
+.notes {
+  width: 100%;
+  padding-top: 8px;
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  font-size: 0.9em;
+  @include media(">=sm") {
+    font-size: 1em;
+  }
+  .note {
+    display: inline-block;
+    text-align: center;
+    width: 1.7em;
+    margin-right: 1.3em;
+  }
+  .playChord {
+    display: inline-block;
+    font-size: 1.3rem;
+    width: 1.5rem;
+    z-index: 0;
+    text-align: center;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      height: 1.6rem;
+      width: 1.6rem;
+      background-color: $colorBackground;
+      z-index: -1;
+      border-radius: 50%;
+      border: 2.4px solid black;
+      top: -0.1rem;
+      left: 0;
+    }
+    &.active {
+      color: $colorSecondary;
+      &::before {
+        border-color: $colorSecondary;
+      }
+    }
+  }
+  .interval {
+    color: #aaa;
+    font-size: 0.9em;
+  }
+  .active {
+    color: $colorSecondary;
+  }
+}
