@@ -244,6 +244,8 @@ $unit-intervals: (
       $element: "(max-height: #{$result})";
     } @else if ($operator == "%") {
       $element: "(max-aspect-ratio: #{$result})";
+    } @else if ($operator == "|") {
+      $element: "(min-aspect-ratio: #{$result})";
     } @else {
       @warn '#{$expression} is missing an operator.';
     }

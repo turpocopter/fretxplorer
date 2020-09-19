@@ -8,11 +8,10 @@ import Fretboard from "containers/Fretboard";
 import Selection from "containers/Selection";
 import Tuning from "containers/Tuning";
 import Fader from "react-fader";
-import { makeStyles } from "@material-ui/core/styles";
 
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const useStyles = makeStyles((theme) => {
+/*const useStyles = makeStyles((theme) => {
   return {
     pageContent: {
       "@media (orientation: landscape)": {
@@ -91,26 +90,31 @@ const useStyles = makeStyles((theme) => {
     },
   };
 });
-
+*/
 const ChordPicker = () => {
   const dispatch = useDispatch();
   const chordName = useSelector((state) => state.notePicker.chordName);
   const showIntervals = useSelector((state) => state.settings.showIntervals);
   //const selectedNotes = useSelector((state) => state.notePicker.selected);
 
-  const classes = useStyles({ chordName });
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
   const isBigScreen = useMediaQuery(
     "(min-height: 680px) and (orientation: landscape)"
   );
+  const pickerContainerClasses = ["pickerContainer"];
+  const fretboardContainerClasses = ["fretboardContainer"];
+  if (chordName !== "") {
+    pickerContainerClasses.push("hasContent");
+    fretboardContainerClasses.push("hasContent");
+  }
   useEffect(() => {
     dispatch(actions.reinitSelection());
   }, [dispatch]);
   return (
-    <div className={classes.pageContent}>
-      <div key='pickerContainer' className={classes.pickerContainer}>
+    <div className='pickerPage chordPicker'>
+      <div key='pickerContainer' className={pickerContainerClasses.join(" ")}>
         <div>
           <Fader
             fadeInTransitionDuration={300}
@@ -126,9 +130,9 @@ const ChordPicker = () => {
             )}
           </Fader>
         </div>
-        <div className={classes.persistentTuner}>
+        <div className='persistentTuner'>
           <Tuning alwaysOpen={true} />
-          <div className={classes.switchUnderTuner}>
+          <div className='switchUnderTuner'>
             <NoteIntervalSwitch
               showIntervals={showIntervals}
               toggleNotesIntervals={onToggleNotesIntervals}
@@ -136,7 +140,10 @@ const ChordPicker = () => {
           </div>
         </div>
       </div>
-      <div key='fretboardContainer' className={classes.fretboardContainer}>
+      <div
+        key='fretboardContainer'
+        className={fretboardContainerClasses.join(" ")}
+      >
         <Fretboard />
       </div>
     </div>

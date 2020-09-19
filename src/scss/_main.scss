@@ -1,3 +1,27 @@
+html {
+  font-size: 100%;
+  @include media(">=sm", "portrait") {
+    font-size: 140%;
+  }
+  @include media(">=tablet", "landscape") {
+    font-size: 130%;
+  }
+  @include media(">=desktop", "portrait") {
+    font-size: 180%;
+  }
+  @include media(">=xl") {
+    font-size: 140%;
+  }
+  @include media(">=xl", "%1.6") {
+    font-size: 160%;
+  }
+  @include media(">=xxl") {
+    font-size: 160%;
+  }
+  @include media(">=xxl", "%1.6") {
+    font-size: 180%;
+  }
+}
 html,
 body,
 #root {
@@ -7,6 +31,12 @@ body,
 }
 body {
   margin: 0;
+  font-family: "M PLUS 1p", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.appRoot {
+  background-color: $colorBackground;
+  min-height: 100%;
+  height: 100%;
 }

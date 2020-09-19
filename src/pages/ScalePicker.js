@@ -9,11 +9,10 @@ import Selection from "containers/Selection";
 import Tuning from "containers/Tuning";
 import Fader from "react-fader";
 import Modes from "components/Selection/Modes";
-import { makeStyles } from "@material-ui/core/styles";
 
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const useStyles = makeStyles((theme) => {
+/*const useStyles = makeStyles((theme) => {
   return {
     pageContent: {
       "@media (orientation: landscape)": {
@@ -96,7 +95,7 @@ const useStyles = makeStyles((theme) => {
     },
   };
 });
-
+*/
 const ScalePicker = () => {
   const dispatch = useDispatch();
   const scaleName = useSelector((state) => state.notePicker.scaleName);
@@ -141,8 +140,6 @@ const ScalePicker = () => {
     return dispatch(actions.toggleParallelModes());
   };
 
-  const classes = useStyles({ scaleName });
-
   const onToggleNotesIntervals = () => {
     return dispatch(actions.toggleNotesIntervals());
   };
@@ -153,6 +150,13 @@ const ScalePicker = () => {
   useEffect(() => {
     dispatch(actions.reinitSelection());
   }, [dispatch]);
+
+  const pickerContainerClasses = ["pickerContainer"];
+  const fretboardContainerClasses = ["fretboardContainer"];
+  if (scaleName !== "") {
+    pickerContainerClasses.push("hasContent");
+    fretboardContainerClasses.push("hasContent");
+  }
 
   const modesComponent = scaleInfo !== null &&
     scaleInfo.hasOwnProperty("modes") &&
@@ -170,8 +174,8 @@ const ScalePicker = () => {
       />
     );
   return (
-    <div className={classes.pageContent}>
-      <div key='pickerContainer' className={classes.pickerContainer}>
+    <div className='pickerPage scalePicker'>
+      <div key='pickerContainer' className={pickerContainerClasses.join(" ")}>
         <div>
           <Fader
             fadeInTransitionDuration={300}
@@ -189,9 +193,9 @@ const ScalePicker = () => {
             )}
           </Fader>
         </div>
-        <div className={classes.persistentTuner}>
+        <div className='persistentTuner'>
           <Tuning alwaysOpen={true} />
-          <div className={classes.switchUnderTuner}>
+          <div className='switchUnderTuner'>
             <NoteIntervalSwitch
               showIntervals={showIntervals}
               toggleNotesIntervals={onToggleNotesIntervals}
@@ -199,10 +203,11 @@ const ScalePicker = () => {
           </div>
         </div>
       </div>
-      {!isBigScreen && (
-        <div className={classes.modesContainer}>{modesComponent}</div>
-      )}
-      <div key='fretboardContainer' className={classes.fretboardContainer}>
+      {!isBigScreen && <div className='modesContainer'>{modesComponent}</div>}
+      <div
+        key='fretboardContainer'
+        className={fretboardContainerClasses.join(" ")}
+      >
         <Fretboard />
       </div>
     </div>

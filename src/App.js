@@ -9,42 +9,6 @@ import Welcome from "pages/Welcome";
 import TransitionSwitch from "react-router-transition-switch";
 import Fader from "react-fader";
 
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  "@global": {
-    html: {
-      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
-        fontSize: "140%",
-      },
-      [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
-        fontSize: "130%",
-      },
-      "@media (min-width: 1590px)": {
-        fontSize: "140%",
-      },
-      "@media (min-width: 1024px) and (orientation: portrait)": {
-        fontSize: "180%",
-      },
-      "@media (min-width: 1590px) and (max-aspect-ratio: 8/5)": {
-        fontSize: "160%",
-      },
-      "@media (min-width: 1780px)": {
-        fontSize: "160%",
-      },
-      "@media (min-width: 1780px) and (max-aspect-ratio: 8/5)": {
-        fontSize: "180%",
-      },
-    },
-  },
-  root: {
-    backgroundColor: theme.palette.background.main,
-    minHeight: "100%",
-    height: "100%",
-  },
-  active: {},
-}));
-
 const ChordPicker = React.lazy(() => {
   return import("pages/ChordPicker");
 });
@@ -62,13 +26,12 @@ const About = React.lazy(() => {
 });
 
 function App(props) {
-  const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actions.checkLocalSettings());
   }, [dispatch]);
   return (
-    <div className={classes.root}>
+    <div className='appRoot'>
       {
         <>
           <Suspense fallback={<Spinner />}>

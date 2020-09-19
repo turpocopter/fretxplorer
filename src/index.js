@@ -41,33 +41,8 @@ const store = createStore(
 // TODO : run sagas
 
 const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 590,
-      md: 1024,
-      lg: 1280,
-      xl: 1920,
-    },
-  },
   typography: {
     fontFamily: `'M PLUS 1p', sans-serif`,
-  },
-  palette: {
-    primary: {
-      main: "#468189",
-    },
-    secondary: {
-      main: "#e54b4b",
-    },
-    background: {
-      main: "#f8f7f9",
-    },
-    gray: {
-      dark: "#222222",
-      main: "#999999",
-      light: "#cccccc",
-    },
   },
 });
 

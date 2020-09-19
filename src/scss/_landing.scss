@@ -1,0 +1,186 @@
+@keyframes shrinkCache {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 62.5%;
+  }
+}
+@keyframes showElement {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-3%);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes showButtons {
+  0% {
+    opacity: 0;
+    transform: translateY(-1em);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landingPage {
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  @include media("landscape") {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    width: 100%;
+    position: relative;
+    height: 0;
+    @include media("landscape") {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      width: 45%;
+      max-width: 500;
+    }
+    @include media("portrait") {
+      height: 0;
+      padding-bottom: 38%;
+    }
+    & img {
+      width: 100%;
+    }
+    .logoInner {
+      width: 100%;
+      @include media("landscape") {
+        position: relative;
+        padding-bottom: 38%;
+      }
+      @include media("portrait") {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+      }
+      .logoLayerOne {
+        background-position: top right;
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+      }
+      .logoLayerTwo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: showElement 0s forwards ease-out 0.6s;
+      }
+      .logoLayerTwoCache {
+        background-position: top right;
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        animation: shrinkCache 2s forwards ease-out 0.6s;
+      }
+      .logoLayerThree {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: showElement 1s forwards ease-out 0.5s;
+      }
+      .logoLayerFour {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: showElement 0.2s forwards ease-out 2.6s;
+      }
+      .logoLayerFive {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: showElement 0.5s forwards ease-out 2.8s,
+          bounce 0.5s 2 forwards ease 2.8s;
+      }
+    }
+  }
+  .buttons {
+    text-align: center;
+    padding-top: 64px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    opacity: 0;
+    animation: showButtons 0.5s forwards ease-out 0.5s;
+    @include media(">=sm", "portrait") {
+      padding-top: 100px;
+      padding-bottom: 228px;
+    }
+    @include media(">=750px", "portrait", "|0.85") {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    @include media(">=sm", "portrait", "|0.67") {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    @include media(">=sm", "<749px", "portrait", "|0.75") {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    @include media("landscape") {
+      flex-grow: 1;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .buttonWrapper {
+      margin: 8px;
+      @include media(">=sm", "portrait") {
+        margin: 16px;
+      }
+      &.separator {
+        margin-top: 24px;
+        @include media(">=sm", "portrait") {
+          margin-top: 64px;
+        }
+      }
+      .button {
+        min-width: 15em !important;
+        @include media(">=sm", "portrait") {
+          font-size: 1.2em !important;
+        }
+        @include media(">=desktop", "portrait") {
+          margin: 0.2em !important;
+          min-width: 15em !important;
+          font-size: 1.2em !important;
+        }
+      }
+    }
+  }
+}
