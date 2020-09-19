@@ -6,69 +6,8 @@ import Notes from "components/Selection/Notes";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
-import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import useNoteNames from "hooks/noteNames";
-
-const useStyles = makeStyles((theme) => {
-  let chordTablet;
-  return {
-    paper: {
-      padding: theme.spacing(1, 0, 1),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: theme.palette.background.main,
-      [`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: portrait)`]: (chordTablet = {
-        paddingTop: 0,
-        paddingBottom: theme.spacing(3),
-      }),
-      [`${theme.breakpoints.up(
-        "md"
-      )} and (orientation: landscape)`]: chordTablet,
-      "@media (min-height: 680px) and (orientation: landscape)": {
-        paddingTop: 12,
-        borderBottom: "none",
-        minHeight: "16.6em",
-      },
-      "@media (min-height: 840px) and (orientation: landscape)": {
-        minHeight: "19.7em",
-      },
-      "@media (min-height: 840px) and (min-width: 1140px) and (orientation: landscape)": {
-        display: "flex",
-        minWidth: 400,
-        flexFlow: "column nowrap",
-        justifyContent: "center",
-        fontSize: "1em",
-      },
-    },
-    scaleInfo: {
-      width: "100%",
-    },
-    scaleHeader: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
-    title: {},
-    extraInfo: {
-      color: theme.palette.gray.main,
-      fontSize: "0.8em",
-      lineHeight: 1.5,
-      marginTop: "0.5em",
-    },
-    buttonWrapper: {
-      marginLeft: "1em",
-    },
-    button: {
-      margin: "0.1em 0",
-    },
-  };
-});
 
 const Selection = ({ children, type, extraInfo }) => {
   const dispatch = useDispatch();
@@ -77,7 +16,6 @@ const Selection = ({ children, type, extraInfo }) => {
   const rootNote = useSelector((state) => state.notePicker.rootNote);
   const selected = useSelector((state) => state.notePicker.selected);
   const namingConvention = useSelector((state) => state.settings.noteNaming);
-  const classes = useStyles();
   const biggerButton = useMediaQuery("(min-width: 600px)");
   const { translateNote } = useNoteNames(namingConvention);
 
@@ -93,12 +31,12 @@ const Selection = ({ children, type, extraInfo }) => {
 
   return (
     selected.length > 0 && (
-      <div className={classes.paper}>
-        <div className={classes.scaleInfo}>
-          <div className={classes.scaleHeader}>
+      <div className='selection'>
+        <div className='scaleInfo'>
+          <div className='scaleHeader'>
             <div>
               <Typography
-                className={classes.title}
+                className='title'
                 variant='h5'
                 component='h2'
                 color='primary'
@@ -111,9 +49,9 @@ const Selection = ({ children, type, extraInfo }) => {
                 }}
               />
             </div>
-            <div className={classes.buttonWrapper}>
+            <div className='buttonWrapper'>
               <Button
-                className={classes.button}
+                className='button'
                 variant='contained'
                 color='primary'
                 size={biggerButton ? "medium" : "small"}
@@ -123,7 +61,7 @@ const Selection = ({ children, type, extraInfo }) => {
               </Button>
             </div>
           </div>
-          {extraInfo && <div className={classes.extraInfo}>({extraInfo})</div>}
+          {extraInfo && <div className='extraInfo'>({extraInfo})</div>}
           <Notes
             selectionType={type}
             selectedWithValues={selectedWithValues}

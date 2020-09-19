@@ -28,6 +28,78 @@
     }
   }
 }
+.fretboardRoot {
+  position: relative;
+  margin-top: 8px;
+  @include media("landscape") {
+    display: flex;
+    flex-flow: row wrap;
+    height: 100%;
+  }
+  .fretboardWrapper {
+    @include media("landscape") {
+      overflow: auto;
+      display: flex;
+      flex-flow: row nowrap;
+      &.leftHanded {
+        flex-flow: row-reverse nowrap;
+      }
+    }
+    .fretboardScroller {
+      position: relative;
+      @include media("landscape") {
+        display: flex;
+        flex-grow: 1;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+        &.leftHanded {
+          flex-flow: row-reverse nowrap;
+        }
+      }
+      @include media("<tablet", "landscape") {
+        font-size: 0.85em;
+      }
+      .fretboardInner {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        margin-top: 8px;
+        @include media("landscape") {
+          flex-flow: column nowrap;
+          overflow: auto;
+          width: 67em;
+          padding-bottom: 1.4em;
+          margin-top: 48px;
+        }
+        @include media(">=desktop", "landscape") {
+          width: 87.8em;
+        }
+        @include media("<tablet", "landscape") {
+          margin-top: 40px;
+          padding-bottom: 1.4em;
+        }
+      }
+    }
+  }
+  .noteIntervalSwitch {
+    @include media("landscape") {
+      position: absolute;
+      z-index: 90;
+      top: 0;
+      right: 16px;
+      &.leftHanded {
+        right: auto;
+        left: 16px;
+      }
+    }
+    @include media("^=tabletH", "landscape") {
+      display: none;
+    }
+  }
+}
+
 .FretMarkerList {
   margin-top: 2.5em;
   width: 2em;

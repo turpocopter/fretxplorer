@@ -15,218 +15,6 @@ import LinkOffIcon from "@material-ui/icons/LinkOff";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import { makeStyles } from "@material-ui/core/styles";
-//import Collapse from "@material-ui/core/Collapse";
-
-const useStyles = makeStyles((theme) => {
-  let tuningTablet = { margin: "12px auto" };
-  let tuneBtnWrapperTablet;
-  return {
-    tuning: {
-      position: "relative",
-      borderColor: "transparent",
-      borderStyle: "solid",
-      borderWidth: 3,
-      borderRadius: 10,
-      margin: "0 auto",
-      width: "18.8em",
-      transition: "all 0.5s",
-      "&$active": {
-        borderColor: theme.palette.gray.light,
-        paddingBottom: "0.6em",
-        [`${theme.breakpoints.up(
-          "sm"
-        )} and (orientation: portrait)`]: tuningTablet,
-        [`${theme.breakpoints.up(
-          "md"
-        )} and (orientation: landscape)`]: tuningTablet,
-      },
-      [theme.breakpoints.up("sm")]: tuningTablet,
-      "@media (orientation: landscape)": {
-        width: (props) => (!props.alwaysOpen ? "auto" : "18.8em"),
-        paddingLeft: (props) => (!props.alwaysOpen ? 16 : 0),
-        paddingRight: (props) => (!props.alwaysOpen ? 16 : 0),
-        display: (props) => !props.alwaysOpen && "flex",
-        margin: (props) => !props.alwaysOpen && "3.3em 0 0",
-      },
-    },
-    pegs: (props) => ({
-      display: "flex",
-      flexFlow: `${
-        props.isLeftHanded && !props.doNotFlipOver ? "row-reverse" : "row"
-      } nowrap`,
-      justifyContent: "center",
-      textAlign: "center",
-      alignItems: "center",
-      "@media (orientation: landscape)": {
-        flexFlow: !props.alwaysOpen
-          ? "column-reverse nowrap"
-          : `${
-              props.isLeftHanded && !props.doNotFlipOver ? "row-reverse" : "row"
-            } nowrap`,
-      },
-    }),
-    forkWrapper: {
-      position: "absolute",
-      left: "-1em",
-      width: "1.7em",
-      height: "1.7em",
-      zIndex: 1,
-      transition: "opacity 0.2s",
-      "@media (orientation: landscape)": {
-        top: "calc(50% - 9.2em)",
-        left: 0,
-        right: 0,
-        margin: "auto",
-      },
-    },
-    fork: {
-      height: "1.7em",
-    },
-    settings: {
-      position: "absolute",
-      zIndex: 1,
-      fontSize: "1.2em",
-      right: "-0.75em",
-      width: "1.4em",
-      height: "1.4em",
-      border: "2px solid black",
-      borderRadius: "50%",
-      display: "inline-block",
-      transition: "opacity 0.2s",
-      "@media (orientation: landscape)": {
-        display: (props) => (!props.isAlwaysOpen ? "none" : "inline-block"),
-      },
-    },
-    playBtn: {
-      display: "inline-flex",
-      fontSize: 29,
-    },
-    discard: {
-      position: "absolute",
-      top: "-1.05rem",
-      right: "-0.95rem",
-      fontSize: "1.7rem",
-      zIndex: 0,
-      transition: "opacity 0.3s",
-      "&::before": {
-        content: `''`,
-        position: "absolute",
-        display: "block",
-        top: "0.5rem",
-        left: "0.4rem",
-        width: "0.9rem",
-        height: "1rem",
-        backgroundColor: theme.palette.background.main,
-        zIndex: -1,
-        borderRadius: "50%",
-      },
-    },
-    linkStrings: {
-      position: "absolute",
-      zIndex: 0,
-      textAlign: "center",
-      bottom: "1.9rem",
-      right: "-0.5rem",
-      width: "1rem",
-      fontSize: "1.1rem",
-      transition: "opacity 0.3s",
-      "&::before": {
-        content: `''`,
-        position: "absolute",
-        display: "block",
-        backgroundColor: theme.palette.background.main,
-        zIndex: -1,
-        borderRadius: "50%",
-        border: "2.4px solid black",
-        top: "-0.1rem",
-        left: "-0.17rem",
-        width: "1.45rem",
-        height: "1.45rem",
-      },
-      "&$active": {
-        color: theme.palette.secondary.main,
-        "&::before": {
-          borderColor: theme.palette.secondary.main,
-        },
-      },
-    },
-    playBtnOpen: {
-      position: "absolute",
-      zIndex: 0,
-      textAlign: "center",
-      bottom: "1.9rem",
-      left: "-0.5rem",
-      width: "1rem",
-      fontSize: "1.1rem",
-      transition: "opacity 0.3s",
-      "&::before": {
-        content: `''`,
-        position: "absolute",
-        display: "block",
-        backgroundColor: theme.palette.background.main,
-        zIndex: -1,
-        borderRadius: "50%",
-        border: "2.4px solid black",
-        top: "-0.1rem",
-        left: "-0.2rem",
-        width: "1.45rem",
-        height: "1.45rem",
-      },
-      "&$active": {
-        color: theme.palette.secondary.main,
-        "&::before": {
-          borderColor: theme.palette.secondary.main,
-        },
-      },
-    },
-    tuneBtnWrapper: {
-      display: "flex",
-      justifyContent: "center",
-      position: "absolute",
-      zIndex: 10,
-      "&::before": {
-        content: `''`,
-        position: "absolute",
-        top: "0.9em",
-        zIndex: -1,
-        height: 1,
-        width: "12.1em",
-        backgroundColor: theme.palette.gray.light,
-      },
-      [`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: portrait)`]: (tuneBtnWrapperTablet = {
-        "&::before": {},
-      }),
-      [`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation: landscape)`]: tuneBtnWrapperTablet,
-    },
-    tuneBtnDownWrapper: {
-      top: "4.3em",
-    },
-    tuneBtnUpWrapper: {
-      bottom: "0.4em",
-    },
-    tuneBtn: {
-      display: "block",
-      color: theme.palette.gray.dark,
-      border: "none",
-      margin: 0,
-      padding: 0,
-      background: theme.palette.background.main,
-      outline: "none",
-      "&:disabled": {
-        color: theme.palette.gray.light,
-      },
-    },
-    active: {},
-    hidden: {
-      opacity: 0,
-    },
-  };
-});
 
 const Tuning = ({
   playNote,
@@ -248,21 +36,29 @@ const Tuning = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const classes = useStyles({
+  const [isLandscape, setIsLandscape] = useState(
+    window.innerWidth / window.innerHeight
+  );
+  /*const classes = useStyles({
     doNotFlipOver,
     isLeftHanded,
     alwaysOpen,
   });
-
+*/
   let intervalID = null;
 
   useEffect(() => {
-    window.addEventListener("orientationchange", (event) => {
-      if (!alwaysOpen) {
-        setIsOpen(false);
-      }
-    });
-  }, [alwaysOpen]);
+    if (!alwaysOpen) {
+      window.addEventListener("resize", (event) => {
+        const isNowLandscape = window.innerWidth / window.innerHeight;
+        if (isNowLandscape !== isLandscape) {
+          setIsOpen(false);
+          setIsLinked(false);
+          setIsLandscape(isNowLandscape);
+        }
+      });
+    }
+  }, [alwaysOpen, isLandscape]);
 
   const onTuneUpString = (stringId) => {
     return dispatch(actions.tuneUpString(stringId));
@@ -359,29 +155,37 @@ const Tuning = ({
       tuneDownDisabled={el.reference - getNoteVal(el.note, el.octave) === 9}
     />
   ));
-  const wrapperClasses = [classes.tuning];
-  const pegsClasses = [classes.pegs];
-  const discardClasses = [classes.discard];
-  const playBtnClasses = [classes.playBtnOpen];
-  const linkStringsClasses = [classes.linkStrings];
-  const settingClasses = [classes.settings];
-  const forkClasses = [classes.forkWrapper];
+  const wrapperClasses = ["tuning"];
+  const pegsClasses = ["pegs"];
+  const discardClasses = ["discard"];
+  const playBtnClasses = ["playBtnOpen"];
+  const linkStringsClasses = ["linkStrings"];
+  const settingClasses = ["settings"];
+  const forkClasses = ["forkWrapper"];
+  if (alwaysOpen) {
+    wrapperClasses.push("alwaysOpen");
+    pegsClasses.push("alwaysOpen");
+    settingClasses.push("alwaysOpen");
+  }
   if (isOpen || isOpening) {
-    wrapperClasses.push(classes.active);
-    pegsClasses.push(classes.active);
+    wrapperClasses.push("active");
+    pegsClasses.push("active");
+  }
+  if (isLeftHanded && !doNotFlipOver) {
+    pegsClasses.push("reversed");
   }
   if (isPlaying) {
-    playBtnClasses.push(classes.active);
+    playBtnClasses.push("active");
   }
   if (isLinked) {
-    linkStringsClasses.push(classes.active);
+    linkStringsClasses.push("active");
   }
   if (isOpening || isClosing) {
-    settingClasses.push(classes.hidden);
-    forkClasses.push(classes.hidden);
-    discardClasses.push(classes.hidden);
-    playBtnClasses.push(classes.hidden);
-    linkStringsClasses.push(classes.hidden);
+    settingClasses.push("hidden");
+    forkClasses.push("hidden");
+    discardClasses.push("hidden");
+    playBtnClasses.push("hidden");
+    linkStringsClasses.push("hidden");
   }
   return (
     <>
@@ -398,15 +202,13 @@ const Tuning = ({
         <div className={pegsClasses.join(" ")}>
           {!isOpen && (
             <div className={forkClasses.join(" ")} onClick={onClickPlay}>
-              <img className={classes.fork} src={fork} alt='Tuning' />
+              <img className='fork' src={fork} alt='Tuning' />
             </div>
           )}
           {isOpen && isLinked && (
-            <div
-              className={`${classes.tuneBtnWrapper} ${classes.tuneBtnDownWrapper}`}
-            >
+            <div className='tuneBtnWrapper tuneBtnDownWrapper'>
               <button
-                className={classes.tuneBtn}
+                className='tuneBtn'
                 onClick={onTuneDownAll}
                 disabled={!isGlobalTuningEnabled(true)}
               >
@@ -416,11 +218,9 @@ const Tuning = ({
           )}
           {pegList}
           {isOpen && isLinked && (
-            <div
-              className={`${classes.tuneBtnWrapper} ${classes.tuneBtnUpWrapper}`}
-            >
+            <div className='tuneBtnWrapper tuneBtnUpWrapper'>
               <button
-                className={classes.tuneBtn}
+                className='tuneBtn'
                 onClick={onTuneUpAll}
                 disabled={!isGlobalTuningEnabled()}
               >
