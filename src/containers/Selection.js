@@ -28,10 +28,9 @@ const Selection = ({ children, type, extraInfo }) => {
   const onDiscardSelection = () => {
     return dispatch(actions.reinitSelection());
   };
-
   return (
     selected.length > 0 && (
-      <div className='selection'>
+      <div className='selection' data-test='selection-component'>
         <div className='scaleInfo'>
           <div className='scaleHeader'>
             <div>
