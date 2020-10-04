@@ -48,9 +48,11 @@ const ChordPickerForm = () => {
   const onPickChord = () => dispatch(actions.updateChordName(tmpChordName));
 
   const rootName = getNoteName(rootNote, useFlats);
-
   return (
-    <div className='paper pickerForm chordPickerForm'>
+    <div
+      className='paper pickerForm chordPickerForm'
+      data-test='chord-picker-form'
+    >
       <div className='paperInner'>
         <Typography
           className='title'
