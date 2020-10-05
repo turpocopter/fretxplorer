@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { mount } from "enzyme";
@@ -10,12 +9,6 @@ import QualityForm from "components/FormParts/Chord/QualityForm";
 import SeventhForm from "components/FormParts/Chord/SeventhForm";
 import ExtensionForm from "components/FormParts/Chord/ExtensionForm";
 import ChordPickerForm from "./ChordPickerForm";
-
-/*
-jest
-  .spyOn(Modal, "setAppElement")
-  .mockImplementation((param) => console.log(`setAppElement:'${param}'`));
-jest.mock("midi-sounds-react");*/
 
 describe("Selection integration tests", () => {
   let store;
@@ -93,6 +86,17 @@ describe("Selection integration tests", () => {
         wrapper.update();
       });
       it("shows 7th, pick button, doesn't show extension", () => {
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_ROOT",
+          rootNote: 1,
+        });
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_QUALITY",
+          notes: [
+            { semitonesFromRoot: 4, degree: 3 },
+            { semitonesFromRoot: 7, degree: 5 },
+          ],
+        });
         expect(wrapper.find(SeventhForm).length).toBe(1);
         expect(wrapper.find(ExtensionForm).length).toBe(0);
         expect(wrapper.find("button.submitButton").length).toBe(1);
@@ -137,6 +141,17 @@ describe("Selection integration tests", () => {
         wrapper.update();
       });
       it("shows 7th, pick button, doesn't show extension", () => {
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_ROOT",
+          rootNote: 1,
+        });
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_QUALITY",
+          notes: [
+            { semitonesFromRoot: 4, degree: 3 },
+            { semitonesFromRoot: 7, degree: 5 },
+          ],
+        });
         expect(wrapper.find(SeventhForm).length).toBe(1);
         expect(wrapper.find(ExtensionForm).length).toBe(0);
         expect(wrapper.find("button.submitButton").length).toBe(1);
@@ -181,6 +196,17 @@ describe("Selection integration tests", () => {
         wrapper.update();
       });
       it("shows 7th, pick button, doesn't show extension", () => {
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_ROOT",
+          rootNote: 1,
+        });
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_QUALITY",
+          notes: [
+            { semitonesFromRoot: 3, degree: 3 },
+            { semitonesFromRoot: 7, degree: 5 },
+          ],
+        });
         expect(wrapper.find(SeventhForm).length).toBe(1);
         expect(wrapper.find(ExtensionForm).length).toBe(0);
         expect(wrapper.find("button.submitButton").length).toBe(1);
@@ -236,6 +262,21 @@ describe("Selection integration tests", () => {
         wrapper.update();
       });
       it("shows everything", () => {
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_ROOT",
+          rootNote: 1,
+        });
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_QUALITY",
+          notes: [
+            { semitonesFromRoot: 3, degree: 3 },
+            { semitonesFromRoot: 7, degree: 5 },
+          ],
+        });
+        expect(dispatchSpy).toBeCalledWith({
+          type: "UPDATE_SEVENTH",
+          semitonesFromRoot: 11,
+        });
         expect(wrapper.find(SeventhForm).length).toBe(1);
         expect(wrapper.find(ExtensionForm).length).toBe(1);
         expect(wrapper.find("button.submitButton").length).toBe(1);
