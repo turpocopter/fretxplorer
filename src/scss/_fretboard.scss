@@ -89,6 +89,8 @@
       z-index: 90;
       top: 0;
       right: 16px;
+      margin-top: 0.4em;
+      white-space: nowrap;
       &.leftHanded {
         right: auto;
         left: 16px;
