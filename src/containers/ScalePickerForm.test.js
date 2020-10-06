@@ -3,7 +3,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { mount } from "enzyme";
 import { reducersObject } from "store/reducers";
-import { findByTestAttr, setupIntegrationTest } from "../../test/testUtils";
+import { setupIntegrationTest } from "../../test/testUtils";
 import RootForm from "components/FormParts/RootForm";
 import ScalePickerForm from "./ScalePickerForm";
 
