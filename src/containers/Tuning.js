@@ -20,8 +20,8 @@ const Tuning = ({
   playNote,
   playMelody,
   getNoteVal,
-  alwaysOpen,
-  doNotFlipOver,
+  alwaysOpen = false,
+  doNotFlipOver = false,
 }) => {
   const dispatch = useDispatch();
   const tuning = useSelector((state) => state.settings.tuning);
@@ -39,12 +39,7 @@ const Tuning = ({
   const [isLandscape, setIsLandscape] = useState(
     window.innerWidth / window.innerHeight
   );
-  /*const classes = useStyles({
-    doNotFlipOver,
-    isLeftHanded,
-    alwaysOpen,
-  });
-*/
+
   let intervalID = null;
 
   useEffect(() => {
