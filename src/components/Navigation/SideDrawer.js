@@ -7,7 +7,11 @@ import PropTypes from "prop-types";
 
 const SideDrawer = (props) => {
   return (
-    <Drawer open={props.isOpened} onClose={props.toggle(false)}>
+    <Drawer
+      className='SideDrawer'
+      open={props.isOpened}
+      onClose={props.toggle(false)}
+    >
       <div className='SideDrawerLogo'>
         <img src={logo} alt='fretxplorer' />
       </div>

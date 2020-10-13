@@ -38,12 +38,12 @@
     position: absolute;
     top: 4px;
     right: 4px;
-    @include media(">=sm") {
+    @include media(">=xs") {
       display: none;
     }
   }
   & .MainMenu {
-    @include media("<sm") {
+    @include media("<xs") {
       display: none;
     }
   }
