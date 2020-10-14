@@ -32,7 +32,7 @@ const QualityForm = (props) => {
   ));
 
   return (
-    <div data-test='quality-form' className='subFormWrapper'>
+    <div data-test='quality-form' className='subFormWrapper qualityForm'>
       <FormControl variant='outlined' className='formControl'>
         <TextField
           variant='outlined'
@@ -42,6 +42,7 @@ const QualityForm = (props) => {
           className='textField'
           value={quality}
           onChange={handleQuality}
+          required
           SelectProps={{
             className: "select",
             MenuProps: {

@@ -127,6 +127,7 @@ const ScalePickerForm = ({ onPick }) => {
                 select
                 label='Scale'
                 className='textField'
+                required
                 value={tmpScaleInfo !== null ? tmpScaleInfo.fullName : ""}
                 onChange={(e) => {
                   if (e.target.value !== undefined) {

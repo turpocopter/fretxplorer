@@ -42,6 +42,9 @@
     }
   }
 }
+.MuiFormLabel-asterisk {
+  color: $colorSecondary;
+}
 @keyframes load2 {
   0% {
     transform: rotate(0deg);

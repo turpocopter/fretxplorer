@@ -35,6 +35,7 @@ const RootForm = (props) => {
               classes: { list: "menu" },
             },
           }}
+          required
           InputLabelProps={{
             className: "label",
           }}

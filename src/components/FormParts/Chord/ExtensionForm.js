@@ -47,7 +47,7 @@ const ExtensionForm = (props) => {
     ));
   return (
     filteredExtensionsList.length > 1 && (
-      <div className='wrapper' data-test='extension-form'>
+      <div className='wrapper extensionForm' data-test='extension-form'>
         <FormControl variant='outlined' className='formControl'>
           <TextField
             variant='outlined'

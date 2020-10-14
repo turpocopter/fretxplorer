@@ -47,7 +47,7 @@ const SeventhForm = (props) => {
     ));
   return (
     filteredSeventhList.length > 0 && (
-      <div data-test='seventh-form' className='wrapper'>
+      <div data-test='seventh-form' className='wrapper seventhForm'>
         <FormControl variant='outlined' className='formControl'>
           <TextField
             variant='outlined'
