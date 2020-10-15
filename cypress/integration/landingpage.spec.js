@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 describe("Test navigation from landing page", () => {
   beforeEach(() => {
     cy.visit("/");

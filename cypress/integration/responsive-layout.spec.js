@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const urls = ["/chordpicker", "/scalepicker", "/settings", "/about"];
 
 describe("General layout tests", () => {
