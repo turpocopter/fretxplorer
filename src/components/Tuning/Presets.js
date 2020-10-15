@@ -7,21 +7,46 @@ import tuningPresets from "data/tuningPresets";
 
 import PropTypes from "prop-types";
 
-const Presets = ({ preset, selectPreset, isOpening, isClosing }) => {
+const Presets = ({
+  preset,
+  selectPreset,
+  isOpening,
+  isClosing,
+  getNoteName,
+  noteNaming,
+}) => {
+  const filterName = (name) => {
+    const nameMatch = name.match(/\$([0-9]*)\$/);
+    return !nameMatch
+      ? name
+      : name.replace(nameMatch[0], getNoteName(nameMatch[1]));
+  };
+
   const listContents = tuningPresets.map((cat) => {
-    const catItems = cat.tunings.map((el) => (
-      <MenuItem
-        key={el.id}
-        value={el.id}
-        data-cat={cat.cat_name}
-        className='option'
-      >
-        {el.id}&nbsp;<span>({el.name})</span>
-      </MenuItem>
-    ));
+    const catItems = cat.tunings.map((el) => {
+      const noteNamesArray = el.tuning.map((n) => getNoteName(n.note));
+      const noteNamesString = noteNamesArray.join(
+        noteNaming === "letters" ? "" : " "
+      );
+
+      return (
+        <MenuItem
+          key={el.id}
+          value={el.id}
+          data-cat={filterName(cat.cat_name)}
+          className='option'
+        >
+          {noteNamesString}&nbsp;<span>({filterName(el.name)})</span>
+        </MenuItem>
+      );
+    });
     return [
-      <ListSubheader key={cat.cat_name} className='group' disableSticky>
-        {cat.cat_name}
+      <ListSubheader
+        key={filterName(cat.cat_name)}
+        className='group'
+        disableSticky
+      >
+        {filterName(cat.cat_name)}
       </ListSubheader>,
       catItems,
     ];

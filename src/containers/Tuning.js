@@ -6,6 +6,7 @@ import Presets from "components/Tuning/Presets";
 import Peg from "components/Tuning/Peg";
 import useNoteNames from "hooks/noteNames";
 import withMidiSounds from "hoc/withMidiSounds";
+import { tuningPresetsSimpleList as allPresets } from "data/tuningPresets";
 
 import fork from "assets/fork.svg";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -54,6 +55,26 @@ const Tuning = ({
       });
     }
   }, [alwaysOpen, isLandscape]);
+
+  // set correct preset if the right notes have been manually selected
+  useEffect(() => {
+    if (preset === "") {
+      const currentPreset = allPresets.find((p) => {
+        return Array.from(Array(6).keys()).reduce((acc, cur) => {
+          return (
+            acc &&
+            p.tuning[cur].note === tuning[cur].note &&
+            p.tuning[cur].octave === tuning[cur].octave
+          );
+        }, true);
+      });
+      if (Boolean(currentPreset) && preset !== currentPreset) {
+        dispatch(
+          actions.setTuningPreset(currentPreset.tuning, currentPreset.id)
+        );
+      }
+    }
+  }, [preset, tuning, dispatch]);
 
   const onTuneUpString = (stringId) => {
     return dispatch(actions.tuneUpString(stringId));
@@ -191,6 +212,8 @@ const Tuning = ({
             isOpening={isOpening}
             isClosing={isClosing}
             selectPreset={onSelectPreset}
+            getNoteName={getNoteName}
+            noteNaming={noteNaming}
           />
         )}
 

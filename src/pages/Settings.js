@@ -32,7 +32,7 @@ const Settings = () => {
           Settings
         </Typography>
         <div className='switchContainer'>
-          <label className='flatSwitch'>
+          <label className='flatSwitch noteNamingSwitch'>
             <span className='switchLabel'>
               Latin <small>(Do, Re, Mi...)</small>
             </span>
@@ -47,7 +47,7 @@ const Settings = () => {
           </label>
         </div>
         <div className='switchContainer'>
-          <label className='flatSwitch'>
+          <label className='flatSwitch handSwitch'>
             <span className='switchLabel'>Left-handed</span>
             <Switch
               checked={leftHanded === false}
