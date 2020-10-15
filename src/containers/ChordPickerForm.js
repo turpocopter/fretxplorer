@@ -69,8 +69,6 @@ const ChordPickerForm = () => {
           updateRoot={onUpdateRoot}
           toggleFlats={onToggleFlats}
         />
-        {/*<Fade in={rootNote !== ""} mountOnEnter unmountOnExit timeout={700}>
-          <div>*/}
         <QualityForm
           rootName={rootName}
           quality={quality}
@@ -80,10 +78,6 @@ const ChordPickerForm = () => {
           className='quality'
           isDisabled={rootNote === ""}
         />
-        {/*</div>
-        </Fade>
-        <Fade in={quality !== ""} mountOnEnter unmountOnExit timeout={700}>
-        <div>*/}
         <SeventhForm
           rootName={rootName}
           seventh={seventh}
@@ -92,10 +86,6 @@ const ChordPickerForm = () => {
           setTmpChordName={setTmpChordName}
           isDisabled={quality === ""}
         />
-        {/*</div>
-        </Fade>
-        <Fade in={seventh !== ""} mountOnEnter unmountOnExit timeout={700}>
-          <div>*/}
         <ExtensionForm
           rootName={rootName}
           selected={selected}
@@ -104,8 +94,6 @@ const ChordPickerForm = () => {
           setTmpChordName={setTmpChordName}
           isDisabled={seventh === ""}
         />
-        {/*</div>
-        </Fade>*/}
         <Fade in={quality !== ""} mountOnEnter unmountOnExit timeout={700}>
           <div>
             <FormControl className='buttonWrapper'>
