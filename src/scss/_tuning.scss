@@ -82,6 +82,7 @@
       }
       .fork {
         height: 1.7em;
+        cursor: pointer;
       }
     }
   }
@@ -96,6 +97,7 @@
     border-radius: 50%;
     display: inline-block;
     transition: opacity 0.2s;
+    cursor: pointer;
     @include media("landscape") {
       display: none;
       &.alwaysOpen {
@@ -111,9 +113,11 @@
     position: absolute;
     top: -1.05rem;
     right: -0.95rem;
+    height: 1.9rem;
     font-size: 1.7rem;
     z-index: 0;
     transition: opacity 0.3s;
+    cursor: pointer;
     &::before {
       content: "";
       position: absolute;
@@ -136,6 +140,7 @@
     width: 1rem;
     font-size: 1.1rem;
     transition: opacity 0.3s;
+    cursor: pointer;
     &::before {
       content: "";
       position: absolute;
@@ -165,6 +170,7 @@
     width: 1rem;
     font-size: 1.1rem;
     transition: opacity 0.3s;
+    cursor: pointer;
     &::before {
       content: "";
       position: absolute;
@@ -215,6 +221,7 @@
       padding: 0;
       background-color: $colorBackground;
       outline: none;
+      cursor: pointer;
       &:disabled {
         color: $colorLightGray;
       }
@@ -268,6 +275,7 @@
   }
   & div {
     background-color: $colorBackground;
+    cursor: pointer;
   }
   .tuneBtn {
     position: absolute;
@@ -283,6 +291,7 @@
     outline: none;
     font-size: inherit;
     transition: opacity 0.3s;
+    cursor: pointer;
     &.tuneDownBtn {
       top: 4.3em;
     }

@@ -196,6 +196,7 @@
     text-align: center;
     width: 1.7em;
     margin-right: 1.3em;
+    cursor: pointer;
   }
   .playChord {
     display: inline-block;
@@ -204,6 +205,7 @@
     z-index: 0;
     text-align: center;
     position: relative;
+    cursor: pointer;
     &::before {
       content: "";
       position: absolute;
