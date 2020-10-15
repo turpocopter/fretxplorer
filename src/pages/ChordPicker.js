@@ -50,7 +50,7 @@ const ChordPicker = () => {
           </Fader>
         </div>
         <div className='persistentTuner'>
-          <Tuning alwaysOpen={true} />
+          <Tuning alwaysOpen={true} doNotFlipOver={true} />
           <div className='switchUnderTuner'>
             <NoteIntervalSwitch
               showIntervals={showIntervals}
