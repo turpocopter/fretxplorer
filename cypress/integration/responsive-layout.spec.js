@@ -1,6 +1,6 @@
 const urls = ["/chordpicker", "/scalepicker", "/settings", "/about"];
 
-describe("Layout tests", () => {
+describe("General layout tests", () => {
   urls.forEach((url) => {
     describe(`Test layout behaves correctly on ${url} page`, () => {
       beforeEach(() => {
