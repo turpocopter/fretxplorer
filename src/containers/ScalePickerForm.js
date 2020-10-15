@@ -99,7 +99,9 @@ const ScalePickerForm = ({ onPick }) => {
       catItems,
     ];
   });
-
+  const scaleListDisabled = rootNote === "";
+  const scaleListClasses = ["textField", "scaleList"];
+  if (scaleListDisabled) scaleListClasses.push("isDisabled");
   return (
     <div className='paper pickerForm scalePickerForm'>
       <div className='paperInner'>
@@ -118,43 +120,39 @@ const ScalePickerForm = ({ onPick }) => {
           updateRoot={onUpdateRoot}
           toggleFlats={onToggleFlats}
         />
-        <Fade in={rootNote !== ""} mountOnEnter unmountOnExit timeout={700}>
-          <div className='scaleFieldWrapper'>
-            <FormControl variant='outlined' className='formControl'>
-              <TextField
-                variant='outlined'
-                id='scale'
-                select
-                label='Scale'
-                className='textField'
-                required
-                value={tmpScaleInfo !== null ? tmpScaleInfo.fullName : ""}
-                onChange={(e) => {
-                  if (e.target.value !== undefined) {
-                    onUpdateScale(
-                      e.target.value,
-                      e.currentTarget.dataset.category
-                    );
-                  } else {
-                    e.preventDefault();
-                  }
-                }}
-                SelectProps={{
-                  className: "select",
-                  MenuProps: {
-                    classes: { list: "menu menuScale" },
-                  },
-                }}
-                InputLabelProps={{
-                  className: "label",
-                }}
-                margin='normal'
-              >
-                {scaleListContents}
-              </TextField>
-            </FormControl>
-          </div>
-        </Fade>
+
+        <FormControl variant='outlined' className='formControl'>
+          <TextField
+            variant='outlined'
+            id='scale'
+            select
+            label='Scale'
+            className={scaleListClasses.join(" ")}
+            required
+            value={tmpScaleInfo !== null ? tmpScaleInfo.fullName : ""}
+            onChange={(e) => {
+              if (e.target.value !== undefined) {
+                onUpdateScale(e.target.value, e.currentTarget.dataset.category);
+              } else {
+                e.preventDefault();
+              }
+            }}
+            SelectProps={{
+              className: "select",
+              MenuProps: {
+                classes: { list: "menu menuScale" },
+              },
+              disabled: scaleListDisabled,
+            }}
+            InputLabelProps={{
+              className: "label",
+            }}
+            margin='normal'
+          >
+            {scaleListContents}
+          </TextField>
+        </FormControl>
+
         <Fade
           in={tmpScaleInfo !== null}
           mountOnEnter
