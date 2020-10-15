@@ -9,7 +9,14 @@ import seventhList from "data/chords/seventh";
 import PropTypes from "prop-types";
 
 const SeventhForm = (props) => {
-  const { rootName, selected, seventh, updateSeventh, setTmpChordName } = props;
+  const {
+    rootName,
+    selected,
+    seventh,
+    updateSeventh,
+    setTmpChordName,
+    isDisabled,
+  } = props;
 
   useEffect(() => {
     if (
@@ -45,34 +52,37 @@ const SeventhForm = (props) => {
         )}
       </MenuItem>
     ));
+  const textFieldClasses = ["textField"];
+  if (isDisabled) textFieldClasses.push("isDisabled");
   return (
-    filteredSeventhList.length > 0 && (
-      <div data-test='seventh-form' className='wrapper seventhForm'>
-        <FormControl variant='outlined' className='formControl'>
-          <TextField
-            variant='outlined'
-            id='seventh-note'
-            select
-            label='Seventh note'
-            className='textField'
-            value={seventh}
-            onChange={handleSeventh}
-            SelectProps={{
-              className: "select",
-              MenuProps: {
-                classes: { list: "menu" },
-              },
-            }}
-            InputLabelProps={{
-              className: "label",
-            }}
-            margin='normal'
-          >
-            {filteredSeventhList}
-          </TextField>
-        </FormControl>
-      </div>
-    )
+    //filteredSeventhList.length > 0 && (
+    <div data-test='seventh-form' className='wrapper seventhForm'>
+      <FormControl variant='outlined' className='formControl'>
+        <TextField
+          variant='outlined'
+          id='seventh-note'
+          select
+          label='Seventh note'
+          className={textFieldClasses.join(" ")}
+          value={seventh}
+          onChange={handleSeventh}
+          SelectProps={{
+            className: "select",
+            MenuProps: {
+              classes: { list: "menu" },
+            },
+            disabled: isDisabled,
+          }}
+          InputLabelProps={{
+            className: "label",
+          }}
+          margin='normal'
+        >
+          {filteredSeventhList}
+        </TextField>
+      </FormControl>
+    </div>
+    //)
   );
 };
 

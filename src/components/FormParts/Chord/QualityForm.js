@@ -10,7 +10,14 @@ import chordQualities from "data/chords/qualities";
 import PropTypes from "prop-types";
 
 const QualityForm = (props) => {
-  const { rootName, quality, selected, updateQuality, setTmpChordName } = props;
+  const {
+    rootName,
+    quality,
+    selected,
+    updateQuality,
+    setTmpChordName,
+    isDisabled,
+  } = props;
 
   useEffect(() => {
     if (quality !== "" && selected.filter((el) => el.degree > 5).length === 0) {
@@ -30,7 +37,8 @@ const QualityForm = (props) => {
       />
     </MenuItem>
   ));
-
+  const textFieldClasses = ["textField"];
+  if (isDisabled) textFieldClasses.push("isDisabled");
   return (
     <div data-test='quality-form' className='subFormWrapper qualityForm'>
       <FormControl variant='outlined' className='formControl'>
@@ -39,7 +47,7 @@ const QualityForm = (props) => {
           id='chord-quality'
           select
           label='Chord Quality'
-          className='textField'
+          className={textFieldClasses.join(" ")}
           value={quality}
           onChange={handleQuality}
           required
@@ -48,6 +56,7 @@ const QualityForm = (props) => {
             MenuProps: {
               classes: { list: "menu" },
             },
+            disabled: isDisabled,
           }}
           InputLabelProps={{
             className: "label",

@@ -69,40 +69,43 @@ const ChordPickerForm = () => {
           updateRoot={onUpdateRoot}
           toggleFlats={onToggleFlats}
         />
-        <Fade in={rootNote !== ""} mountOnEnter unmountOnExit timeout={700}>
-          <div>
-            <QualityForm
-              rootName={rootName}
-              quality={quality}
-              selected={selected}
-              updateQuality={onUpdateQuality}
-              setTmpChordName={setTmpChordName}
-              className='quality'
-            />
-          </div>
+        {/*<Fade in={rootNote !== ""} mountOnEnter unmountOnExit timeout={700}>
+          <div>*/}
+        <QualityForm
+          rootName={rootName}
+          quality={quality}
+          selected={selected}
+          updateQuality={onUpdateQuality}
+          setTmpChordName={setTmpChordName}
+          className='quality'
+          isDisabled={rootNote === ""}
+        />
+        {/*</div>
         </Fade>
         <Fade in={quality !== ""} mountOnEnter unmountOnExit timeout={700}>
-          <div>
-            <SeventhForm
-              rootName={rootName}
-              seventh={seventh}
-              selected={selected}
-              updateSeventh={onUpdateSeventh}
-              setTmpChordName={setTmpChordName}
-            />
-          </div>
+        <div>*/}
+        <SeventhForm
+          rootName={rootName}
+          seventh={seventh}
+          selected={selected}
+          updateSeventh={onUpdateSeventh}
+          setTmpChordName={setTmpChordName}
+          isDisabled={quality === ""}
+        />
+        {/*</div>
         </Fade>
         <Fade in={seventh !== ""} mountOnEnter unmountOnExit timeout={700}>
-          <div>
-            <ExtensionForm
-              rootName={rootName}
-              selected={selected}
-              extension={extension}
-              updateExtension={onUpdateExtension}
-              setTmpChordName={setTmpChordName}
-            />
-          </div>
-        </Fade>
+          <div>*/}
+        <ExtensionForm
+          rootName={rootName}
+          selected={selected}
+          extension={extension}
+          updateExtension={onUpdateExtension}
+          setTmpChordName={setTmpChordName}
+          isDisabled={seventh === ""}
+        />
+        {/*</div>
+        </Fade>*/}
         <Fade in={quality !== ""} mountOnEnter unmountOnExit timeout={700}>
           <div>
             <FormControl className='buttonWrapper'>

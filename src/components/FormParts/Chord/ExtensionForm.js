@@ -15,6 +15,7 @@ const ExtensionForm = (props) => {
     extension,
     updateExtension,
     setTmpChordName,
+    isDisabled,
   } = props;
 
   useEffect(() => {
@@ -45,34 +46,37 @@ const ExtensionForm = (props) => {
         )}
       </MenuItem>
     ));
+  const textFieldClasses = ["textField"];
+  if (isDisabled) textFieldClasses.push("isDisabled");
   return (
-    filteredExtensionsList.length > 1 && (
-      <div className='wrapper extensionForm' data-test='extension-form'>
-        <FormControl variant='outlined' className='formControl'>
-          <TextField
-            variant='outlined'
-            id='extension'
-            select
-            label='Extension/Alteration'
-            className='textField'
-            value={extension}
-            onChange={handleExtension}
-            SelectProps={{
-              className: "select",
-              MenuProps: {
-                classes: { list: "menu" },
-              },
-            }}
-            InputLabelProps={{
-              className: "label",
-            }}
-            margin='normal'
-          >
-            {filteredExtensionsList}
-          </TextField>
-        </FormControl>
-      </div>
-    )
+    //filteredExtensionsList.length > 1 && (
+    <div className='wrapper extensionForm' data-test='extension-form'>
+      <FormControl variant='outlined' className='formControl'>
+        <TextField
+          variant='outlined'
+          id='extension'
+          select
+          label='Extension/Alteration'
+          className={textFieldClasses.join(" ")}
+          value={extension}
+          onChange={handleExtension}
+          SelectProps={{
+            className: "select",
+            MenuProps: {
+              classes: { list: "menu" },
+            },
+            disabled: isDisabled,
+          }}
+          InputLabelProps={{
+            className: "label",
+          }}
+          margin='normal'
+        >
+          {filteredExtensionsList}
+        </TextField>
+      </FormControl>
+    </div>
+    //)
   );
 };
 

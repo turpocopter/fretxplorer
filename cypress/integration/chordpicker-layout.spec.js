@@ -1,0 +1,113 @@
+const smallViewports = new Map([
+  ["Mobile, portrait orientation", [320, 568]],
+  ["Mobile, landscape orientation", [568, 320]],
+  ["Landscape, not high enough for full mode", [1000, 660]],
+]);
+
+describe("Chordpicker layout tests", () => {
+  smallViewports.forEach((dim, name) => {
+    describe(`${name} (${dim[0]} x ${dim[1]})`, () => {
+      beforeEach(() => {
+        cy.visit("/chordpicker");
+        cy.viewport(dim[0], dim[1]);
+        cy.get(".chordPickerForm").as("cpf");
+      });
+      it("only shows form and not the rest", () => {
+        cy.get("@cpf").should("be.visible");
+        cy.get(".persistentTuner").should("not.be.visible");
+        cy.get(".fretboardContainer").should("not.be.visible");
+      });
+      it("changes layout when chord is picked", () => {
+        cy.get("@cpf").find(".rootForm .textField").click();
+        cy.get(".MuiPopover-root").contains("C").click();
+        cy.get("@cpf").find(".qualityForm .textField").click();
+        cy.get(".MuiPopover-root").contains("major (C)").click();
+        cy.get("@cpf").find(".submitButton").click();
+        cy.get("@cpf").should("not.be.visible");
+        cy.get(".pickerContainer").should("be.visible");
+        cy.get(".persistentTuner").should("not.be.visible");
+        cy.get(".fretboardContainer").as("fretboardcontainer");
+        cy.get("@fretboardcontainer").should("be.visible");
+        cy.get("@fretboardcontainer")
+          .find(".noteIntervalSwitch")
+          .should("be.visible");
+        cy.get("@fretboardcontainer").find(".tuning").should("be.visible");
+        cy.get("@fretboardcontainer")
+          .find(".FretInner")
+          .contains("C")
+          .should("be.visible");
+        cy.get("@fretboardcontainer")
+          .find(".FretInner")
+          .contains("E")
+          .should("be.visible");
+        cy.get("@fretboardcontainer")
+          .find(".FretInner")
+          .contains("G")
+          .should("be.visible");
+      });
+    });
+  });
+
+  describe("Landscape, just high enough for full mode (1000 x 680)", () => {
+    beforeEach(() => {
+      cy.visit("/chordpicker");
+      cy.viewport(1000, 680);
+      cy.get(".chordPickerForm").as("cpf");
+    });
+    it("shows everything from the beginning", () => {
+      cy.get("@cpf").should("be.visible");
+      cy.get(".persistentTuner").as("persistenttuner");
+      cy.get("@persistenttuner").should("be.visible");
+      cy.get("@persistenttuner").find(".switchUnderTuner").should("be.visible");
+      cy.get(".fretboardContainer").as("fretboardcontainer");
+      cy.get("@fretboardcontainer").should("be.visible");
+      cy.get("@fretboardcontainer")
+        .find(".FretMarkerList")
+        .should("be.visible");
+      cy.get("@fretboardcontainer").find(".StringList").should("be.visible");
+      cy.get("@fretboardcontainer").find(".tuning").should("be.visible");
+      cy.get("@fretboardcontainer")
+        .find(".tuning")
+        .find(".tuneBtn")
+        .should("not.exist");
+      cy.get("@fretboardcontainer")
+        .find(".noteIntervalSwitch")
+        .should("not.be.visible");
+    });
+    it("changes layout when chord is picked", () => {
+      cy.get("@cpf").find(".rootForm .textField").click();
+      cy.get(".MuiPopover-root").contains("C").click();
+      cy.get(".fretboardContainer").as("fretboardcontainer");
+      cy.get("@fretboardcontainer")
+        .find(".FretInner")
+        .contains("C")
+        .should("be.visible");
+      cy.get("@cpf").find(".qualityForm .textField").click();
+      cy.get(".MuiPopover-root").contains("major (C)").click();
+      cy.get("@fretboardcontainer")
+        .find(".FretInner")
+        .contains("E")
+        .should("be.visible");
+      cy.get("@fretboardcontainer")
+        .find(".FretInner")
+        .contains("G")
+        .should("be.visible");
+      cy.get("@cpf").find(".submitButton").click();
+      cy.get("@cpf").should("not.be.visible");
+      cy.get(".persistentTuner").as("persistenttuner");
+      cy.get("@persistenttuner").should("be.visible");
+      cy.get("@persistenttuner").find(".switchUnderTuner").should("be.visible");
+      cy.get(".fretboardContainer").as("fretboardcontainer");
+      cy.get("@fretboardcontainer").should("be.visible");
+      cy.get("@fretboardcontainer")
+        .find(".FretMarkerList")
+        .should("be.visible");
+      cy.get("@fretboardcontainer").find(".StringList").should("be.visible");
+      cy.get("@fretboardcontainer").find(".tuning").should("be.visible");
+      cy.get("@fretboardcontainer")
+        .find(".tuning")
+        .find(".tuneBtn")
+        .should("not.exist");
+    });
+  });
+});

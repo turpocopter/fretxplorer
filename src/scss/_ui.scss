@@ -42,6 +42,19 @@
     }
   }
 }
+.MuiOutlinedInput-root {
+  &.Mui-disabled {
+    background: #fefefe;
+  }
+  &:not(.Mui-disabled):hover fieldset {
+    border-color: $colorPrimary;
+  }
+}
+.textField.isDisabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .MuiFormLabel-asterisk {
   color: $colorSecondary;
 }
