@@ -54,7 +54,7 @@ const Presets = ({
   const onChangePreset = (e) => {
     if (e.currentTarget.dataset.hasOwnProperty("cat")) {
       const cat = tuningPresets.find(
-        (cat) => cat.cat_name === e.currentTarget.dataset.cat
+        (cat) => filterName(cat.cat_name) === e.currentTarget.dataset.cat
       );
       const preset = cat.tunings.find((tuning) => tuning.id === e.target.value);
       selectPreset(preset.id, preset.tuning);

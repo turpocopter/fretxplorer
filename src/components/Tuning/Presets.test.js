@@ -9,6 +9,8 @@ const defaultProps = {
   selectPreset: jest.fn(),
   isOpening: false,
   isClosing: false,
+  getNoteName: jest.fn(),
+  noteNaming: 'letters'
 };
 
 const setup = (props = {}) => {
