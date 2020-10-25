@@ -50,7 +50,7 @@ const ExtensionForm = (props) => {
   if (isDisabled) textFieldClasses.push("isDisabled");
   return (
     //filteredExtensionsList.length > 1 && (
-    <div className='wrapper extensionForm' data-test='extension-form'>
+    <div className='subFormWrapper extensionForm' data-test='extension-form'>
       <FormControl variant='outlined' className='formControl'>
         <TextField
           variant='outlined'
@@ -63,7 +63,7 @@ const ExtensionForm = (props) => {
           SelectProps={{
             className: "select",
             MenuProps: {
-              classes: { list: "menu" },
+              classes: { list: "menu pickerSubMenu" },
             },
             disabled: isDisabled,
           }}

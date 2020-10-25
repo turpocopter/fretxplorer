@@ -30,9 +30,10 @@ const QualityForm = (props) => {
   };
   const qualityList = Object.keys(chordQualities).map((key) => (
     <MenuItem className='qualityItem' key={key} value={key}>
+      {key}
       <span
         dangerouslySetInnerHTML={{
-          __html: sanitize(`${key} (${rootName}${chordQualities[key].symbol})`),
+          __html: sanitize(`&nbsp;(${rootName}${chordQualities[key].symbol})`),
         }}
       />
     </MenuItem>
@@ -54,7 +55,7 @@ const QualityForm = (props) => {
           SelectProps={{
             className: "select",
             MenuProps: {
-              classes: { list: "menu" },
+              classes: { list: "menu pickerSubMenu" },
             },
             disabled: isDisabled,
           }}

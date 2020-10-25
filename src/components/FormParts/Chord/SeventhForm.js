@@ -56,7 +56,7 @@ const SeventhForm = (props) => {
   if (isDisabled) textFieldClasses.push("isDisabled");
   return (
     //filteredSeventhList.length > 0 && (
-    <div data-test='seventh-form' className='wrapper seventhForm'>
+    <div data-test='seventh-form' className='subFormWrapper seventhForm'>
       <FormControl variant='outlined' className='formControl'>
         <TextField
           variant='outlined'
@@ -69,7 +69,7 @@ const SeventhForm = (props) => {
           SelectProps={{
             className: "select",
             MenuProps: {
-              classes: { list: "menu" },
+              classes: { list: "menu pickerSubMenu" },
             },
             disabled: isDisabled,
           }}

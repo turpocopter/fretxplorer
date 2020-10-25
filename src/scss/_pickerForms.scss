@@ -6,7 +6,7 @@
     font-size: 1.1em;
   }
   .select {
-    font-size: 0.9em;
+    font-size: 1em; /*0.9em;*/
     & > .MuiSelect-root {
       padding: 12px 32px 12px 12px;
     }
@@ -55,6 +55,7 @@
     @include media("^=desktopH", "landscape") {
       min-height: 19.7em;
     }
+
     &.scalePickerForm {
       @include media("^=tabletH", "landscape") {
         min-height: 9.8em;
@@ -80,6 +81,9 @@
         }
         @include media("^=tabletH", "ˇdesktopH", "landscape") {
           display: none;
+        }
+        @include media(">=tablet", "landscape") {
+          font-size: 1.4em;
         }
       }
       .buttonWrapper {
@@ -108,10 +112,9 @@
           margin-top: 8px;
           padding: 8px 0;
         }
-        @include media(">=xl", "%1.6") {
+        /*@include media(">=xl", "landscape") {
           margin-top: 16px;
-          padding: 16px 0;
-        }
+        }*/
       }
     }
   }
@@ -131,6 +134,9 @@
     @include media(">=sm", "portrait") {
       margin: 8px 0;
     }
+    @include media(">=desktop", "portrait") {
+      min-width: 500px;
+    }
   }
   .flatSwitch {
     font-size: 1.4em;
@@ -140,6 +146,9 @@
     @include media("<sm", "portrait") {
       margin-top: 0.6em;
     }
+    /*@include media(">=xl", "landscape") {
+      font-size: 1em;
+    }*/
   }
   .subFormWrapper {
     @include media(">=sm", "portrait") {
@@ -152,20 +161,58 @@
     @include media(">=sm") {
       min-width: 400px;
     }
+    @include media(">=desktop", "portrait") {
+      min-width: 500px;
+    }
     &.-root {
       width: 140px;
       min-width: auto;
       @include media(">=sm") {
         width: 200px;
       }
+      @include media(">=desktop", "portrait") {
+        min-width: 250px;
+      }
     }
+  }
+  .MuiSelect-select span {
+    color: $colorGray;
+    font-size: 0.9em;
   }
   @include media("<desktop", "landscape") {
     @include largeLandscape;
   }
-  @include media("^=tabletH", "<=xl", "landscape") {
+  @include media("^=tabletH", "landscape") {
     @include largeLandscape;
   }
+
+  @include media(">=xl", "landscape") {
+    /*.MuiSelect-icon {
+      top: calc(50% - 0.4em) !important;
+    }*/
+    /*.MuiInputLabel-outlined {
+      transform: translate(0.8em, 0.8em) scale(1) !important;
+      &.MuiInputLabel-shrink {
+        transform: translate(0.6em, -0.3em) scale(0.75) !important;
+      }
+    }*/
+    .MuiSelect-select {
+      padding-right: 32px;
+      padding-top: 10.5px;
+      padding-bottom: 10.5px;
+      font-size: 0.95em;
+
+      .menu {
+        font-size: 0.95em;
+      }
+    }
+    .label {
+      font-size: 0.92em;
+    }
+  }
+}
+.pickerSubMenu li {
+  font-size: 1em;
 }
 .menuScale {
   .group {

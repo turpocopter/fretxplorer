@@ -41,6 +41,7 @@
       overflow: auto;
       display: flex;
       flex-flow: row nowrap;
+      width: 100%;
       &.leftHanded {
         flex-flow: row-reverse nowrap;
       }

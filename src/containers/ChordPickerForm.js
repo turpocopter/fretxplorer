@@ -56,8 +56,8 @@ const ChordPickerForm = () => {
       <div className='paperInner'>
         <Typography
           className='title'
-          variant='h5'
           component='h2'
+          variant='h5'
           align='center'
         >
           Pick a chord!

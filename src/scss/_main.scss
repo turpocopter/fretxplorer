@@ -12,14 +12,14 @@ html {
   @include media(">=xl") {
     font-size: 140%;
   }
-  @include media(">=xl", "%1.6") {
-    font-size: 160%;
-  }
   @include media(">=xxl") {
     font-size: 160%;
   }
-  @include media(">=xxl", "%1.6") {
-    font-size: 180%;
+  @include media(">=xxxl") {
+    font-size: 170%;
+  }
+  @include media(">=xxxxl") {
+    font-size: 190%;
   }
 }
 html,

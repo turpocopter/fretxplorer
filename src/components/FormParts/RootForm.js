@@ -32,7 +32,7 @@ const RootForm = (props) => {
           SelectProps={{
             className: "select",
             MenuProps: {
-              classes: { list: "menu" },
+              classes: { list: "menu pickerSubMenu" },
             },
           }}
           required
