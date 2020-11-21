@@ -1,0 +1,370 @@
+@mixin presetsLarge {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  width: 13.4em;
+}
+
+.tuning {
+  position: relative;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 10px;
+  margin: 0 auto;
+  width: 18.8em;
+  transition: all 0.5s;
+  /*padding-left: 0;
+  padding-right: 0;*/
+  padding-left: 0;
+  padding-right: 0;
+  @include media(">=sm") {
+    margin: 12px auto;
+  }
+  @include media("landscape") {
+    display: flex;
+    margin: 3.3em 0 0;
+    width: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  &.active {
+    border-color: $colorLightGray;
+    padding-bottom: 0.6em;
+    @include media(">=sm", "portrait") {
+      margin: 12px auto;
+    }
+    @include media(">=tablet", "landscape") {
+      margin: 12px auto;
+    }
+  }
+  &.alwaysOpen {
+    @include media("landscape") {
+      display: block;
+      margin: 0 auto;
+      padding-left: 0;
+      padding-right: 0;
+      width: 18.8em;
+    }
+  }
+  .pegs {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    &.reversed {
+      flex-flow: row-reverse nowrap;
+    }
+    @include media("landscape") {
+      flex-flow: column-reverse nowrap;
+      &.reversed {
+        flex-flow: column-reverse nowrap;
+      }
+      &.alwaysOpen {
+        flex-flow: row nowrap;
+        &.reversed {
+          flex-flow: row-reverse nowrap;
+        }
+      }
+    }
+    .forkWrapper {
+      position: absolute;
+      left: -1em;
+      width: 1.7em;
+      height: 1.7em;
+      z-index: 1;
+      transition: opacity 0.2s;
+      @include media("landscape") {
+        top: calc(50% - 9.2em);
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+      .fork {
+        height: 1.7em;
+        cursor: pointer;
+      }
+    }
+  }
+  .settings {
+    position: absolute;
+    z-index: 1;
+    font-size: 1.2em;
+    right: -0.75em;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: inline-block;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    @include media("landscape") {
+      display: none;
+      &.alwaysOpen {
+        display: inline-block;
+      }
+    }
+  }
+  .playBtn {
+    display: inline-flex;
+    font-size: 29px;
+  }
+  .discard {
+    position: absolute;
+    top: -1.05rem;
+    right: -0.95rem;
+    height: 1.9rem;
+    font-size: 1.7rem;
+    z-index: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0.5rem;
+      left: 0.4rem;
+      width: 0.9rem;
+      height: 1rem;
+      background-color: $colorBackground;
+      z-index: -1;
+      border-radius: 50%;
+    }
+  }
+  .linkStrings {
+    position: absolute;
+    z-index: 0;
+    text-align: center;
+    bottom: 1.9rem;
+    right: -0.5rem;
+    width: 1rem;
+    font-size: 1.1rem;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      background-color: $colorBackground;
+      z-index: -1;
+      border-radius: 50%;
+      border: 2.4px solid black;
+      top: -0.1rem;
+      left: -0.17rem;
+      width: 1.45rem;
+      height: 1.45rem;
+    }
+    &.active {
+      color: $colorSecondary;
+      &::before {
+        border-color: $colorSecondary;
+      }
+    }
+  }
+  .playBtnOpen {
+    position: absolute;
+    z-index: 0;
+    text-align: center;
+    bottom: 1.9rem;
+    left: -0.5rem;
+    width: 1rem;
+    font-size: 1.1rem;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      background-color: $colorBackground;
+      z-index: -1;
+      border-radius: 50%;
+      border: 2.4px solid black;
+      top: -0.1rem;
+      left: -0.2rem;
+      width: 1.45rem;
+      height: 1.45rem;
+    }
+    &.active {
+      color: $colorSecondary;
+      &::before {
+        border-color: $colorSecondary;
+      }
+    }
+  }
+  .tuneBtnWrapper {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    z-index: 10;
+    //@include media("<sm") {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0.9em;
+      z-index: -1;
+      height: 1px;
+      width: 12.1em;
+      background-color: $colorLightGray;
+    }
+    //}
+    &.tuneBtnDownWrapper {
+      top: 4.3em;
+    }
+    &.tuneBtnUpWrapper {
+      bottom: 0.4em;
+    }
+    .tuneBtn {
+      display: block;
+      color: $colorDarkGray;
+      border: none;
+      margin: 0;
+      padding: 0;
+      background-color: $colorBackground;
+      outline: none;
+      cursor: pointer;
+      &:disabled {
+        color: $colorLightGray;
+      }
+    }
+  }
+  .hidden {
+    opacity: 0;
+  }
+}
+
+.peg {
+  display: flex;
+  flex-flow: column nowrap;
+  position: relative;
+  align-items: center;
+  z-index: 1;
+  order: 1;
+  width: 2.4em;
+  color: $colorGray;
+  transition: all 0.2s;
+  @include media("landscape") {
+    height: 2.4em;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  &.alwaysOpen {
+    height: auto;
+    flex-flow: column nowrap;
+  }
+  &.open {
+    color: $colorDarkGray;
+    font-weight: 500;
+    padding: 6.25em 0 1.95em;
+  }
+  &.active {
+    color: $colorSecondary;
+  }
+  &.linked::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 3.6em;
+    background-color: $colorLightGray;
+    top: 4.5em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+  }
+  & div {
+    background-color: $colorBackground;
+    cursor: pointer;
+  }
+  .tuneBtn {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: block;
+    color: $colorDarkGray;
+    border: none;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
+    outline: none;
+    font-size: inherit;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    &.tuneDownBtn {
+      top: 4.3em;
+    }
+    &.tuneUpBtn {
+      bottom: 0;
+    }
+    &.hidden {
+      opacity: 0;
+    }
+    &:disabled {
+      color: $colorLightGray;
+    }
+    & svg {
+      display: block;
+      margin: auto;
+    }
+  }
+}
+
+.presets {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  .formControl {
+    margin: 0;
+    width: 218px;
+    transition: opacity 0.2s;
+    @include media(">=sm", "portrait") {
+      @include presetsLarge;
+    }
+    @include media(">=tablet", "landscape") {
+      @include presetsLarge;
+    }
+    .select {
+      font-size: 0.95em;
+      @include media(">=sm", "portrait") {
+        font-size: 1em;
+      }
+      @include media(">=tablet", "landscape") {
+        font-size: 1em;
+      }
+      & span {
+        color: $colorGray;
+        font-size: 0.9em;
+      }
+      .menu {
+        font-size: 0.95em;
+      }
+    }
+    .label {
+      font-size: 0.92em;
+    }
+    &.hidden {
+      opacity: 0;
+    }
+  }
+}
+.menuTuningPresets {
+  .group {
+    font-size: 1em;
+    text-align: center;
+    color: $colorGray;
+  }
+  .option {
+    font-size: 1em;
+    min-height: 34px;
+    & span {
+      color: $colorGray;
+      font-size: 0.9em;
+    }
+  }
+}

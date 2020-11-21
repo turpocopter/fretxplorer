@@ -4,73 +4,29 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  nav: (props) =>
-    props.orientation === "horizontal"
-      ? {
-          display: "flex",
-          flexFlow: "row nowrap",
-          marginRight: 0,
-          "@media (min-width: 800px)": {
-            fontSize: "1.3em",
-          },
-          /*[`${theme.breakpoints.up("md")}`]: {
-            fontSize: "1.3em",
-          },*/
-          /*[`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
-            fontSize: "1.em",
-            marginRight: -16,
-          },*/
-        }
-      : {},
-  list: (props) =>
-    props.orientation === "horizontal"
-      ? {
-          display: "flex",
-          flexFlow: "row nowrap",
-          paddingBottom: 0,
-        }
-      : {},
-  link: (props) =>
-    props.orientation === "horizontal"
-      ? {
-          whiteSpace: "nowrap",
-          fontSize: "0.9em",
-          textTransform: "uppercase",
-          fontWeight: 500,
-          /*[`${theme.breakpoints.up("sm")} and (orientation: landscape)`]: {
-            fontSize: "1.1em",
-          },*/
-        }
-      : {},
-  activeLink: (props) =>
-    props.orientation === "horizontal"
-      ? {
-          color: theme.palette.secondary.main,
-        }
-      : {},
-}));
+import PropTypes from "prop-types";
 
 const MainMenu = (props) => {
-  const classes = useStyles(props);
+  const navigationClasses = ["Navigation"];
+  if (props.orientation === "horizontal") navigationClasses.push("horizontal");
   return (
-    <nav className={classes.nav}>
-      <List className={classes.list} component='div'>
+    <nav className={navigationClasses.join(" ")}>
+      <List className='NavList' component='div'>
         <ListItem
           button
           component={NavLink}
           to='/chordpicker'
           exact
+          className='Link'
           onClick={props.onClickLink}
-          activeClassName={classes.activeLink}
+          activeClassName='activeLink'
         >
           <ListItemText
             primary={
               props.orientation === "horizontal" ? "Chords" : "Pick a Chord"
             }
-            classes={{ primary: classes.link }}
+            classes={{ primary: "linkContent" }}
           />
         </ListItem>
         <ListItem
@@ -78,14 +34,15 @@ const MainMenu = (props) => {
           component={NavLink}
           to='/scalepicker'
           exact
+          className='Link'
           onClick={props.onClickLink}
-          activeClassName={classes.activeLink}
+          activeClassName='activeLink'
         >
           <ListItemText
             primary={
               props.orientation === "horizontal" ? "Scales" : "Pick a Scale"
             }
-            classes={{ primary: classes.link }}
+            classes={{ primary: "linkContent" }}
           />
         </ListItem>
       </List>
@@ -94,19 +51,20 @@ const MainMenu = (props) => {
           props.orientation === "horizontal" ? "vertical" : "horizontal"
         }
       />
-      <List className={classes.list} component='div'>
+      <List className='NavList' component='div'>
         <ListItem
           button
           size='small'
           component={NavLink}
           to='/settings'
           exact
+          className='Link'
           onClick={props.onClickLink}
-          activeClassName={classes.activeLink}
+          activeClassName='activeLink'
         >
           <ListItemText
             primary='Settings'
-            classes={{ primary: classes.link }}
+            classes={{ primary: "linkContent" }}
           />
         </ListItem>
         <ListItem
@@ -114,14 +72,19 @@ const MainMenu = (props) => {
           component={NavLink}
           to='/about'
           exact
+          className='Link'
           onClick={props.onClickLink}
-          activeClassName={classes.activeLink}
+          activeClassName='activeLink'
         >
-          <ListItemText primary='About' classes={{ primary: classes.link }} />
+          <ListItemText primary='About' classes={{ primary: "linkContent" }} />
         </ListItem>
       </List>
     </nav>
   );
+};
+
+MainMenu.propTypes = {
+  onClickLink: PropTypes.func.isRequired,
 };
 
 export default MainMenu;

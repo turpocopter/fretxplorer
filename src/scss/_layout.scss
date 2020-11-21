@@ -1,0 +1,83 @@
+@mixin tabletHeader {
+  position: sticky;
+  top: 0;
+  background-color: $colorBackground;
+  padding-bottom: 8px;
+  z-index: 200;
+  min-height: 106px;
+}
+
+#Header {
+  flex-grow: 1;
+  margin-bottom: 0;
+  justify-content: space-between;
+  @include media(">=sm", "portrait") {
+    @include tabletHeader;
+  }
+  @include media(">=tablet", "landscape") {
+    @include tabletHeader;
+  }
+  & .Logo {
+    margin-left: -16px;
+    width: 150px;
+    @include media(">=sm") {
+      margin-left: -24px;
+    }
+    @include media(">=sm", "portrait") {
+      width: 260px;
+    }
+    @include media(">=desktop", "landscape") {
+      width: 260px;
+    }
+    & img {
+      width: 100%;
+      display: block;
+    }
+  }
+  & .MenuButton {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    @include media(">=xs") {
+      display: none;
+    }
+  }
+  & .MainMenu {
+    @include media("<xs") {
+      display: none;
+    }
+  }
+}
+.Navigation {
+  &.horizontal {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-right: 0;
+    @include media(">=tablet") {
+      font-size: 1.3em;
+    }
+    & .NavList {
+      display: flex;
+      flex-flow: row nowrap;
+      padding-bottom: 0;
+    }
+    & .Link {
+      &.activeLink {
+        color: $colorSecondary;
+      }
+      & .linkContent {
+        white-space: nowrap;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+    }
+  }
+}
+.SideDrawerLogo {
+  width: 210px;
+  margin: 30px 40px 40px 0;
+  & img {
+    width: 100%;
+  }
+}

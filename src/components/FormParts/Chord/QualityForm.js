@@ -1,138 +1,23 @@
 import React, { useEffect } from "react";
 import { sanitize } from "dompurify";
-import { makeStyles } from "@material-ui/core/styles";
 
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
-      margin: "8px 0",
-    },
-  },
-  formControl: {
-    margin: 0,
-    minWidth: 250,
-    [theme.breakpoints.up("sm")]: {
-      minWidth: 400,
-    },
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      "& > .MuiTextField-root": {
-        margin: "8px 0",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      "& > .MuiTextField-root": {
-        margin: "8px 0",
-      },
-    },
-  },
-  select: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      fontSize: "0.9em",
-      "& > .MuiSelect-root": {
-        padding: 12,
-        paddingRight: 32,
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      fontSize: "0.9em",
-      "& > .MuiSelect-root": {
-        padding: 12,
-        paddingRight: 32,
-      },
-    },
-  },
-  label: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      fontSize: "1em",
-      transform: "translate(14px, 14px) scale(1)",
-      "&.MuiInputLabel-shrink": {
-        transform: "translate(11px, -6px) scale(0.7)",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      fontSize: "1em",
-      transform: "translate(14px, 14px) scale(1)",
-      "&.MuiInputLabel-shrink": {
-        transform: "translate(11px, -6px) scale(0.7)",
-      },
-    },
-  },
-  menu: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      "& li": {
-        fontSize: "1em!important",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      "& li": {
-        fontSize: "1em!important",
-      },
-    },
-  },
-}));
+import chordQualities from "data/chords/qualities";
 
-const chordQualities = {
-  major: {
-    symbol: "",
-    notes: [
-      { semitonesFromRoot: 4, degree: 3 },
-      { semitonesFromRoot: 7, degree: 5 },
-    ],
-  },
-  minor: {
-    symbol: "m",
-    notes: [
-      { semitonesFromRoot: 3, degree: 3 },
-      { semitonesFromRoot: 7, degree: 5 },
-    ],
-  },
-  augmented: {
-    symbol: "+",
-    notes: [
-      { semitonesFromRoot: 4, degree: 3 },
-      { semitonesFromRoot: 8, degree: 5 },
-    ],
-  },
-  diminished: {
-    symbol: "<sup>o</sup>",
-    notes: [
-      { semitonesFromRoot: 3, degree: 3 },
-      { semitonesFromRoot: 6, degree: 5 },
-    ],
-  },
-  sus2: {
-    symbol: "sus2",
-    notes: [
-      { semitonesFromRoot: 2, degree: 2 },
-      { semitonesFromRoot: 7, degree: 5 },
-    ],
-  },
-  sus4: {
-    symbol: "sus4",
-    notes: [
-      { semitonesFromRoot: 5, degree: 4 },
-      { semitonesFromRoot: 7, degree: 5 },
-    ],
-  },
-  "major ♭5": {
-    symbol: "♭5",
-    notes: [
-      { semitonesFromRoot: 4, degree: 3 },
-      { semitonesFromRoot: 6, degree: 5 },
-    ],
-  },
-  powerchord: {
-    symbol: "5",
-    notes: [{ semitonesFromRoot: 7, degree: 5 }],
-  },
-};
+import PropTypes from "prop-types";
+
 const QualityForm = (props) => {
-  const { rootName, quality, selected, updateQuality, setTmpChordName } = props;
-  const classes = useStyles();
+  const {
+    rootName,
+    quality,
+    selected,
+    updateQuality,
+    setTmpChordName,
+    isDisabled,
+  } = props;
 
   useEffect(() => {
     if (quality !== "" && selected.filter((el) => el.degree > 5).length === 0) {
@@ -144,34 +29,38 @@ const QualityForm = (props) => {
     updateQuality(e.target.value, chordQualities[e.target.value].notes);
   };
   const qualityList = Object.keys(chordQualities).map((key) => (
-    <MenuItem key={key} value={key}>
+    <MenuItem className='qualityItem' key={key} value={key}>
+      {key}
       <span
         dangerouslySetInnerHTML={{
-          __html: sanitize(`${key} (${rootName}${chordQualities[key].symbol})`),
+          __html: sanitize(`&nbsp;(${rootName}${chordQualities[key].symbol})`),
         }}
       />
     </MenuItem>
   ));
-
+  const textFieldClasses = ["textField"];
+  if (isDisabled) textFieldClasses.push("isDisabled");
   return (
-    <div className={classes.wrapper}>
-      <FormControl variant='outlined' className={classes.formControl}>
+    <div data-test='quality-form' className='subFormWrapper qualityForm'>
+      <FormControl variant='outlined' className='formControl'>
         <TextField
           variant='outlined'
           id='chord-quality'
           select
           label='Chord Quality'
-          className={classes.textField}
+          className={textFieldClasses.join(" ")}
           value={quality}
           onChange={handleQuality}
+          required
           SelectProps={{
-            className: classes.select,
+            className: "select",
             MenuProps: {
-              classes: { list: classes.menu },
+              classes: { list: "menu pickerSubMenu" },
             },
+            disabled: isDisabled,
           }}
           InputLabelProps={{
-            className: classes.label,
+            className: "label",
           }}
           margin='normal'
         >
@@ -180,6 +69,25 @@ const QualityForm = (props) => {
       </FormControl>
     </div>
   );
+};
+
+QualityForm.propTypes = {
+  rootName: PropTypes.string.isRequired,
+  quality: PropTypes.string,
+  selected: PropTypes.arrayOf(
+    PropTypes.shape({
+      degree: PropTypes.number.isRequired,
+      displayInterval: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
+      semitonesFromRoot: PropTypes.number.isRequired,
+      displayName: PropTypes.shape({
+        alt: PropTypes.string,
+        id: PropTypes.number.isRequired,
+      }).isRequired,
+    })
+  ),
+  updateQuality: PropTypes.func.isRequired,
+  setTmpChordName: PropTypes.func.isRequired,
 };
 
 export default QualityForm;

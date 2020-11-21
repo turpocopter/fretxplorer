@@ -9,247 +9,129 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import useNotes from "hooks/noteNames";
 
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => {
-  let formControlTablet;
-  let flexControls;
-  return {
-    root: {
-      paddingLeft: 16,
-      paddingRight: 16,
-      [theme.breakpoints.up("sm")]: {
-        paddingLeft: 24,
-        paddingRight: 24,
-      },
-      "@media (orientation: landscape) and (min-height: 680px)": {
-        paddingLeft: 0,
-        paddingRight: 0,
-        width: "100%",
-      },
-    },
-    wrapper: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      borderBottom: "1px solid #ddd",
-      "@media (orientation: landscape) and (min-height: 680px)": {
-        borderBottom: "none",
-        borderTop: "1px solid #ddd",
-        marginTop: 12,
-      },
-    },
-    mainCtrlsWrapper: {
-      flexGrow: 1,
-      textAlign: "center",
-      [`${theme.breakpoints.up(
-        "sm"
-      )} and (orientation:landscape)`]: (flexControls = {
-        display: "flex",
-        flexFlow: "row nowrap",
-        justifyContent: "space-around",
-        alignItems: "center",
-      }),
-      "@media (min-width: 800px) and (orientation: portrait)": flexControls,
-    },
-    formControl: {
-      textAlign: "left",
-      margin: 0,
-      width: 218,
-      "@media (min-width: 590px) and (orientation: portrait)": {
-        marginTop: 4,
-      },
-      "@media (min-width: 800px) and (orientation: portrait)": (formControlTablet = {
-        marginTop: 4,
-        marginBottom: 8,
-        width: "13.4em",
-      }),
-      [`${theme.breakpoints.up(
-        "md"
-      )} and (orientation: landscape)`]: formControlTablet,
-      "@media (min-height: 680px) and (orientation: landscape) and (max-width: 849px)": {
-        width: 130,
-        marginRight: 10,
-      },
-      "@media (min-height: 680px) and (orientation: landscape) and (min-width: 850px) and (max-width: 1023px)": {
-        width: 180,
-        marginRight: 10,
-      },
-      "@media (min-height: 680px) and (orientation: landscape) and (min-width: 1024px)": {
-        marginRight: "1em",
-      },
-    },
-    textField: {
-      [theme.breakpoints.up("sm")]: {
-        marginBottom: 16,
-      },
-    },
-    select: {
-      fontSize: "0.95em",
-      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
-        fontSize: "1em",
-      },
-      [`${theme.breakpoints.up("md")} and (orientation: landscape)`]: {
-        fontSize: "1em",
-      },
-      "& span": {
-        color: theme.palette.gray.main,
-        fontSize: "0.9em",
-      },
-    },
-    label: {
-      fontSize: "0.92em",
-    },
-    menu: {
-      fontSize: "0.95em",
-    },
-    group: {
-      fontSize: "1em",
-      textAlign: "center",
-      color: theme.palette.gray.main,
-    },
-    option: {
-      fontSize: "1em",
-      minHeight: 34,
-      "& span": {
-        color: theme.palette.gray.main,
-        fontSize: "0.9em",
-      },
-    },
-    modeSwitch: {
-      textAlign: "center",
-      [`${theme.breakpoints.up(
-        "sm"
-      )} and (max-width: 799px) and (orientation: portrait)`]: {
-        marginBottom: "0.8em",
-      },
-    },
-    flatSwitch: {
-      fontSize: "0.9em",
-      display: "inline-block",
-      marginLeft: 0,
-      marginRight: 0,
-      marginBottom: 0,
-      marginTop: 0,
-      minWidth: 120,
-      whiteSpace: "nowrap",
-      [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
-        fontSize: "1em",
-      },
-      "@media (orientation: landscape)": {
-        marginLeft: 8,
-      },
-      "@media (min-height: 680px) and (orientation: landscape)": {
-        fontSize: "1em",
-      },
-    },
-    switchLabelExtras: {
-      //[`${theme.breakpoints.up("sm")} and ()`]: {
-      "@media (orientation: landscape)": {
-        display: "none",
-      },
-    },
-    btnPrevious: {
-      marginLeft: -16,
-    },
-    btnNext: {
-      marginRight: -16,
-    },
-  };
-});
+import PropTypes from "prop-types";
 
 const Modes = ({
-  modes,
-  selected,
-  current,
-  setCurrent,
-  pickPrevious,
-  pickNext,
-  parallelModes,
-  toggleParallelModes,
-  namingConvention,
+	modes,
+	selected,
+	current,
+	setCurrent,
+	pickPrevious,
+	pickNext,
+	parallelModes,
+	toggleParallelModes,
+	namingConvention,
 }) => {
-  const classes = useStyles();
-  const { translateNote } = useNotes(namingConvention);
-  return (
-    <div className={classes.root}>
-      <div className={classes.wrapper}>
-        <div className={classes.btnPrevious}>
-          <IconButton aria-label='delete' onClick={pickPrevious}>
-            <NavigateBeforeIcon fontSize='large' />
-          </IconButton>
-        </div>
-        <div className={classes.mainCtrlsWrapper}>
-          <FormControl variant='outlined' className={classes.formControl}>
-            <TextField
-              variant='outlined'
-              id='modes'
-              select
-              label='Modes'
-              className={classes.textField}
-              value={current}
-              onChange={(e) =>
-                setCurrent(e.target.value, e.currentTarget.dataset.name)
-              }
-              SelectProps={{
-                className: classes.select,
-                MenuProps: {
-                  classes: { list: classes.menu },
-                },
-              }}
-              InputLabelProps={{
-                className: classes.label,
-              }}
-              margin='normal'
-              size='small'
-            >
-              {modes.map((mode, i) => {
-                const rootForMode = translateNote(
-                  selected[
-                    parallelModes
-                      ? 0
-                      : (selected.length + i - current) % selected.length
-                  ].displayName
-                );
-                const modeName = mode.hasOwnProperty("shortName")
-                  ? mode.shortName
-                  : mode.fullName;
-                const displayName = mode.hasOwnProperty("listName")
-                  ? mode.listName
-                  : modeName;
-                return (
-                  <MenuItem
-                    key={i}
-                    value={i}
-                    data-name={`${modeName}`}
-                    className={classes.option}
-                  >
-                    {`${rootForMode} ${displayName}`}
-                  </MenuItem>
-                );
-              })}
-            </TextField>
-          </FormControl>
-          <div className={classes.modeSwitch}>
-            <label className={classes.flatSwitch}>
-              Relative <span className={classes.switchLabelExtras}>modes</span>
-              <Switch
-                checked={parallelModes}
-                onChange={toggleParallelModes}
-                color='default'
-              />
-              Parallel <span className={classes.switchLabelExtras}>modes</span>
-            </label>
-          </div>
-        </div>
-        <div className={classes.btnNext}>
-          <IconButton aria-label='delete' onClick={pickNext}>
-            <NavigateNextIcon fontSize='large' />
-          </IconButton>
-        </div>
-      </div>
-    </div>
-  );
+	const { translateNote } = useNotes(namingConvention);
+	return (
+		<div data-test='modes' className='modes'>
+			<div className='wrapper'>
+				<div className='btnPrevious'>
+					<IconButton aria-label='delete' onClick={pickPrevious}>
+						<NavigateBeforeIcon fontSize='large' />
+					</IconButton>
+				</div>
+				<div className='mainCtrlsWrapper'>
+					<div className='modeSelector'>
+						<FormControl variant='outlined' className='formControl'>
+							<TextField
+								variant='outlined'
+								id='modes'
+								select
+								label='Modes'
+								className='textField'
+								value={current}
+								onChange={(e) =>
+									setCurrent(e.target.value, e.currentTarget.dataset.name)
+								}
+								SelectProps={{
+									className: "select",
+									MenuProps: {
+										classes: { list: "menu" },
+									},
+								}}
+								InputLabelProps={{
+									className: "label",
+								}}
+								margin='normal'
+								size='small'>
+								{modes.map((mode, i) => {
+									const rootForMode = translateNote(
+										selected[
+											parallelModes
+												? 0
+												: (selected.length + i - current) % selected.length
+										].displayName
+									);
+									const modeName = mode.hasOwnProperty("shortName")
+										? mode.shortName
+										: mode.fullName;
+									const displayName = mode.hasOwnProperty("listName")
+										? mode.listName
+										: modeName;
+									return (
+										<MenuItem
+											key={i}
+											value={i}
+											data-name={`${modeName}`}
+											className='option'>
+											{`${rootForMode} ${displayName}`}
+										</MenuItem>
+									);
+								})}
+							</TextField>
+						</FormControl>
+					</div>
+					<div className='modeSwitch'>
+						<label className='flatSwitch'>
+							Relative <span className='switchLabelExtras'>modes</span>
+							<Switch
+								checked={parallelModes}
+								onChange={toggleParallelModes}
+								color='default'
+							/>
+							Parallel <span className='switchLabelExtras'>modes</span>
+						</label>
+					</div>
+				</div>
+				<div className='btnNext'>
+					<IconButton aria-label='delete' onClick={pickNext}>
+						<NavigateNextIcon fontSize='large' />
+					</IconButton>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+Modes.propTypes = {
+	modes: PropTypes.arrayOf(
+		PropTypes.shape({
+			fullName: PropTypes.string.isRequired,
+			shortName: PropTypes.string,
+			listName: PropTypes.string,
+			aliases: PropTypes.arrayOf(PropTypes.string),
+		})
+	).isRequired,
+	current: PropTypes.number.isRequired,
+	setCurrent: PropTypes.func.isRequired,
+	pickPrevious: PropTypes.func.isRequired,
+	pickNext: PropTypes.func.isRequired,
+	selected: PropTypes.arrayOf(
+		PropTypes.shape({
+			degree: PropTypes.number.isRequired,
+			displayInterval: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+				.isRequired,
+			semitonesFromRoot: PropTypes.number.isRequired,
+			displayName: PropTypes.shape({
+				alt: PropTypes.string,
+				id: PropTypes.number.isRequired,
+			}).isRequired,
+		})
+	),
+	parallelModes: PropTypes.bool.isRequired,
+	toggleParallelModes: PropTypes.func.isRequired,
+	namingConvention: PropTypes.oneOf(["letters", "latin"]),
 };
 
 export default Modes;

@@ -9,8 +9,8 @@ const initialState = {
   rootNote: "",
   useFlats: false,
   selected: [],
-  chordName: "",
-  scaleName: "",
+  chordName: null,
+  scaleName: null,
   scaleInfo: null,
   modeIndex: 0,
 };
@@ -218,7 +218,7 @@ const chordPickerReducer = (state = initialState, action) => {
       const isAlreadyMode = action.scaleInfo.hasOwnProperty("relatedTo");
       return {
         ...state,
-        chordName: "",
+        chordName: null,
         scaleName: action.scaleName,
         scaleInfo: isAlreadyMode
           ? action.scaleInfo.relatedTo.scaleInfo
@@ -229,7 +229,7 @@ const chordPickerReducer = (state = initialState, action) => {
     case actionTypes.UPDATE_SCALE_NOTES:
       return {
         ...state,
-        scaleName: "",
+        scaleName: null,
         selected: rebuildSelected(
           state.rootNote,
           state.useFlats,
@@ -238,7 +238,7 @@ const chordPickerReducer = (state = initialState, action) => {
         ),
         scaleInfo: null,
         modeIndex: 0,
-        chordName: "",
+        chordName: null,
       };
 
     case actionTypes.UPDATE_MODE:
@@ -300,8 +300,8 @@ const chordPickerReducer = (state = initialState, action) => {
         ...state,
         rootNote: "",
         selected: [],
-        chordName: "",
-        scaleName: "",
+        chordName: null,
+        scaleName: null,
         scaleInfo: null,
         modeIndex: 0,
       };

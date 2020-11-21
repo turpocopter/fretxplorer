@@ -1,142 +1,22 @@
 import React, { useEffect } from "react";
 import { sanitize } from "dompurify";
-import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { hasNote } from "utility/intervals";
+import seventhList from "data/chords/seventh";
 
-const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    [`${theme.breakpoints.up("sm")} and (orientation: portrait)`]: {
-      margin: "8px 0",
-    },
-  },
-  formControl: {
-    margin: 0,
-    minWidth: 250,
-    [theme.breakpoints.up("sm")]: {
-      minWidth: 400,
-    },
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      "& > .MuiTextField-root": {
-        margin: "8px 0",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      "& > .MuiTextField-root": {
-        margin: "8px 0",
-      },
-    },
-  },
-  select: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      fontSize: "0.9em",
-      "& > .MuiSelect-root": {
-        padding: 12,
-        paddingRight: 32,
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      fontSize: "0.9em",
-      "& > .MuiSelect-root": {
-        padding: 12,
-        paddingRight: 32,
-      },
-    },
-  },
-  label: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      fontSize: "1em",
-      transform: "translate(14px, 14px) scale(1)",
-      "&.MuiInputLabel-shrink": {
-        transform: "translate(11px, -6px) scale(0.7)",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      fontSize: "1em",
-      transform: "translate(14px, 14px) scale(1)",
-      "&.MuiInputLabel-shrink": {
-        transform: "translate(11px, -6px) scale(0.7)",
-      },
-    },
-  },
-  menu: {
-    [`${theme.breakpoints.down("sm")} and (orientation: landscape)`]: {
-      "& li": {
-        fontSize: "1em!important",
-      },
-    },
-    "@media (min-height: 680px) and (max-width: 1589px) and (orientation: landscape)": {
-      "& li": {
-        fontSize: "1em!important",
-      },
-    },
-  },
-}));
-
-const seventhList = {
-  none: {
-    semitonesFromRoot: null,
-    isAvailable: (selected) =>
-      (hasNote(selected, 4, 3) ||
-        hasNote(selected, 3, 3) ||
-        hasNote(selected, 2, 2) ||
-        hasNote(selected, 5, 4)) &&
-      (hasNote(selected, 7, 5) ||
-        hasNote(selected, 6, 5) ||
-        hasNote(selected, 8, 5)),
-    nameChord: () => null,
-  },
-  major: {
-    semitonesFromRoot: 11,
-    isAvailable: (selected) =>
-      (hasNote(selected, 3, 3) && !hasNote(selected, 6, 5)) ||
-      (hasNote(selected, 4, 3) && !hasNote(selected, 6, 5)) ||
-      hasNote(selected, 2, 2) ||
-      hasNote(selected, 5, 4),
-    nameChord: (selected) => {
-      if (hasNote(selected, 8, 5)) return "+<sup>M7</sup>";
-      //else if (hasNote(selected, 4, 3) && hasNote(selected, 6, 5)) return "M7♭5";
-      else if (hasNote(selected, 4, 3)) return "M7";
-      else if (hasNote(selected, 5, 4)) return "M7sus4";
-      else if (hasNote(selected, 2, 2)) return "M7sus2";
-      else if (hasNote(selected, 3, 3)) return "m<sup>M7</sup>";
-    },
-  },
-  minor: {
-    semitonesFromRoot: 10,
-    isAvailable: (selected) =>
-      hasNote(selected, 3, 3) ||
-      hasNote(selected, 4, 3) ||
-      hasNote(selected, 2, 2) ||
-      hasNote(selected, 5, 4),
-
-    nameChord: (selected) => {
-      if (hasNote(selected, 8, 5)) return "+7";
-      else if (hasNote(selected, 3, 3) && hasNote(selected, 6, 5))
-        return "<sup>ø</sup>7";
-      else if (hasNote(selected, 4, 3) && hasNote(selected, 6, 5)) return "7♭5";
-      else if (hasNote(selected, 4, 3)) return "7";
-      else if (hasNote(selected, 3, 3)) return "m7";
-      else if (hasNote(selected, 5, 4)) return "7sus4";
-      else if (hasNote(selected, 2, 2)) return "7sus2";
-    },
-  },
-  diminished: {
-    semitonesFromRoot: 9,
-    isAvailable: (selected) =>
-      hasNote(selected, 3, 3) && hasNote(selected, 6, 5),
-    nameChord: (selected) => {
-      return "<sup>o</sup>7";
-    },
-  },
-};
+import PropTypes from "prop-types";
 
 const SeventhForm = (props) => {
-  const { rootName, selected, seventh, updateSeventh, setTmpChordName } = props;
-  const classes = useStyles();
+  const {
+    rootName,
+    selected,
+    seventh,
+    updateSeventh,
+    setTmpChordName,
+    isDisabled,
+  } = props;
 
   useEffect(() => {
     if (
@@ -172,35 +52,57 @@ const SeventhForm = (props) => {
         )}
       </MenuItem>
     ));
+  const textFieldClasses = ["textField"];
+  if (isDisabled) textFieldClasses.push("isDisabled");
   return (
-    filteredSeventhList.length > 0 && (
-      <div className={classes.wrapper}>
-        <FormControl variant='outlined' className={classes.formControl}>
-          <TextField
-            variant='outlined'
-            id='seventh-note'
-            select
-            label='Seventh note'
-            className={classes.textField}
-            value={seventh}
-            onChange={handleSeventh}
-            SelectProps={{
-              className: classes.select,
-              MenuProps: {
-                classes: { list: classes.menu },
-              },
-            }}
-            InputLabelProps={{
-              className: classes.label,
-            }}
-            margin='normal'
-          >
-            {filteredSeventhList}
-          </TextField>
-        </FormControl>
-      </div>
-    )
+    //filteredSeventhList.length > 0 && (
+    <div data-test='seventh-form' className='subFormWrapper seventhForm'>
+      <FormControl variant='outlined' className='formControl'>
+        <TextField
+          variant='outlined'
+          id='seventh-note'
+          select
+          label='Seventh note'
+          className={textFieldClasses.join(" ")}
+          value={seventh}
+          onChange={handleSeventh}
+          SelectProps={{
+            className: "select",
+            MenuProps: {
+              classes: { list: "menu pickerSubMenu" },
+            },
+            disabled: isDisabled,
+          }}
+          InputLabelProps={{
+            className: "label",
+          }}
+          margin='normal'
+        >
+          {filteredSeventhList}
+        </TextField>
+      </FormControl>
+    </div>
+    //)
   );
+};
+
+SeventhForm.propTypes = {
+  rootName: PropTypes.string.isRequired,
+  seventh: PropTypes.string,
+  selected: PropTypes.arrayOf(
+    PropTypes.shape({
+      degree: PropTypes.number.isRequired,
+      displayInterval: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
+      semitonesFromRoot: PropTypes.number.isRequired,
+      displayName: PropTypes.shape({
+        alt: PropTypes.string,
+        id: PropTypes.number.isRequired,
+      }).isRequired,
+    })
+  ),
+  updateSeventh: PropTypes.func.isRequired,
+  setTmpChordName: PropTypes.func.isRequired,
 };
 
 export default SeventhForm;
