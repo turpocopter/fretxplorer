@@ -1,251 +1,254 @@
 @mixin largeLandscape {
-  .formControl > .MuiTextField-root {
-    margin: 8px 0;
-  }
-  .flatSwitch {
-    font-size: 1.1em;
-  }
-  .select {
-    font-size: 1em; /*0.9em;*/
-    & > .MuiSelect-root {
-      padding: 12px 32px 12px 12px;
-    }
-  }
-  .label {
-    font-size: 1em;
-    transform: translate(14px, 14px) scale(1);
-    &.MuiInputLabel-shrink {
-      transform: translate(11px, -6px) scale(0.7);
-    }
-  }
-  .menu li {
-    font-size: 1em !important;
-  }
+	.formControl > .MuiTextField-root {
+		margin: 8px 0;
+	}
+	.flatSwitch {
+		font-size: 1.1em;
+	}
+	.select {
+		font-size: 1em; /*0.9em;*/
+		& > .MuiSelect-root {
+			padding: 12px 32px 12px 12px;
+		}
+	}
+	.label {
+		font-size: 1em;
+		transform: translate(14px, 14px) scale(1);
+		&.MuiInputLabel-shrink {
+			transform: translate(11px, -6px) scale(0.7);
+		}
+	}
+	.menu li {
+		font-size: 1em !important;
+	}
 }
 
 .pickerForm {
-  &.paper {
-    margin: 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: $colorBackground;
-    @include media(">=sm", "portrait") {
-      min-height: calc(100vh - 262px);
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: center;
-    }
-    @include media(">=sm", "landscape") {
-      margin: 16px 32px;
-    }
-    @include media("ˇtabletH", "landscape") {
-      min-height: calc(100vh - 150px);
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: center;
-    }
-    @include media("ˇtabletH", ">=desktop", "landscape") {
-      min-height: calc(100vh - 268px);
-    }
-    @include media("^=tabletH", "landscape") {
-      margin: 0 0 0 6px;
-      min-height: 16.6em;
-    }
-    @include media("^=desktopH", "landscape") {
-      min-height: 19.7em;
-    }
+	&.paper {
+		margin: 32px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background-color: $colorBackground;
+		@include media(">=sm", "portrait") {
+			min-height: calc(100vh - 262px);
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+		}
+		@include media(">=sm", "landscape") {
+			margin: 16px 32px;
+		}
+		@include media("ˇtabletH", "landscape") {
+			min-height: calc(100vh - 150px);
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+		}
+		@include media("ˇtabletH", ">=desktop", "landscape") {
+			min-height: calc(100vh - 268px);
+		}
+		@include media("^=tabletH", "landscape") {
+			margin: 0 0 0 6px;
+			min-height: 16.6em;
+		}
+		@include media("^=desktopH", "landscape") {
+			min-height: 19.7em;
+		}
 
-    &.scalePickerForm {
-      @include media("^=tabletH", "landscape") {
-        min-height: 9.8em;
-      }
-      @include media("^=desktopH", "landscape") {
-        min-height: 13em;
-      }
-    }
-    .paperInner {
-      @include media(">=sm", "portrait") {
-        height: 30.8em;
-      }
-      @include media("ˇtabletH", "landscape") {
-        height: 23.1em;
-      }
-      @include media("ˇtabletH", ">=desktop", "landscape") {
-        height: 27em;
-      }
-      .title {
-        margin-bottom: 16px;
-        @include media(">=sm", "portrait") {
-          margin-bottom: 32px;
-        }
-        @include media("^=tabletH", "ˇdesktopH", "landscape") {
-          display: none;
-        }
-        @include media(">=tablet", "landscape") {
-          font-size: 1.4em;
-        }
-      }
-      .buttonWrapper {
-        @include media(">=sm", "portrait") {
-          margin-top: 8px;
-        }
-      }
-      .submitButton {
-        width: 250px;
-        margin-top: 16px;
-        padding: 16px 0;
-        text-transform: none;
-        & sup {
-          vertical-align: top;
-          position: relative;
-          top: -0.25em;
-        }
-        @include media(">=sm") {
-          width: 400px;
-        }
-        @include media("<tablet", "landscape") {
-          margin-top: 8px;
-          padding: 8px 0;
-        }
-        @include media("^=tabletH", "landscape") {
-          margin-top: 8px;
-          padding: 8px 0;
-        }
-        /*@include media(">=xl", "landscape") {
+		&.scalePickerForm {
+			@include media("^=tabletH", "landscape") {
+				min-height: 9.8em;
+			}
+			@include media("^=desktopH", "landscape") {
+				min-height: 13em;
+			}
+		}
+		.paperInner {
+			@include media(">=sm", "portrait") {
+				height: 30.8em;
+			}
+			@include media("ˇtabletH", "landscape") {
+				height: 23.1em;
+			}
+			@include media("ˇtabletH", ">=desktop", "landscape") {
+				height: 27em;
+			}
+			.title {
+				margin-bottom: 16px;
+				@include media(">=sm", "portrait") {
+					margin-bottom: 32px;
+				}
+				@include media("^=tabletH", "ˇdesktopH", "landscape") {
+					display: none;
+				}
+				@include media(">=tablet", "landscape") {
+					font-size: 1.4em;
+				}
+			}
+			.buttonWrapper {
+				@include media(">=sm", "portrait") {
+					margin-top: 8px;
+				}
+			}
+			.submitButton {
+				width: 250px;
+				margin-top: 16px;
+				padding: 16px 0;
+				text-transform: none;
+				& sup {
+					vertical-align: top;
+					position: relative;
+					top: -0.25em;
+				}
+				@include media(">=sm") {
+					width: 400px;
+				}
+				@include media("<tablet", "landscape") {
+					margin-top: 8px;
+					padding: 8px 0;
+				}
+				@include media("^=tabletH", "landscape") {
+					margin-top: 8px;
+					padding: 8px 0;
+				}
+				/*@include media(">=xl", "landscape") {
           margin-top: 16px;
         }*/
-      }
-    }
-  }
-  .scaleFieldWrapper {
-    @include media(">=sm", "portrait") {
-      margin: 8px 0;
-    }
-  }
-  .rootForm {
-    width: 250px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    @include media(">=sm") {
-      width: 400px;
-    }
-    @include media(">=sm", "portrait") {
-      margin: 8px 0;
-    }
-    @include media(">=desktop", "portrait") {
-      min-width: 500px;
-    }
-  }
-  .flatSwitch {
-    font-size: 1.4em;
-    & span {
-      vertical-align: "middle";
-    }
-    @include media("<sm", "portrait") {
-      margin-top: 0.6em;
-    }
-    /*@include media(">=xl", "landscape") {
+			}
+		}
+	}
+	.scaleFieldWrapper {
+		@include media(">=sm", "portrait") {
+			margin: 8px 0;
+		}
+	}
+	.rootForm {
+		width: 250px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		@include media(">=sm") {
+			width: 400px;
+		}
+		@include media(">=sm", "portrait") {
+			margin: 8px 0;
+		}
+		@include media(">=desktop", "portrait") {
+			min-width: 500px;
+		}
+	}
+	.flatSwitch {
+		font-size: 1.4em;
+		& span {
+			vertical-align: "middle";
+		}
+		@include media("<sm", "portrait") {
+			margin-top: 0.6em;
+		}
+		/*@include media(">=xl", "landscape") {
       font-size: 1em;
     }*/
-  }
-  .subFormWrapper {
-    @include media(">=sm", "portrait") {
-      margin: 8px 0;
-    }
-  }
-  .formControl {
-    margin: 0;
-    min-width: 250px;
-    @include media(">=sm") {
-      min-width: 400px;
-    }
-    @include media(">=desktop", "portrait") {
-      min-width: 500px;
-    }
-    &.-root {
-      width: 140px;
-      min-width: auto;
-      @include media(">=sm") {
-        width: 200px;
-      }
-      @include media(">=desktop", "portrait") {
-        min-width: 250px;
-      }
-    }
-  }
-  .MuiSelect-select span {
-    color: $colorGray;
-    font-size: 0.9em;
-  }
-  @include media("<desktop", "landscape") {
-    @include largeLandscape;
-  }
-  @include media("^=tabletH", "landscape") {
-    @include largeLandscape;
-  }
+	}
+	.subFormWrapper {
+		@include media(">=sm", "portrait") {
+			margin: 8px 0;
+		}
+	}
+	.formControl {
+		margin: 0;
+		min-width: 250px;
+		@include media(">=sm") {
+			min-width: 400px;
+		}
+		@include media(">=desktop", "portrait") {
+			min-width: 500px;
+		}
+		&.-root {
+			width: 140px;
+			min-width: auto;
+			@include media(">=sm") {
+				width: 200px;
+			}
+			@include media(">=desktop", "portrait") {
+				min-width: 250px;
+			}
+		}
+	}
+	.formControl:not(.scaleControl) .MuiSelect-select span {
+		color: $colorGray;
+		font-size: 0.9em;
+	}
+	/*.scaleControl .MuiSelect-select span {
+		display: none;
+	}*/
+	@include media("<desktop", "landscape") {
+		@include largeLandscape;
+	}
+	@include media("^=tabletH", "landscape") {
+		@include largeLandscape;
+	}
 
-  @include media(">=xl", "landscape") {
-    /*.MuiSelect-icon {
+	@include media(">=xl", "landscape") {
+		/*.MuiSelect-icon {
       top: calc(50% - 0.4em) !important;
     }*/
-    /*.MuiInputLabel-outlined {
+		/*.MuiInputLabel-outlined {
       transform: translate(0.8em, 0.8em) scale(1) !important;
       &.MuiInputLabel-shrink {
         transform: translate(0.6em, -0.3em) scale(0.75) !important;
       }
     }*/
-    .MuiSelect-select {
-      padding-right: 32px;
-      padding-top: 10.5px;
-      padding-bottom: 10.5px;
-      font-size: 0.95em;
+		.MuiSelect-select {
+			padding-right: 32px;
+			padding-top: 10.5px;
+			padding-bottom: 10.5px;
+			font-size: 0.95em;
 
-      .menu {
-        font-size: 0.95em;
-      }
-    }
-    .label {
-      font-size: 0.92em;
-    }
-  }
+			.menu {
+				font-size: 0.95em;
+			}
+		}
+		.label {
+			font-size: 0.92em;
+		}
+	}
 }
 .pickerSubMenu li {
-  font-size: 1em;
+	font-size: 1em;
 }
 .menuScale {
-  .group {
-    font-size: 1em;
-    text-align: center;
-    color: $colorGray;
-    & span {
-      font-size: 0.85em;
-    }
-  }
-  .option {
-    font-size: 1em;
-    min-height: 34px;
-  }
+	.group {
+		font-size: 1em;
+		text-align: center;
+		color: $colorGray;
+		& span {
+			font-size: 0.85em;
+		}
+	}
+	.option {
+		font-size: 1em;
+		min-height: 34px;
+	}
 }
 .noteIntervalSwitch {
-  text-align: center;
-  @include media(">=sm") {
-    margin-top: 0.8em;
-  }
-  .noteIntervalSwitchLabel {
-    font-size: 0.9em;
-    display: inline-block;
-    margin: 0 0 8px;
-    min-width: 120px;
-    @include media(">=sm", "portrait") {
-      font-size: 1em;
-    }
-    @include media("landscape") {
-      margin-left: 8px;
-    }
-    @include media("^=tabletH", "landscape") {
-      font-size: 1em;
-    }
-  }
+	text-align: center;
+	@include media(">=sm") {
+		margin-top: 0.8em;
+	}
+	.noteIntervalSwitchLabel {
+		font-size: 0.9em;
+		display: inline-block;
+		margin: 0 0 8px;
+		min-width: 120px;
+		@include media(">=sm", "portrait") {
+			font-size: 1em;
+		}
+		@include media("landscape") {
+			margin-left: 8px;
+		}
+		@include media("^=tabletH", "landscape") {
+			font-size: 1em;
+		}
+	}
 }
