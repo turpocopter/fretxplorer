@@ -216,6 +216,10 @@
 }
 .pickerSubMenu li {
 	font-size: 1em;
+	& span {
+		color: #999;
+		font-size: 0.9em;
+	}
 }
 .menuScale {
 	.group {
