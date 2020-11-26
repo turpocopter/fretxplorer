@@ -8,7 +8,7 @@ const WithMidiSounds = (WrappedComponent) => {
 	const Hoc = (props) => {
 		useEffect(() => {
 			if (midiSounds) {
-				midiSounds.setMasterVolume(0.6);
+				midiSounds.setMasterVolume(0.4);
 			}
 			return () => {
 				if (midiSounds) {

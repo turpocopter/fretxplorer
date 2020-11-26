@@ -1,181 +1,181 @@
 .pickerPage {
-  @include media("landscape") {
-    height: calc(100vh - 66px);
-    min-height: 380px;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-  }
-  @include media(">=tablet", "landscape") {
-    height: calc(100vh - 116px);
-  }
-  .pickerContainer {
-    position: sticky;
-    top: 0;
-    background-color: $colorBackground;
-    z-index: 100;
-    padding-bottom: 0 !important;
-    padding-left: 16px;
-    padding-right: 16px;
-    @include media(">=sm") {
-      padding-left: 24px;
-      padding-right: 24px;
-    }
-    @include media(">=sm", "portrait") {
-      top: 106px;
-    }
-    @include media("ˇtabletH", "landscape") {
-      &.hasContent {
-        display: flex;
-        flex-flow: column nowrap;
-        flex-grow: 1;
-        justify-content: center;
-      }
-    }
-    @include media("^=tabletH", "landscape") {
-      display: flex;
-      flex-flow: row nowrap;
-      flex-grow: 1;
-      justify-content: space-between;
-      margin-bottom: -54px;
-      align-items: normal;
-      padding: 0 24px;
-    }
-    @include media("^=desktopH", ">=1140px", "landscape") {
-      justify-content: space-around;
-      align-items: center;
-      margin-top: -10px;
-    }
-  }
-  .persistentTuner {
-    display: none;
-    @include media("^=tabletH", "landscape") {
-      display: block;
-      margin-left: 2em;
-    }
-    @include media("^=desktopH", ">=1140px", "landscape") {
-      margin-top: 1em;
-    }
-  }
-  .switchUnderTuner {
-    margin-top: 2em;
-  }
-  .fretboardContainer {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    display: none;
-    @include media("^=tabletH", "landscape") {
-      display: block !important;
-      flex-grow: 1;
-    }
-    &.hasContent {
-      display: block;
-      @include media("landscape") {
-        flex-grow: 1;
-        align-items: center;
-      }
-    }
-  }
-  &.chordPicker {
-    .pickerContainer {
-      margin-bottom: 0;
-      @include media("^=tabletH", "landscape") {
-        padding: 0 88px;
-        margin-bottom: -54px;
-      }
-    }
-  }
-  &.scalePicker {
-    .pickerContainer {
-      @include media("^=tabletH", "landscape", ">=tablet") {
-        padding: 0 88px;
-      }
-    }
-  }
+	@include media("landscape") {
+		height: calc(100vh - 66px);
+		min-height: 380px;
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: space-between;
+	}
+	@include media(">=tablet", "landscape") {
+		height: calc(100vh - 98px);
+	}
+	.pickerContainer {
+		position: sticky;
+		top: 0;
+		background-color: $colorBackground;
+		z-index: 100;
+		padding-bottom: 0 !important;
+		padding-left: 16px;
+		padding-right: 16px;
+		@include media(">=sm") {
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+		@include media(">=sm", "portrait") {
+			top: 106px;
+		}
+		@include media("ˇtabletH", "landscape") {
+			&.hasContent {
+				display: flex;
+				flex-flow: column nowrap;
+				flex-grow: 1;
+				justify-content: center;
+			}
+		}
+		@include media("^=tabletH", "landscape") {
+			display: flex;
+			flex-flow: row nowrap;
+			flex-grow: 1;
+			justify-content: space-between;
+			margin-bottom: -54px;
+			align-items: normal;
+			padding: 0 24px;
+		}
+		@include media("^=desktopH", ">=1140px", "landscape") {
+			justify-content: space-around;
+			align-items: center;
+			margin-top: -10px;
+		}
+	}
+	.persistentTuner {
+		display: none;
+		@include media("^=tabletH", "landscape") {
+			display: block;
+			margin-left: 2em;
+		}
+		@include media("^=desktopH", ">=1140px", "landscape") {
+			margin-top: 1em;
+		}
+	}
+	.switchUnderTuner {
+		margin-top: 2em;
+	}
+	.fretboardContainer {
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+		display: none;
+		@include media("^=tabletH", "landscape") {
+			display: block !important;
+			flex-grow: 1;
+		}
+		&.hasContent {
+			display: block;
+			@include media("landscape") {
+				flex-grow: 1;
+				align-items: center;
+			}
+		}
+	}
+	&.chordPicker {
+		.pickerContainer {
+			margin-bottom: 0;
+			@include media("^=tabletH", "landscape") {
+				padding: 0 88px;
+				margin-bottom: -54px;
+			}
+		}
+	}
+	&.scalePicker {
+		.pickerContainer {
+			@include media("^=tabletH", "landscape", ">=tablet") {
+				padding: 0 88px;
+			}
+		}
+	}
 }
 
 .aboutPage {
-  margin: 48px 0;
-  padding: 0 16px;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  @include media(">=sm") {
-    min-height: calc(100vh - 294px);
-  }
-  @include media("<desktop", "landscape") {
-    margin: 0 0 2em;
-  }
-  & a {
-    color: $colorPrimary;
-  }
-  .paperInner {
-    max-width: 26em;
-    text-align: justify;
-    .title {
-      margin-bottom: 48px;
-      @include media("<desktop", "landscape") {
-        margin-bottom: 16px;
-      }
-    }
-    .aboutApp {
-      font-size: 1.1em;
-    }
-  }
+	margin: 48px 0;
+	padding: 0 16px;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+	@include media(">=sm") {
+		min-height: calc(100vh - 294px);
+	}
+	@include media("<desktop", "landscape") {
+		margin: 0 0 2em;
+	}
+	& a {
+		color: $colorPrimary;
+	}
+	.paperInner {
+		max-width: 26em;
+		text-align: justify;
+		.title {
+			margin-bottom: 48px;
+			@include media("<desktop", "landscape") {
+				margin-bottom: 16px;
+			}
+		}
+		.aboutApp {
+			font-size: 1.1em;
+		}
+	}
 }
 
 .settingsPage {
-  margin: 48px 0;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: stretch;
-  @include media(">=sm") {
-    min-height: calc(100vh - 294px);
-    justify-content: center;
-  }
-  @include media("<desktop", "landscape") {
-    margin: 0 0 2em;
-  }
-  .title {
-    margin-bottom: 48px;
-    @include media("<desktop", "landscape") {
-      margin-bottom: 16px;
-    }
-  }
-  .switchContainer {
-    width: 100%;
-    margin-bottom: 32px;
-    @include media("<desktop", "landscape") {
-      margin-bottom: 8px;
-    }
-    .flatSwitch {
-      font-size: 0.9em;
-      display: block;
-      text-align: center;
-      margin-top: 0;
-      min-width: 120px;
-      margin-left: 8px;
-      margin-right: 8px;
-      .switchLabel {
-        display: inline-block;
-        width: 38%;
-        &:first-child {
-          text-align: right;
-        }
-        &:last-child {
-          text-align: left;
-        }
-        & small {
-          color: $colorGray;
-        }
-        @include media(">=sm") {
-          font-size: 1.1em;
-        }
-      }
-    }
-  }
-  .tuningContainer {
-    margin-top: 16px;
-  }
+	margin: 48px 0;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: stretch;
+	@include media(">=sm") {
+		min-height: calc(100vh - 294px);
+		justify-content: center;
+	}
+	@include media("<desktop", "landscape") {
+		margin: 0 0 2em;
+	}
+	.title {
+		margin-bottom: 48px;
+		@include media("<desktop", "landscape") {
+			margin-bottom: 16px;
+		}
+	}
+	.switchContainer {
+		width: 100%;
+		margin-bottom: 32px;
+		@include media("<desktop", "landscape") {
+			margin-bottom: 8px;
+		}
+		.flatSwitch {
+			font-size: 0.9em;
+			display: block;
+			text-align: center;
+			margin-top: 0;
+			min-width: 120px;
+			margin-left: 8px;
+			margin-right: 8px;
+			.switchLabel {
+				display: inline-block;
+				width: 38%;
+				&:first-child {
+					text-align: right;
+				}
+				&:last-child {
+					text-align: left;
+				}
+				& small {
+					color: $colorGray;
+				}
+				@include media(">=sm") {
+					font-size: 1.1em;
+				}
+			}
+		}
+	}
+	.tuningContainer {
+		margin-top: 16px;
+	}
 }

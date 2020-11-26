@@ -41,6 +41,7 @@ export const Notes = ({
 
 	const notes = selectedWithValues.map((el, i) => {
 		const noteClasses = ["note"];
+		if (el.isOmittable) noteClasses.push("omittable");
 		if (activeNote === i) noteClasses.push("active");
 		return (
 			<li
@@ -106,14 +107,21 @@ export const Notes = ({
 	const playChordClasses = ["playChord"];
 	if (isPlaying === true) playChordClasses.push("active");
 	return (
-		<ul data-test='notes' className='notes'>
-			{notes}
-			<li
-				className={playChordClasses.join(" ")}
-				onClick={() => onSelectionListen(selectionType)}>
-				<PlayArrowIcon fontSize='inherit' />
-			</li>
-		</ul>
+		<>
+			<ul data-test='notes' className='notes'>
+				{notes}
+				<li
+					className={playChordClasses.join(" ")}
+					onClick={() => onSelectionListen(selectionType)}>
+					<PlayArrowIcon fontSize='inherit' />
+				</li>
+			</ul>
+			{selectedWithValues.find((el) => el.isOmittable) && (
+				<p className='omittableNotice'>
+					(notes between brackets can be omitted)
+				</p>
+			)}
+		</>
 	);
 };
 
