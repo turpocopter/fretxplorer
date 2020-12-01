@@ -1,0 +1,151 @@
+.tooltipPopover {
+	z-index: 999;
+	position: absolute;
+	width: 300px;
+	background-color: $colorPrimary;
+	font-size: 1.1em;
+	padding: 0.7em 1em 1em;
+	border: 2px solid $colorPrimary;
+	color: white;
+	box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	margin: auto;
+	&.open:not(.error) {
+		animation: openModal 2s ease-out;
+	}
+	&.closed:not(.error) {
+		animation: closeModal 2s ease-out;
+	}
+	@include media(">=sm") {
+		width: 420px;
+		font-size: 18px; /*1.05em;*/
+	}
+	.tooltipContent {
+		text-align: justify;
+		.closeBtn {
+			padding: 0.6em;
+			color: white;
+			border: none;
+			background: transparent;
+			float: right;
+			margin: -0.5em -0.9em 0 1em;
+			outline: none;
+			cursor: pointer;
+			.MuiSvgIcon-root {
+				font-size: 1.8em;
+			}
+		}
+		.main {
+			margin: 0;
+		}
+		.small {
+			font-size: 0.8em;
+			margin: 0.4em 0 0;
+		}
+	}
+	.progressBar {
+		margin-top: 1em;
+		.bar {
+			height: 3px;
+			background: rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			margin: 0 -1.1em;
+			.done {
+				height: 3px;
+				background: rgba(255, 255, 255, 0.9);
+				width: 65%;
+			}
+		}
+		.counter {
+			margin: 0.3em 0 0;
+			font-size: 0.7em;
+			text-align: right;
+		}
+	}
+	.tooltipButtons {
+		text-align: center;
+		margin-top: 0.4em;
+		@include media(">=sm") {
+			font-size: 0.9em;
+		}
+		.btn {
+			font-weight: bold;
+			text-transform: uppercase;
+			border: none;
+			background-color: $colorPrimary;
+			font-size: 0.9em;
+			margin: 0em;
+			border-radius: 6px;
+			padding: 0.5em 0em;
+			width: 9em;
+			border: 2px solid white;
+			color: white;
+			line-height: 1.8;
+			transition: all 0.3s;
+			cursor: pointer;
+			outline: none;
+			svg {
+				vertical-align: top !important;
+				font-size: 1.7em;
+			}
+			&:first-child {
+				margin-right: 0.8em;
+			}
+			&:hover {
+				color: $colorPrimary;
+				background-color: white;
+			}
+			&.hidden {
+				visibility: hidden;
+			}
+		}
+	}
+	.tip {
+		position: absolute;
+		top: -21px;
+		left: 14px;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 0 12px 20.8px 12px;
+		border-color: transparent transparent $colorPrimary transparent;
+		&.right {
+			left: -21px;
+			top: 14px;
+			transform: rotate(-90deg);
+		}
+		&.left {
+			left: auto;
+			right: -21px;
+			top: 14px;
+			transform: rotate(90deg);
+		}
+		&.top {
+			top: auto;
+			bottom: -21px;
+			transform: rotate(180deg);
+		}
+	}
+}
+.errorMarker {
+	position: absolute;
+	z-index: 999;
+	background-color: $colorSecondary;
+}
+
+@keyframes openModal {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes closeModal {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
