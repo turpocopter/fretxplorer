@@ -40,5 +40,13 @@ export const chordsTutorial = [
 		selector: ".chordPickerForm .submitButton",
 		position: { x: { side: "left", offset: 17 }, y: { side: "center" } },
 		blockNext: () => true,
+		autoDiscard: true,
+	},
+	{
+		main: "These are the notes in your chord.",
+		small:
+			"Both their name and their function in the chord. Click play to hear them!",
+		selector: ".scaleInfo .notes",
+		position: { x: { side: "left", offset: 17 }, y: { side: "center" } },
 	},
 ];

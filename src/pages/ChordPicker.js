@@ -22,15 +22,6 @@ const ChordPicker = () => {
 	const tutorialDone = useSelector(
 		(state) => state.settings.tutorialsProgress.chords.done
 	);
-	/*const tutorialStep = useSelector(
-		(state) => state.settings.tutorialsProgress.chords.step
-	);
-	const onClickPrev = () => {
-		return dispatch(actions.decrementTutorialStep("chords"));
-	};
-	const onClickNext = () => {
-		return dispatch(actions.incrementTutorialStep("chords"));
-	};*/
 	const onToggleNotesIntervals = () => {
 		return dispatch(actions.toggleNotesIntervals());
 	};

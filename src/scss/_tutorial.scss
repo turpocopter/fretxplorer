@@ -10,11 +10,12 @@
 	box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
 	margin: auto;
+
 	&.open:not(.error) {
-		animation: openModal 2s ease-out;
+		animation: openModal 0.25s ease-out forwards;
 	}
 	&.closed:not(.error) {
-		animation: closeModal 2s ease-out;
+		animation: closeModal 0.25s ease-out forwards;
 	}
 	@include media(">=sm") {
 		width: 420px;
@@ -131,8 +132,19 @@
 	position: absolute;
 	z-index: 999;
 	background-color: $colorSecondary;
+	animation: flash 0.4s 2 forwards;
 }
-
+@keyframes flash {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0.3;
+	}
+	100% {
+		opacity: 0;
+	}
+}
 @keyframes openModal {
 	from {
 		opacity: 0;

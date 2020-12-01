@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "store/actions";
 
-import { Transition } from "react-transition-group";
-
 import Portal from "hoc/Portal";
 import Tooltip from "components/Tutorial/Tooltip";
 

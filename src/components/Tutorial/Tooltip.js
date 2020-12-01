@@ -123,19 +123,52 @@ const Tooltip = ({
 }) => {
 	const [position, setPosition] = useState(null);
 	const [showError, setShowError] = useState(false);
+	const [isClosing, setIsClosing] = useState(false);
 	useEffect(() => {
 		const domElt = document.querySelector(stepData.selector);
+		let discardHandler = (e) => {
+			//incrementStep();
+			e.stopPropagation();
+			setIsClosing(true);
+			setTimeout(() => {
+				incrementStep();
+			}, 300);
+		};
+		if (stepData.hasOwnProperty("autoDiscard")) {
+			domElt.addEventListener("click", discardHandler);
+		}
 		if (domElt) {
 			setPosition(computePosition(domElt, stepData.position));
+			window.addEventListener("resize", () => {
+				setPosition(computePosition(domElt, stepData.position));
+			});
 		}
-	}, [stepData.selector, stepData.position]);
+		return () => {
+			if (domElt !== null) {
+				domElt.removeEventListener("click", discardHandler);
+				console.log(document.querySelector(stepData.selector));
+				document
+					.querySelector(stepData.selector)
+					.dispatchEvent(new CustomEvent("click"));
+				document
+					.querySelector(stepData.selector)
+					.dispatchEvent(new CustomEvent("click"));
+				document
+					.querySelector(stepData.selector)
+					.dispatchEvent(new CustomEvent("click"));
+			}
+		};
+	}, [stepData, incrementStep]);
 	const prevBtnClasses = ["btn prevBtn"];
 	const nextBtnClasses = ["btn nextBtn"];
 	if (step === 0) prevBtnClasses.push("hidden");
 	if (step === stepData.tutorialLength - 1) nextBtnClasses.push("hidden");
-	const tooltipClasses = ["tooltipPopover", isVisible ? "open" : "closed"];
+	const tooltipClasses = ["tooltipPopover"];
+	if (isClosing) tooltipClasses.push("closed");
+	else if (isVisible) tooltipClasses.push("open");
 	const onPrev = () => {
-		decrementStep();
+		setIsClosing(true);
+		setTimeout(decrementStep, 300);
 	};
 	const onNext = () => {
 		if (stepData.hasOwnProperty("blockNext") && stepData.blockNext()) {
@@ -143,7 +176,10 @@ const Tooltip = ({
 			setTimeout(() => {
 				setShowError(false);
 			}, 1000);
-		} else incrementStep();
+		} else {
+			setIsClosing(true);
+			setTimeout(incrementStep, 300);
+		}
 	};
 	return (
 		position !== null && (
