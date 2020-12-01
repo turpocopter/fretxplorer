@@ -5,7 +5,7 @@ import * as actions from "store/actions";
 import Portal from "hoc/Portal";
 import Tooltip from "components/Tutorial/Tooltip";
 
-const Tutorial = ({ tutorialName }) => {
+const Tutorial = ({ tutorialName, tutorialRefs }) => {
 	const [showTooltip, setShowTooltip] = useState(false);
 	const [stepData, setStepData] = useState(null);
 	const dispatch = useDispatch();
