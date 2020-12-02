@@ -23,7 +23,6 @@ const ChordPickerForm = () => {
 	const useFlats = useSelector((state) => state.notePicker.useFlats);
 	const selected = useSelector((state) => state.notePicker.selected);
 	const noteNaming = useSelector((state) => state.settings.noteNaming);
-
 	const { getNoteName } = useNoteNames(noteNaming);
 
 	const onUpdateRoot = (rootNote) => {

@@ -27,6 +27,7 @@ const Tooltip = ({
 	incrementStep,
 	jumpToStep,
 	markAsDone,
+	shouldFadeIn,
 }) => {
 	const [position, setPosition] = useState(null);
 	const [showError, setShowError] = useState(false);
@@ -57,7 +58,6 @@ const Tooltip = ({
 			}
 		};
 		for (const uniqueEvent of uniqueEvents) {
-			console.log(uniqueEvent);
 			document.body.addEventListener(uniqueEvent, listenToJumpActions, true);
 		}
 		return () => {
@@ -132,7 +132,7 @@ const Tooltip = ({
 	if (step === 0 || hidePrevious) prevBtnClasses.push("hidden");
 	const tooltipClasses = ["tooltipPopover"];
 	if (isClosing) tooltipClasses.push("closed");
-	else if (isVisible) tooltipClasses.push("open");
+	else if (isVisible && shouldFadeIn) tooltipClasses.push("open");
 	const onPrev = () => {
 		setIsClosing(true);
 		setTimeout(decrementStep, 300);
