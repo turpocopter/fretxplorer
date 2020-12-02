@@ -50,6 +50,7 @@ export const chordsTutorial = [
 			"Both their name and their function in the chord. Click play to hear them!",
 		selector: ".scaleInfo .notes",
 		tipSettings: { y: { side: "top", offset: 37 } },
+		hidePrevious: true,
 	},
 	{
 		main: "OK, now how do I play this chord?",

@@ -21,6 +21,9 @@ const Tutorial = ({ tutorialName, tutorialRefs }) => {
 	const onJumpToStep = (step) => {
 		return dispatch(actions.jumpToTutorialStep(tutorialName, step));
 	};
+	const onFinishTutorial = () => {
+		return dispatch(actions.finishTutorial(tutorialName));
+	};
 	useEffect(() => {
 		async function loadTutorial(tutorialName) {
 			const tutorialPromise = await import(
@@ -59,6 +62,7 @@ const Tutorial = ({ tutorialName, tutorialRefs }) => {
 					decrementStep={onDecrementStep}
 					incrementStep={onIncrementStep}
 					jumpToStep={onJumpToStep}
+					markAsDone={onFinishTutorial}
 				/>
 			</Portal>
 		)

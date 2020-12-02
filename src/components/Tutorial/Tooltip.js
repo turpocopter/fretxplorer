@@ -4,6 +4,7 @@ import { sanitize } from "dompurify";
 import ErrorMarker from "./ErrorMarker";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
 import { computePosition } from "utility/tutorial";
 
@@ -18,12 +19,14 @@ const Tooltip = ({
 		boxSettings,
 		tipSettings,
 		blockNext = null,
+		hidePrevious = false,
 		autoDiscard = false,
 		jumpActions,
 	},
 	decrementStep,
 	incrementStep,
 	jumpToStep,
+	markAsDone,
 }) => {
 	const [position, setPosition] = useState(null);
 	const [showError, setShowError] = useState(false);
@@ -31,39 +34,42 @@ const Tooltip = ({
 	const [shouldUpdate, setShouldUpdate] = useState(false);
 
 	// jump actions effect
-	useEffect(
-		() => {
-			const jaCopy = JSON.parse(JSON.stringify(jumpActions));
-			const jaHandler = (e, step) => {
-				e.stopPropagation();
-				setIsClosing(true);
-				setTimeout(() => {
-					e.target.dispatchEvent(e);
-					jumpToStep(step);
-				}, 300);
-			};
-			for (const ja of jaCopy) {
-				const el = document.querySelector(ja.selector);
-				if (el !== null) {
-					ja.handler = (e) => {
-						jaHandler(e, ja.step);
-					};
-					el.addEventListener(ja.event, ja.handler);
+	useEffect(() => {
+		const jaCopy = JSON.parse(JSON.stringify(jumpActions));
+		const uniqueEvents = [...new Set(jaCopy.map((ja) => ja.event))];
+		const listenToJumpActions = (e) => {
+			let target = e.target;
+			for (const { selector, step } of jaCopy.filter(
+				(ja) => ja.event === e.type
+			)) {
+				while (target !== null) {
+					if (target.matches(selector)) {
+						e.stopPropagation();
+						setIsClosing(true);
+						setTimeout(() => {
+							e.target.dispatchEvent(e);
+							jumpToStep(step);
+						}, 300);
+						break;
+					}
+					target = target.parentElement;
 				}
 			}
-			return () => {
-				//if (intervalID !== null) {
-				for (const ja of jaCopy) {
-					if (ja.hasOwnProperty("handler")) {
-						document
-							.querySelector(ja.selector)
-							.removeEventListener(ja.event, ja.handler);
-					}
-				}
-				//}
-			};
-		} /*, [jumpActions, jumpToStep]*/
-	);
+		};
+		for (const uniqueEvent of uniqueEvents) {
+			console.log(uniqueEvent);
+			document.body.addEventListener(uniqueEvent, listenToJumpActions, true);
+		}
+		return () => {
+			for (const uniqueEvent of uniqueEvents) {
+				document.body.removeEventListener(
+					uniqueEvent,
+					listenToJumpActions,
+					true
+				);
+			}
+		};
+	}, [jumpActions, jumpToStep]);
 
 	useEffect(() => {
 		const domElt = document.querySelector(selector);
@@ -123,8 +129,7 @@ const Tooltip = ({
 
 	const prevBtnClasses = ["btn prevBtn"];
 	const nextBtnClasses = ["btn nextBtn"];
-	if (step === 0) prevBtnClasses.push("hidden");
-	if (step === tutorialLength - 1) nextBtnClasses.push("hidden");
+	if (step === 0 || hidePrevious) prevBtnClasses.push("hidden");
 	const tooltipClasses = ["tooltipPopover"];
 	if (isClosing) tooltipClasses.push("closed");
 	else if (isVisible) tooltipClasses.push("open");
@@ -140,7 +145,7 @@ const Tooltip = ({
 			}, 1000);
 		} else {
 			setIsClosing(true);
-			setTimeout(incrementStep, 300);
+			setTimeout(step === tutorialLength - 1 ? markAsDone : incrementStep, 300);
 		}
 	};
 	return (
@@ -183,8 +188,18 @@ const Tooltip = ({
 							Previous&nbsp;&nbsp;
 						</button>
 						<button className={nextBtnClasses.join(" ")} onClick={onNext}>
-							&nbsp;&nbsp;Next
-							<ChevronRightIcon />
+							&nbsp;&nbsp;
+							{step === tutorialLength - 1 ? (
+								<>
+									Done&nbsp;&nbsp;
+									<DoneIcon />
+								</>
+							) : (
+								<>
+									Next
+									<ChevronRightIcon />
+								</>
+							)}
 						</button>
 					</div>
 

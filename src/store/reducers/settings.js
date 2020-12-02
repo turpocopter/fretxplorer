@@ -165,6 +165,17 @@ const settingsReducer = (state = initialState, action) => {
 					},
 				},
 			};
+		case actionTypes.FINISH_TUTORIAL:
+			return {
+				...state,
+				tutorialsProgress: {
+					...state.tutorialProgress,
+					[action.tutorial]: {
+						step: state.tutorialsProgress[action.tutorial].step,
+						done: true,
+					},
+				},
+			};
 		default:
 			return state;
 	}

@@ -86,3 +86,10 @@ export const jumpToTutorialStep = (tutorial, step) => {
 		step,
 	};
 };
+
+export const finishTutorial = (tutorial) => {
+	return {
+		type: actionTypes.FINISH_TUTORIAL,
+		tutorial,
+	};
+};
