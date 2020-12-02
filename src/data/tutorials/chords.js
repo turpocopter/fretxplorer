@@ -16,9 +16,6 @@ export const chordsTutorial = [
 		small:
 			"This will change the name of the altered notes in the root note list. For instance <strong>C♯</strong> will become <strong>D♭</strong>.",
 		selector: ".flatSwitch",
-		tipSettings: {
-			x: { side: "left", offset: 17 },
-		},
 	},
 	{
 		main: "Now pick the main quality of your chord.",
@@ -45,6 +42,7 @@ export const chordsTutorial = [
 		tipSettings: { x: { side: "left", offset: 17 } },
 		blockNext: () => true,
 		autoDiscard: true,
+		autoJumpAction: "click", // signifie que si on clic sur $(selector) depuis une étape précédente, on est direct propulsé à la suivante
 	},
 	{
 		main: "These are the notes in your chord.",
@@ -56,8 +54,8 @@ export const chordsTutorial = [
 	{
 		main: "OK, now how do I play this chord?",
 		small:
-			"Well, it's up to you! <strong>Select each note of the chord at least once</strong> to create a valid chord voicing. In pop music, the root note is often (not always!) the lowest note played in the chord.",
-		selector: ".fretboardWrapper",
-		boxSettings: { x: { side: "center" } },
+			"Well, it's up to you! <strong>Select each note of the chord at least once</strong> to create a valid chord voicing. In pop music, the root note is often the lowest note played in the chord.",
+		selector: ".fretboardInner", //".StringList",
+		boxSettings: { x: { side: "screencenter" } },
 	},
 ];

@@ -18,16 +18,26 @@ const Tutorial = ({ tutorialName, tutorialRefs }) => {
 	const onIncrementStep = () => {
 		return dispatch(actions.incrementTutorialStep(tutorialName));
 	};
+	const onJumpToStep = (step) => {
+		return dispatch(actions.jumpToTutorialStep(tutorialName, step));
+	};
 	useEffect(() => {
 		async function loadTutorial(tutorialName) {
 			const tutorialPromise = await import(
 				`../data/tutorials/${tutorialName}.js`
 			);
 			const tutorialSteps = tutorialPromise[`${tutorialName}Tutorial`];
+			let jumpActions = [];
+			tutorialSteps.forEach(({ selector, autoJumpAction = null }, i) => {
+				if (autoJumpAction !== null && i > tutorialStep) {
+					jumpActions.push({ selector, event: autoJumpAction, step: i + 1 });
+				}
+			});
 			return tutorialSteps.length > tutorialStep
 				? {
 						...tutorialSteps[tutorialStep],
 						tutorialLength: tutorialSteps.length,
+						jumpActions,
 				  }
 				: null;
 		}
@@ -48,6 +58,7 @@ const Tutorial = ({ tutorialName, tutorialRefs }) => {
 					stepData={stepData}
 					decrementStep={onDecrementStep}
 					incrementStep={onIncrementStep}
+					jumpToStep={onJumpToStep}
 				/>
 			</Portal>
 		)

@@ -78,3 +78,11 @@ export const decrementTutorialStep = (tutorial) => {
 		tutorial,
 	};
 };
+
+export const jumpToTutorialStep = (tutorial, step) => {
+	return {
+		type: actionTypes.JUMP_TO_TUTORIAL_STEP,
+		tutorial,
+		step,
+	};
+};

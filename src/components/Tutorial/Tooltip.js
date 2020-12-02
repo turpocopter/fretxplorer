@@ -5,118 +5,7 @@ import ErrorMarker from "./ErrorMarker";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import CloseIcon from "@material-ui/icons/Close";
-
-const defaultBoxSettings = { x: { side: "left" }, y: { side: "top" } };
-const defaultTipSettings = { x: { side: "center" }, y: { side: "center" } };
-
-const computePosition = (domElt, tipSettings) => {
-	tipSettings = { ...defaultTipSettings, ...tipSettings };
-	const tipMargin = 22;
-	const tipBasePos = 10;
-	const emptyMargin = 20;
-	const eltBoundingRect = domElt.getBoundingClientRect();
-	const availableSpace = [
-		["top", eltBoundingRect.top],
-		["bottom", window.innerHeight - eltBoundingRect.bottom],
-		["left", eltBoundingRect.left],
-		["right", window.innerWidth - eltBoundingRect.right],
-	].sort((a, b) => b[1] - a[1]);
-	if (
-		availableSpace[0][0] === "left" &&
-		availableSpace[1][0] === "right" &&
-		availableSpace[0][1] === availableSpace[1][1]
-	) {
-		availableSpace[0][0] = "right";
-		availableSpace[1][0] = "left";
-	}
-	let popoverWidth = 300;
-	if (window.innerWidth >= 590) {
-		popoverWidth = 420;
-	}
-	const adaptHorizontalPosition = () => {
-		let left = eltBoundingRect.left,
-			right = "auto",
-			tip = 0;
-		// centrer sur mobile
-		if (window.innerWidth <= 375) {
-			left = (window.innerWidth - popoverWidth) / 2;
-		}
-		// si dépassement à droite
-		else if (left + popoverWidth > window.innerWidth - emptyMargin) {
-			left = window.innerWidth - popoverWidth - emptyMargin;
-		}
-		// [TODO] si dépassement à gauche
-		switch (tipSettings.x.side) {
-			case "left":
-				tip = eltBoundingRect.left - left - 12;
-				if (tipSettings.x.hasOwnProperty("offset")) tip += tipSettings.x.offset;
-				tip = Math.max(tip, tipBasePos);
-				break;
-			case "right":
-				tip = eltBoundingRect.right - left - 12;
-				if (tipSettings.x.hasOwnProperty("offset")) tip -= tipSettings.x.offset;
-				break;
-			case "center":
-				tip = eltBoundingRect.left + eltBoundingRect.width / 2 - left - 12;
-				break;
-			default:
-		}
-		return [left, right, tip];
-	};
-	const adaptVerticalPosition = () => {
-		let top = eltBoundingRect.top,
-			bottom = "auto",
-			tip = 0;
-		// [TODO] si dépassement en bas
-		/*if (top + ppvH > window.innerHeight - emptyMargin) {
-      top = window.innerHeight - ppvH - emptyMargin;
-    }*/
-		// [TODO] si dépassement en haut
-		switch (tipSettings.y.side) {
-			case "top":
-				tip = eltBoundingRect.top - top - 12;
-				if (tipSettings.y.hasOwnProperty("offset")) tip += tipSettings.y.offset;
-				tip = Math.max(tip, tipBasePos);
-				break;
-			case "right":
-				tip = eltBoundingRect.bottom - top - 12;
-				if (tipSettings.y.hasOwnProperty("offset")) tip -= tipSettings.y.offset;
-				break;
-			case "center":
-				tip = eltBoundingRect.top + eltBoundingRect.height / 2 - top - 12;
-				break;
-			default:
-		}
-		return [top, bottom, tip];
-	};
-	let side = availableSpace[0][0];
-	let top = "auto",
-		bottom = "auto",
-		left = "auto",
-		right = "auto",
-		tip = tipBasePos;
-	switch (side) {
-		case "top":
-			bottom = window.innerHeight - eltBoundingRect.top + tipMargin;
-			[left, right, tip] = adaptHorizontalPosition();
-			break;
-		case "bottom":
-			top = eltBoundingRect.bottom + tipMargin;
-			[left, right, tip] = adaptHorizontalPosition();
-			break;
-		case "left":
-			right = window.innerWidth - eltBoundingRect.left + tipMargin;
-			[top, bottom, tip] = adaptVerticalPosition();
-			break;
-		case "right":
-			left = eltBoundingRect.right + tipMargin;
-			[top, bottom, tip] = adaptVerticalPosition();
-			break;
-		default:
-	}
-
-	return { top, bottom, left, right, side, tip };
-};
+import { computePosition } from "utility/tutorial";
 
 const Tooltip = ({
 	isVisible,
@@ -126,19 +15,59 @@ const Tooltip = ({
 		main,
 		small,
 		selector,
-		tipSettings = {},
+		boxSettings,
+		tipSettings,
 		blockNext = null,
 		autoDiscard = false,
+		jumpActions,
 	},
 	decrementStep,
 	incrementStep,
+	jumpToStep,
 }) => {
 	const [position, setPosition] = useState(null);
 	const [showError, setShowError] = useState(false);
 	const [isClosing, setIsClosing] = useState(false);
 	const [shouldUpdate, setShouldUpdate] = useState(false);
+
+	// jump actions effect
+	useEffect(
+		() => {
+			const jaCopy = JSON.parse(JSON.stringify(jumpActions));
+			const jaHandler = (e, step) => {
+				e.stopPropagation();
+				setIsClosing(true);
+				setTimeout(() => {
+					e.target.dispatchEvent(e);
+					jumpToStep(step);
+				}, 300);
+			};
+			for (const ja of jaCopy) {
+				const el = document.querySelector(ja.selector);
+				if (el !== null) {
+					ja.handler = (e) => {
+						jaHandler(e, ja.step);
+					};
+					el.addEventListener(ja.event, ja.handler);
+				}
+			}
+			return () => {
+				//if (intervalID !== null) {
+				for (const ja of jaCopy) {
+					if (ja.hasOwnProperty("handler")) {
+						document
+							.querySelector(ja.selector)
+							.removeEventListener(ja.event, ja.handler);
+					}
+				}
+				//}
+			};
+		} /*, [jumpActions, jumpToStep]*/
+	);
+
 	useEffect(() => {
 		const domElt = document.querySelector(selector);
+		let intervalID = null;
 		// if tooltip is "auto discarded" increment step when element associated to step is clicked
 		let discardHandler = (e) => {
 			e.stopPropagation();
@@ -150,34 +79,48 @@ const Tooltip = ({
 			}, 300);
 			return false;
 		};
-		if (autoDiscard) {
+		if (autoDiscard && domElt) {
 			domElt.addEventListener("click", discardHandler);
 		}
 		// if tooltip is supposed to be visible but element associated to step is absent, wait for element to be there to rerender
 		if (isVisible && domElt === null) {
-			const intervalID = setInterval(() => {
+			intervalID = setInterval(() => {
 				const newDomElt = document.querySelector(selector);
 				if (newDomElt !== null) {
 					clearInterval(intervalID);
+					intervalID = null;
 					setShouldUpdate(!shouldUpdate);
 				}
 			}, 100);
 		}
 		// compute tooltip position on mount and on each resize
 		if (domElt) {
-			setPosition(computePosition(domElt, tipSettings));
+			const boxSettingsCopy = boxSettings
+				? JSON.parse(JSON.stringify(boxSettings))
+				: {};
+			const tipSettingsCopy = tipSettings
+				? JSON.parse(JSON.stringify(tipSettings))
+				: {};
+			setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));
 			window.addEventListener("resize", () => {
-				setPosition(computePosition(domElt, tipSettings));
+				setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));
 			});
 		}
+		return () => {
+			if (intervalID !== null) {
+				clearInterval(intervalID);
+			}
+		};
 	}, [
 		autoDiscard,
 		selector,
+		boxSettings,
 		tipSettings,
 		isVisible,
 		incrementStep,
 		shouldUpdate,
 	]);
+
 	const prevBtnClasses = ["btn prevBtn"];
 	const nextBtnClasses = ["btn nextBtn"];
 	if (step === 0) prevBtnClasses.push("hidden");

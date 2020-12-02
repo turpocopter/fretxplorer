@@ -33,4 +33,5 @@ export {
 	checkLocalSettings,
 	decrementTutorialStep,
 	incrementTutorialStep,
+	jumpToTutorialStep,
 } from "./settings";

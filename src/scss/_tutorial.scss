@@ -1,6 +1,6 @@
 .tooltipPopover {
 	z-index: 999;
-	position: absolute;
+	position: fixed;
 	width: 300px;
 	background-color: $colorPrimary;
 	font-size: 1.1em;
@@ -74,7 +74,7 @@
 			text-transform: uppercase;
 			border: none;
 			background-color: $colorPrimary;
-			font-size: 0.9em;
+			font-size: 0.8em;
 			margin: 0em;
 			border-radius: 6px;
 			padding: 0.5em 0em;
@@ -85,6 +85,9 @@
 			transition: all 0.3s;
 			cursor: pointer;
 			outline: none;
+			@include media(">=sm") {
+				font-size: 0.9em;
+			}
 			svg {
 				vertical-align: top !important;
 				font-size: 1.7em;
