@@ -66,6 +66,9 @@
 	.tooltipButtons {
 		text-align: center;
 		margin-top: 0.4em;
+		&.extra {
+			margin-top: 1em;
+		}
 		@include media(">=sm") {
 			font-size: 0.9em;
 		}
@@ -92,8 +95,8 @@
 				vertical-align: top !important;
 				font-size: 1.7em;
 			}
-			&:first-child {
-				margin-right: 0.8em;
+			&:nth-child(2) {
+				margin-left: 0.8em;
 			}
 			&:hover {
 				color: $colorPrimary;

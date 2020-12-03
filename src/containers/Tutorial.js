@@ -40,6 +40,7 @@ const Tutorial = ({ tutorialName, mainTutorialDone }) => {
 	};
 	useEffect(() => {
 		const loadTutorial = async (tutorialName) => {
+			if (mainTutorialDone) return null;
 			const tutorialPromise = await import(
 				`../data/tutorials/${tutorialName}.js`
 			);
@@ -92,31 +93,33 @@ const Tutorial = ({ tutorialName, mainTutorialDone }) => {
 			loadTutorial(tutorialName),
 			loadTutorialExtras(tutorialExtras, tutorialName, tutorialStep),
 		]).then(([data, extrasData]) => {
-			if (data) {
-				let extraData = null;
-				for (const extraName in extrasData) {
-					if (extrasData[extraName].condition()) {
-						extraData = extrasData[extraName];
-						delete extraData.condition;
-						extraData.extraName = extraName;
-						break;
-					}
+			//if (data) {
+			let extraData = null;
+			for (const extraName in extrasData) {
+				if (extrasData[extraName].condition()) {
+					extraData = extrasData[extraName];
+					delete extraData.condition;
+					extraData.extraName = extraName;
+					break;
 				}
-				isLoaded.current = true;
-				if (!extraData) {
-					setStepData(data);
-				} else {
-					extraData = {
-						...extraData,
-						tutorialLength: data.tutorialLength,
-						jumpActions: data.jumpActions,
-					};
-					setStepData(extraData);
-				}
-				setShowTooltip(true);
-				if (isLoaded.current && tooltipShouldFadeIn)
-					setTimeout(() => setTooltipShouldFadeIn(false), 300);
 			}
+			isLoaded.current = true;
+			if (!extraData) {
+				setStepData(data);
+			} else if (!data) {
+				setStepData(extraData);
+			} else {
+				extraData = {
+					...extraData,
+					tutorialLength: data.tutorialLength,
+					jumpActions: data.jumpActions,
+				};
+				setStepData(extraData);
+			}
+			setShowTooltip(true);
+			if (isLoaded.current && tooltipShouldFadeIn)
+				setTimeout(() => setTooltipShouldFadeIn(false), 300);
+			//}
 		});
 	}, [
 		tutorialName,
@@ -129,10 +132,10 @@ const Tutorial = ({ tutorialName, mainTutorialDone }) => {
 		selected,
 		tuning,
 		tooltipShouldFadeIn,
+		mainTutorialDone,
 	]);
 	return (
-		stepData !== null &&
-		(!mainTutorialDone || stepData.hasOwnProperty("extraName")) && (
+		stepData !== null && (
 			<Portal>
 				<Tooltip
 					isVisible={showTooltip}
@@ -144,6 +147,7 @@ const Tutorial = ({ tutorialName, mainTutorialDone }) => {
 					markAsDone={onFinishTutorial}
 					validateExtraStep={onValidateExtraStep}
 					shouldFadeIn={tooltipShouldFadeIn}
+					mainTutorialDone={mainTutorialDone}
 				/>
 			</Portal>
 		)

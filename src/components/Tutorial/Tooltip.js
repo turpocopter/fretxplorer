@@ -21,7 +21,7 @@ const Tooltip = ({
 		blockNext = null,
 		hidePrevious = false,
 		autoDiscard = false,
-		jumpActions,
+		jumpActions = [],
 		extraName = null,
 	},
 	decrementStep,
@@ -30,6 +30,7 @@ const Tooltip = ({
 	validateExtraStep,
 	markAsDone,
 	shouldFadeIn,
+	mainTutorialDone,
 }) => {
 	const [position, setPosition] = useState(null);
 	const [showError, setShowError] = useState(false);
@@ -180,45 +181,53 @@ const Tooltip = ({
 							}}
 						/>
 					</div>
+					{!mainTutorialDone && (
+						<div className='progressBar'>
+							<div className='bar'>
+								<div
+									className='done'
+									style={{
+										width:
+											(100 * (extraName !== null ? step : step + 1)) /
+												tutorialLength +
+											"%",
+									}}></div>
+							</div>
 
-					<div className='progressBar'>
-						<div className='bar'>
-							<div
-								className='done'
-								style={{
-									width:
-										(100 * (extraName !== null ? step : step + 1)) /
-											tutorialLength +
-										"%",
-								}}></div>
+							<div className='counter'>
+								{extraName === null ? step + 1 : step}/{tutorialLength}
+							</div>
 						</div>
-
-						<div className='counter'>
-							{extraName === null ? step + 1 : step}/{tutorialLength}
+					)}
+					{!mainTutorialDone ? (
+						<div className='tooltipButtons'>
+							<button className={prevBtnClasses.join(" ")} onClick={onPrev}>
+								<ChevronLeftIcon />
+								Previous&nbsp;&nbsp;
+							</button>
+							<button className={nextBtnClasses.join(" ")} onClick={onNext}>
+								&nbsp;&nbsp;
+								{step === tutorialLength - 1 && extraName === null ? (
+									<>
+										Done&nbsp;&nbsp;
+										<DoneIcon />
+									</>
+								) : (
+									<>
+										Next
+										<ChevronRightIcon />
+									</>
+								)}
+							</button>
 						</div>
-					</div>
-
-					<div className='tooltipButtons'>
-						<button className={prevBtnClasses.join(" ")} onClick={onPrev}>
-							<ChevronLeftIcon />
-							Previous&nbsp;&nbsp;
-						</button>
-						<button className={nextBtnClasses.join(" ")} onClick={onNext}>
-							&nbsp;&nbsp;
-							{step === tutorialLength - 1 && extraName === null ? (
-								<>
-									Done&nbsp;&nbsp;
-									<DoneIcon />
-								</>
-							) : (
-								<>
-									Next
-									<ChevronRightIcon />
-								</>
-							)}
-						</button>
-					</div>
-
+					) : (
+						<div className='tooltipButtons extra'>
+							<button className='btn' onClick={onNext}>
+								OK&nbsp;&nbsp;
+								<DoneIcon />
+							</button>
+						</div>
+					)}
 					<div
 						className={`tip ${position.side}`}
 						style={{
