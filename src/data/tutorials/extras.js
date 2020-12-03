@@ -58,9 +58,11 @@ export const extrasTutorial = ({
 						: noteDegree === "3"
 						? "3rd"
 						: noteDegree + "th";
-				return `${noteName} is correct! It is the ${noteDegree} degree of your chord, therefore it is supposed to be a ${
-					noteName.match(/[A-Za-z]+/)[0]
-				} (the ${noteDegree} note starting from ${
+				const unalteredNote = noteName.match(/[A-Za-z]+/)[0];
+				return `${noteName} is correct! It is the ${noteDegree} degree of your chord, therefore it is supposed to be ${
+					unalteredNote === "A" || unalteredNote === "E" ? `an` : `a`
+				} ${unalteredNote}
+				(the ${noteDegree} note starting from ${
 					getNoteName(rootNote, useFlats).match(/[A-Za-z]+/)[0]
 				}), even if that means it has a uncommon alteration like ${noteAlteration} (${alterationName(
 					noteAlteration
