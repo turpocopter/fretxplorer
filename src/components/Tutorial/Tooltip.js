@@ -149,7 +149,6 @@ const Tooltip = ({
 			}, 1000);
 		} else {
 			setIsClosing(true);
-			console.log("NIK " + extraName);
 			setTimeout(
 				extraName !== null
 					? () => validateExtraStep(extraName)

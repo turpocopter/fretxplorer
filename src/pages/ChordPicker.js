@@ -71,7 +71,12 @@ const ChordPicker = () => {
 					<Fretboard />
 				</div>
 			</div>
-			{tutorialEnabled && !tutorialDone && <Tutorial tutorialName='chords' />}
+			{tutorialEnabled && (
+				/*!tutorialDone &&*/ <Tutorial
+					tutorialName='chords'
+					mainTutorialDone={tutorialDone}
+				/>
+			)}
 		</>
 	);
 };

@@ -5,7 +5,7 @@ import * as actions from "store/actions";
 import Portal from "hoc/Portal";
 import Tooltip from "components/Tutorial/Tooltip";
 
-const Tutorial = ({ tutorialName }) => {
+const Tutorial = ({ tutorialName, mainTutorialDone }) => {
 	const [showTooltip, setShowTooltip] = useState(false);
 	const [tooltipShouldFadeIn, setTooltipShouldFadeIn] = useState(true);
 	const [stepData, setStepData] = useState(null);
@@ -131,7 +131,8 @@ const Tutorial = ({ tutorialName }) => {
 		tooltipShouldFadeIn,
 	]);
 	return (
-		stepData !== null && (
+		stepData !== null &&
+		(!mainTutorialDone || stepData.hasOwnProperty("extraName")) && (
 			<Portal>
 				<Tooltip
 					isVisible={showTooltip}

@@ -11,6 +11,7 @@ const defaultTuning = [
 
 const defaultTutorialsProgress = {
 	chords: { step: 0, done: false },
+	scales: { step: 0, done: false },
 	extras: {
 		shouldOpenTuner: false,
 		weirdAlteration: false,
