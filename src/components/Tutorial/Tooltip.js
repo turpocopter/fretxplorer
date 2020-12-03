@@ -22,10 +22,12 @@ const Tooltip = ({
 		hidePrevious = false,
 		autoDiscard = false,
 		jumpActions,
+		extraName = null,
 	},
 	decrementStep,
 	incrementStep,
 	jumpToStep,
+	validateExtraStep,
 	markAsDone,
 	shouldFadeIn,
 }) => {
@@ -33,10 +35,9 @@ const Tooltip = ({
 	const [showError, setShowError] = useState(false);
 	const [isClosing, setIsClosing] = useState(false);
 	const [shouldUpdate, setShouldUpdate] = useState(false);
-
 	// jump actions effect
 	useEffect(() => {
-		const jaCopy = JSON.parse(JSON.stringify(jumpActions));
+		const jaCopy = [...jumpActions];
 		const uniqueEvents = [...new Set(jaCopy.map((ja) => ja.event))];
 		const listenToJumpActions = (e) => {
 			let target = e.target;
@@ -44,7 +45,7 @@ const Tooltip = ({
 				(ja) => ja.event === e.type
 			)) {
 				while (target !== null) {
-					if (target.matches(selector)) {
+					if (target.matches(selector())) {
 						e.stopPropagation();
 						setIsClosing(true);
 						setTimeout(() => {
@@ -72,7 +73,7 @@ const Tooltip = ({
 	}, [jumpActions, jumpToStep]);
 
 	useEffect(() => {
-		const domElt = document.querySelector(selector);
+		const domElt = document.querySelector(selector());
 		let intervalID = null;
 		// if tooltip is "auto discarded" increment step when element associated to step is clicked
 		let discardHandler = (e) => {
@@ -81,7 +82,8 @@ const Tooltip = ({
 			setTimeout(() => {
 				domElt.removeEventListener("click", discardHandler);
 				domElt.dispatchEvent(e);
-				incrementStep();
+				if (extraName === null) incrementStep();
+				else validateExtraStep(extraName);
 			}, 300);
 			return false;
 		};
@@ -91,7 +93,7 @@ const Tooltip = ({
 		// if tooltip is supposed to be visible but element associated to step is absent, wait for element to be there to rerender
 		if (isVisible && domElt === null) {
 			intervalID = setInterval(() => {
-				const newDomElt = document.querySelector(selector);
+				const newDomElt = document.querySelector(selector());
 				if (newDomElt !== null) {
 					clearInterval(intervalID);
 					intervalID = null;
@@ -125,6 +127,8 @@ const Tooltip = ({
 		isVisible,
 		incrementStep,
 		shouldUpdate,
+		extraName,
+		validateExtraStep,
 	]);
 
 	const prevBtnClasses = ["btn prevBtn"];
@@ -145,7 +149,15 @@ const Tooltip = ({
 			}, 1000);
 		} else {
 			setIsClosing(true);
-			setTimeout(step === tutorialLength - 1 ? markAsDone : incrementStep, 300);
+			console.log("NIK " + extraName);
+			setTimeout(
+				extraName !== null
+					? () => validateExtraStep(extraName)
+					: step === tutorialLength - 1
+					? markAsDone
+					: incrementStep,
+				300
+			);
 		}
 	};
 	return (
@@ -159,29 +171,34 @@ const Tooltip = ({
 						<p
 							className='main'
 							dangerouslySetInnerHTML={{
-								__html: sanitize(main),
+								__html: sanitize(main()),
 							}}
 						/>
 						<p
 							className='small'
 							dangerouslySetInnerHTML={{
-								__html: sanitize(small),
+								__html: sanitize(small()),
 							}}
 						/>
 					</div>
+
 					<div className='progressBar'>
 						<div className='bar'>
 							<div
 								className='done'
 								style={{
-									width: (100 * (step + 1)) / tutorialLength + "%",
+									width:
+										(100 * (extraName !== null ? step : step + 1)) /
+											tutorialLength +
+										"%",
 								}}></div>
 						</div>
 
 						<div className='counter'>
-							{step + 1}/{tutorialLength}
+							{extraName === null ? step + 1 : step}/{tutorialLength}
 						</div>
 					</div>
+
 					<div className='tooltipButtons'>
 						<button className={prevBtnClasses.join(" ")} onClick={onPrev}>
 							<ChevronLeftIcon />
@@ -189,7 +206,7 @@ const Tooltip = ({
 						</button>
 						<button className={nextBtnClasses.join(" ")} onClick={onNext}>
 							&nbsp;&nbsp;
-							{step === tutorialLength - 1 ? (
+							{step === tutorialLength - 1 && extraName === null ? (
 								<>
 									Done&nbsp;&nbsp;
 									<DoneIcon />
@@ -211,7 +228,7 @@ const Tooltip = ({
 								: "top"]: position.tip,
 						}}></div>
 				</div>
-				{showError && <ErrorMarker selector={selector} />}
+				{showError && <ErrorMarker selector={selector()} />}
 			</>
 		)
 	);

@@ -34,5 +34,6 @@ export {
 	decrementTutorialStep,
 	incrementTutorialStep,
 	jumpToTutorialStep,
+	validateExtraTutorialStep,
 	finishTutorial,
 } from "./settings";

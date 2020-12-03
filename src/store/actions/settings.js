@@ -87,6 +87,13 @@ export const jumpToTutorialStep = (tutorial, step) => {
 	};
 };
 
+export const validateExtraTutorialStep = (name) => {
+	return {
+		type: actionTypes.VALIDATE_EXTRA_TUTORIAL_STEP,
+		name,
+	};
+};
+
 export const finishTutorial = (tutorial) => {
 	return {
 		type: actionTypes.FINISH_TUTORIAL,

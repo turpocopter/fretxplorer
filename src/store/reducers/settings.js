@@ -11,6 +11,11 @@ const defaultTuning = [
 
 const defaultTutorialsProgress = {
 	chords: { step: 0, done: false },
+	extras: {
+		shouldOpenTuner: false,
+		weirdAlteration: false,
+		navigateScaleModes: false,
+	},
 };
 
 const initialState = {
@@ -21,7 +26,10 @@ const initialState = {
 	tuningPreset: "",
 	parallelModes: false, // modes have common root instead of common notes
 	tutorialsEnabled: true,
-	tutorialsProgress: { ...defaultTutorialsProgress },
+	tutorialsProgress: {
+		...defaultTutorialsProgress,
+		extras: { ...defaultTutorialsProgress.extras },
+	},
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -136,7 +144,7 @@ const settingsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				tutorialsProgress: {
-					...state.tutorialProgress,
+					...state.tutorialsProgress,
 					[action.tutorial]: {
 						step: state.tutorialsProgress[action.tutorial].step + 1,
 						done: false,
@@ -147,7 +155,7 @@ const settingsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				tutorialsProgress: {
-					...state.tutorialProgress,
+					...state.tutorialsProgress,
 					[action.tutorial]: {
 						step: state.tutorialsProgress[action.tutorial].step - 1,
 						done: false,
@@ -158,18 +166,26 @@ const settingsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				tutorialsProgress: {
-					...state.tutorialProgress,
+					...state.tutorialsProgress,
 					[action.tutorial]: {
 						step: action.step,
 						done: false,
 					},
 				},
 			};
+		case actionTypes.VALIDATE_EXTRA_TUTORIAL_STEP:
+			return {
+				...state,
+				tutorialsProgress: {
+					...state.tutorialsProgress,
+					extras: { ...state.tutorialsProgress.extras, [action.name]: true },
+				},
+			};
 		case actionTypes.FINISH_TUTORIAL:
 			return {
 				...state,
 				tutorialsProgress: {
-					...state.tutorialProgress,
+					...state.tutorialsProgress,
 					[action.tutorial]: {
 						step: state.tutorialsProgress[action.tutorial].step,
 						done: true,

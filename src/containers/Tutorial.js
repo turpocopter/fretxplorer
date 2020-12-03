@@ -13,11 +13,15 @@ const Tutorial = ({ tutorialName }) => {
 	const tutorialStep = useSelector(
 		(state) => state.settings.tutorialsProgress[tutorialName].step
 	);
+	const tutorialExtras = useSelector(
+		(state) => state.settings.tutorialsProgress.extras
+	);
 	const noteNaming = useSelector((state) => state.settings.noteNaming);
 	const leftHanded = useSelector((state) => state.settings.leftHanded);
 	const rootNote = useSelector((state) => state.notePicker.rootNote);
 	const useFlats = useSelector((state) => state.notePicker.useFlats);
 	const selected = useSelector((state) => state.notePicker.selected);
+	const tuning = useSelector((state) => state.settings.tuning);
 	const isLoaded = useRef(false);
 	const onDecrementStep = () => {
 		return dispatch(actions.decrementTutorialStep(tutorialName));
@@ -31,8 +35,11 @@ const Tutorial = ({ tutorialName }) => {
 	const onFinishTutorial = () => {
 		return dispatch(actions.finishTutorial(tutorialName));
 	};
+	const onValidateExtraStep = (extraName) => {
+		return dispatch(actions.validateExtraTutorialStep(extraName));
+	};
 	useEffect(() => {
-		async function loadTutorial(tutorialName) {
+		const loadTutorial = async (tutorialName) => {
 			const tutorialPromise = await import(
 				`../data/tutorials/${tutorialName}.js`
 			);
@@ -43,6 +50,7 @@ const Tutorial = ({ tutorialName }) => {
 				rootNote,
 				useFlats,
 				selected,
+				tuning,
 			});
 			let jumpActions = [];
 			tutorialSteps.forEach(({ selector, autoJumpAction = null }, i) => {
@@ -57,11 +65,54 @@ const Tutorial = ({ tutorialName }) => {
 						jumpActions,
 				  }
 				: null;
-		}
-		loadTutorial(tutorialName).then((data) => {
+		};
+		const loadTutorialExtras = async (
+			tutorialExtras,
+			tutorialName,
+			tutorialStep
+		) => {
+			const extrasPromise = await import(`../data/tutorials/extras.js`);
+			const getExtraSteps = extrasPromise.extrasTutorial;
+			const extraSteps = getExtraSteps({
+				noteNaming,
+				leftHanded,
+				rootNote,
+				useFlats,
+				selected,
+				tuning,
+				tutorialName,
+				tutorialStep,
+			});
+			for (const step in extraSteps) {
+				if (tutorialExtras[step] === true) delete extraSteps[step];
+			}
+			return extraSteps;
+		};
+		Promise.all([
+			loadTutorial(tutorialName),
+			loadTutorialExtras(tutorialExtras, tutorialName, tutorialStep),
+		]).then(([data, extrasData]) => {
 			if (data) {
+				let extraData = null;
+				for (const extraName in extrasData) {
+					if (extrasData[extraName].condition()) {
+						extraData = extrasData[extraName];
+						delete extraData.condition;
+						extraData.extraName = extraName;
+						break;
+					}
+				}
 				isLoaded.current = true;
-				setStepData(data);
+				if (!extraData) {
+					setStepData(data);
+				} else {
+					extraData = {
+						...extraData,
+						tutorialLength: data.tutorialLength,
+						jumpActions: data.jumpActions,
+					};
+					setStepData(extraData);
+				}
 				setShowTooltip(true);
 				if (isLoaded.current && tooltipShouldFadeIn)
 					setTimeout(() => setTooltipShouldFadeIn(false), 300);
@@ -70,14 +121,15 @@ const Tutorial = ({ tutorialName }) => {
 	}, [
 		tutorialName,
 		tutorialStep,
+		tutorialExtras,
 		leftHanded,
 		noteNaming,
 		rootNote,
 		useFlats,
 		selected,
+		tuning,
 		tooltipShouldFadeIn,
 	]);
-
 	return (
 		stepData !== null && (
 			<Portal>
@@ -89,6 +141,7 @@ const Tutorial = ({ tutorialName }) => {
 					incrementStep={onIncrementStep}
 					jumpToStep={onJumpToStep}
 					markAsDone={onFinishTutorial}
+					validateExtraStep={onValidateExtraStep}
 					shouldFadeIn={tooltipShouldFadeIn}
 				/>
 			</Portal>

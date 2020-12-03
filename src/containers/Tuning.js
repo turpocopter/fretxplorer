@@ -191,6 +191,9 @@ const Tuning = ({
 		pegsClasses.push("alwaysOpen");
 		settingClasses.push("alwaysOpen");
 	}
+	if (isOpening) {
+		wrapperClasses.push("opening");
+	}
 	if (isOpen || isOpening) {
 		wrapperClasses.push("active");
 		pegsClasses.push("active");
