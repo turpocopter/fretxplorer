@@ -91,7 +91,7 @@ export const chordsTutorial = ({
 			main: () => "OK, now how do I play this chord?",
 			small: () =>
 				"Well, it's up to you! <strong>Select each note of the chord at least once</strong> to create a valid chord voicing. In pop music, the root note is often the lowest note played in the chord.",
-			selector: () => ".fretboardInner", //".StringList",
+			selector: () => ".fretboardContainer.hasContent .fretboardInner",
 			boxSettings: { x: { side: "screencenter" } },
 		},
 		{
@@ -102,7 +102,7 @@ export const chordsTutorial = ({
 			selector: () =>
 				window.innerWidth > window.innerHeight
 					? ".persistentTuner"
-					: ".fretboardScroller .tuning.active:not(.opening)",
+					: ".fretboardContainer.hasContent .fretboardScroller .tuning.active:not(.opening)",
 			tipSettings: { y: { side: "top", offset: 17 } },
 		},
 	];
