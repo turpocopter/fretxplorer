@@ -3,9 +3,6 @@ import React, { useState, useEffect } from "react";
 const DisableNotice = ({ isVisible, shouldFadeIn, disableTutorials }) => {
 	const [isClosing, setIsClosing] = useState(false);
 
-	useEffect(() => {
-		console.log(shouldFadeIn);
-	});
 	const noticeClasses = ["disableNotice"];
 	if (isClosing) noticeClasses.push("closed");
 	else if (isVisible && shouldFadeIn) noticeClasses.push("open");

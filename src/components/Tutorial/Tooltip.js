@@ -116,7 +116,6 @@ const Tooltip = ({
 				? JSON.parse(JSON.stringify(tipSettings))
 				: {};
 			initPos = (e) => {
-				console.log(e.type);
 				setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));
 			};
 			setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));

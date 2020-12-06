@@ -12,7 +12,6 @@ import store from "./store";
 import * as serviceWorker from "./serviceWorker";
 
 if (process.env.NODE_ENV !== "development") {
-	console.log = () => {};
 }
 
 const theme = createMuiTheme({
