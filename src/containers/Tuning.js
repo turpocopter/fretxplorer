@@ -42,7 +42,6 @@ const Tuning = ({
 	const [isLandscape, setIsLandscape] = useState(
 		window.innerWidth / window.innerHeight
 	);
-
 	useEffect(() => {
 		return () => {
 			if (intervalID !== null) {
