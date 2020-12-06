@@ -42,9 +42,6 @@ const Tooltip = ({
 
 	// jump actions effect
 	useEffect(() => {
-		console.log("MOUNT", shouldFadeIn);
-	}, [shouldFadeIn]);
-	useEffect(() => {
 		const jaCopy = [...jumpActions];
 		const uniqueEvents = [...new Set(jaCopy.map((ja) => ja.event))];
 		const listenToJumpActions = (e) => {

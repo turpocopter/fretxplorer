@@ -61,7 +61,19 @@ const Tutorial = ({ tutorialName, mainTutorialDone, isClosing }) => {
 	const disableTutorials = () => {
 		return dispatch(actions.disableTutorials());
 	};
-
+	useEffect(() => {
+		setTooltipShouldFadeIn(true);
+		let i = setTimeout(() => {
+			clearInterval(i);
+			i = null;
+			setTooltipShouldFadeIn(false);
+		}, 300);
+		return () => {
+			if (i !== null) {
+				clearInterval(i);
+			}
+		};
+	}, [tutorialStep, tutorialName]);
 	useEffect(() => {
 		const loadTutorial = async (tutorialName) => {
 			if (mainTutorialDone) return null;
