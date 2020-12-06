@@ -84,13 +84,13 @@ const Tooltip = ({
 		// if tooltip is "auto discarded" increment step when element associated to step is clicked
 		let discardHandler = (e) => {
 			e.stopPropagation();
-			setIsClosing(true);
-			setTimeout(() => {
+			intervalID = setTimeout(() => {
 				domElt.removeEventListener("click", discardHandler);
 				domElt.dispatchEvent(e);
 				if (extraName === null) incrementStep();
 				else validateExtraStep(extraName);
 			}, 300);
+			setIsClosing(true);
 			return false;
 		};
 		if (autoDiscard && domElt) {
@@ -126,6 +126,9 @@ const Tooltip = ({
 			);
 		}
 		return () => {
+			if (domElt) {
+				domElt.removeEventListener("click", discardHandler);
+			}
 			if (intervalID !== null) {
 				clearInterval(intervalID);
 			}
