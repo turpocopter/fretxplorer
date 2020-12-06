@@ -36,11 +36,13 @@ function App(props) {
 	const [isAudioActive, setIsAudioActive] = useState(false);
 	useEffect(() => {
 		const activate = (e) => {
-			e.stopPropagation();
-			setTimeout(() => {
-				e.target.dispatchEvent(e);
-			}, 500);
-			setIsAudioActive(true);
+			if (e.target.closest("#root") !== null) {
+				setIsAudioActive(true);
+				e.stopPropagation();
+				setTimeout(() => {
+					e.target.dispatchEvent(e);
+				}, 500);
+			}
 		};
 		if (!isAudioActive) {
 			document.body.addEventListener("click", activate, true);

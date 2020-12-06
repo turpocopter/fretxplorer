@@ -9,7 +9,7 @@ const DisableNotice = ({ isVisible, shouldFadeIn, disableTutorials }) => {
 	useEffect(() => {
 		let intervalID = null;
 		const closeNotice = () => {
-			clearInterval(intervalID);
+			if (intervalID !== null) clearInterval(intervalID);
 			setIsClosing(true);
 			intervalID = setTimeout(disableTutorials, 500);
 			document.body.removeEventListener("click", closeNotice);

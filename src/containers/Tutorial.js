@@ -203,11 +203,15 @@ const Tutorial = ({ tutorialName, mainTutorialDone, isClosing }) => {
 		const startFadeOut = () => {
 			setTooltipShouldFadeOut(true);
 		};
-		document
-			.querySelectorAll(".MainMenu .Link:not(.activeLink)")
-			.forEach((el) => {
-				el.addEventListener("click", startFadeOut);
+		const links = document.querySelectorAll(".MainMenu .Link:not(.activeLink)");
+		links.forEach((el) => {
+			el.addEventListener("click", startFadeOut);
+		});
+		return () => {
+			links.forEach((el) => {
+				el.removeEventListener("click", startFadeOut);
 			});
+		};
 	}, []);
 	return (
 		stepData !== null && (
