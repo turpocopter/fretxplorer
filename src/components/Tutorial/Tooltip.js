@@ -116,7 +116,14 @@ const Tooltip = ({
 				? JSON.parse(JSON.stringify(tipSettings))
 				: {};
 			initPos = (e) => {
-				setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));
+				setTimeout(
+					() => {
+						setPosition(
+							computePosition(domElt, boxSettingsCopy, tipSettingsCopy)
+						);
+					},
+					e.type === "orientationchange" ? 100 : 0
+				);
 			};
 			setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));
 			window.addEventListener(
