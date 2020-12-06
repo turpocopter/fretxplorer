@@ -1,22 +1,11 @@
-import React, { useEffect } from "react";
-
-import MIDISounds from "midi-sounds-react";
+import React, { useContext } from "react";
+import AudioContext from "AudioContext";
 
 const WithMidiSounds = (WrappedComponent) => {
-	let midiSounds = null;
-
 	const Hoc = (props) => {
-		useEffect(() => {
-			if (midiSounds) {
-				midiSounds.setMasterVolume(0.4);
-			}
-			return () => {
-				if (midiSounds) {
-					midiSounds.cancelQueue();
-				}
-			};
-		}, []);
-		const INSTRUMENT_ID = 270; // ou 262 ??
+		const ctx = useContext(AudioContext);
+		const { midiSounds, INSTRUMENT_ID } =
+			ctx !== null ? ctx : { midiSounds: null, INSTRUMENT_ID: null };
 
 		const getNoteVal = (note, octave) => note + 12 * (octave + 1);
 
@@ -82,24 +71,15 @@ const WithMidiSounds = (WrappedComponent) => {
 		};
 
 		return (
-			<>
-				<WrappedComponent
-					{...props}
-					playNote={onPlayNote}
-					playMelody={onPlayMelody}
-					playChord={onPlayChord}
-					playScale={onPlayScale}
-					getNoteVal={getNoteVal}
-					cancelSound={onCancel}
-				/>
-				<div style={{ display: "none" }}>
-					<MIDISounds
-						ref={(ref) => (midiSounds = ref)}
-						appElementName='root'
-						instruments={[INSTRUMENT_ID]}
-					/>
-				</div>
-			</>
+			<WrappedComponent
+				{...props}
+				playNote={onPlayNote}
+				playMelody={onPlayMelody}
+				playChord={onPlayChord}
+				playScale={onPlayScale}
+				getNoteVal={getNoteVal}
+				cancelSound={onCancel}
+			/>
 		);
 	};
 

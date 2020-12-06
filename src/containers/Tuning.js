@@ -42,7 +42,6 @@ const Tuning = ({
 	const [isLandscape, setIsLandscape] = useState(
 		window.innerWidth / window.innerHeight
 	);
-
 	useEffect(() => {
 		return () => {
 			if (intervalID !== null) {
@@ -190,6 +189,9 @@ const Tuning = ({
 		wrapperClasses.push("alwaysOpen");
 		pegsClasses.push("alwaysOpen");
 		settingClasses.push("alwaysOpen");
+	}
+	if (isOpening) {
+		wrapperClasses.push("opening");
 	}
 	if (isOpen || isOpening) {
 		wrapperClasses.push("active");

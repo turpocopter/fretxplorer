@@ -88,6 +88,9 @@
 	&.scalePicker {
 		.pickerContainer {
 			@include media("^=tabletH", "landscape", ">=tablet") {
+				padding: 0 34px;
+			}
+			@include media("^=tabletH", "landscape", ">=l") {
 				padding: 0 88px;
 			}
 		}
@@ -145,7 +148,7 @@
 	}
 	.switchContainer {
 		width: 100%;
-		margin-bottom: 32px;
+		margin: 32px 0;
 		@include media("<desktop", "landscape") {
 			margin-bottom: 8px;
 		}
@@ -177,5 +180,24 @@
 	}
 	.tuningContainer {
 		margin-top: 16px;
+	}
+	.startOverTutorials {
+		text-align: center;
+		.btn {
+			font-size: 0.9em;
+			background-color: $colorSecondary;
+			border: 2px solid $colorSecondary;
+			border-radius: 5px;
+			padding: 0.3em 0.7em;
+			color: white;
+			text-transform: uppercase;
+			transition: all 0.2s;
+			cursor: pointer;
+			outline: none;
+			&:hover {
+				background-color: #fff;
+				color: $colorSecondary;
+			}
+		}
 	}
 }

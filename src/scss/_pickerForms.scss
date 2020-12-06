@@ -104,6 +104,9 @@
 				@include media(">=sm") {
 					width: 400px;
 				}
+				@include media(">=desktop", "portrait") {
+					width: 500px;
+				}
 				@include media("<tablet", "landscape") {
 					margin-top: 8px;
 					padding: 8px 0;
@@ -157,12 +160,12 @@
 	}
 	.formControl {
 		margin: 0;
-		min-width: 250px;
+		width: 250px;
 		@include media(">=sm") {
-			min-width: 400px;
+			width: 400px;
 		}
 		@include media(">=desktop", "portrait") {
-			min-width: 500px;
+			width: 500px;
 		}
 		&.-root {
 			width: 140px;
@@ -171,7 +174,7 @@
 				width: 200px;
 			}
 			@include media(">=desktop", "portrait") {
-				min-width: 250px;
+				width: 250px;
 			}
 		}
 	}
