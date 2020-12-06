@@ -41,15 +41,18 @@ export const scalesTutorial = ({
 		{
 			condition: () => rootNote !== "",
 			main: () =>
-				"Would you like to pick a root note with a <strong>flat</strong> instead?",
+				`Would you like to pick a root note with a <strong>${
+					useFlats ? "sharp" : "flat"
+				}</strong> instead?`,
 			small: () =>
 				`This will change the name of the altered notes in the root note list. For instance ${
-					getNoteName(rootNote) !== getNoteName(rootNote, true)
+					getNoteName(rootNote, useFlats) !== getNoteName(rootNote, !useFlats)
 						? `your root note <strong>${getNoteName(
-								rootNote
+								rootNote,
+								useFlats
 						  )}</strong> will become <strong>${getNoteName(
 								rootNote,
-								true
+								!useFlats
 						  )}</strong>`
 						: `<strong>${getNoteName(
 								1
