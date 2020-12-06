@@ -6,6 +6,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
+import { getDeviceType } from "utility/common";
 import { computePosition } from "utility/tutorial";
 
 const Tooltip = ({
@@ -30,13 +31,19 @@ const Tooltip = ({
 	validateExtraStep,
 	markAsDone,
 	shouldFadeIn,
+	shouldFadeOut,
 	mainTutorialDone,
+	closeTutorials,
 }) => {
 	const [position, setPosition] = useState(null);
 	const [showError, setShowError] = useState(false);
 	const [isClosing, setIsClosing] = useState(false);
 	const [shouldUpdate, setShouldUpdate] = useState(false);
+
 	// jump actions effect
+	useEffect(() => {
+		console.log("MOUNT", shouldFadeIn);
+	}, [shouldFadeIn]);
 	useEffect(() => {
 		const jaCopy = [...jumpActions];
 		const uniqueEvents = [...new Set(jaCopy.map((ja) => ja.event))];
@@ -76,6 +83,7 @@ const Tooltip = ({
 	useEffect(() => {
 		const domElt = document.querySelector(selector());
 		let intervalID = null;
+		let initPos = () => {};
 		// if tooltip is "auto discarded" increment step when element associated to step is clicked
 		let discardHandler = (e) => {
 			e.stopPropagation();
@@ -110,15 +118,24 @@ const Tooltip = ({
 			const tipSettingsCopy = tipSettings
 				? JSON.parse(JSON.stringify(tipSettings))
 				: {};
-			setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));
-			window.addEventListener("resize", () => {
+			initPos = (e) => {
+				console.log(e.type);
 				setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));
-			});
+			};
+			setPosition(computePosition(domElt, boxSettingsCopy, tipSettingsCopy));
+			window.addEventListener(
+				getDeviceType() === "desktop" ? "resize" : "orientationchange",
+				initPos
+			);
 		}
 		return () => {
 			if (intervalID !== null) {
 				clearInterval(intervalID);
 			}
+			window.removeEventListener(
+				getDeviceType() === "desktop" ? "resize" : "orientationchange",
+				initPos
+			);
 		};
 	}, [
 		autoDiscard,
@@ -136,7 +153,7 @@ const Tooltip = ({
 	const nextBtnClasses = ["btn nextBtn"];
 	if (step === 0 || hidePrevious) prevBtnClasses.push("hidden");
 	const tooltipClasses = ["tooltipPopover"];
-	if (isClosing) tooltipClasses.push("closed");
+	if (isClosing || shouldFadeOut) tooltipClasses.push("closed");
 	else if (isVisible && shouldFadeIn) tooltipClasses.push("open");
 	const onPrev = () => {
 		setIsClosing(true);
@@ -160,12 +177,16 @@ const Tooltip = ({
 			);
 		}
 	};
+	const onClose = () => {
+		setIsClosing(true);
+		setTimeout(closeTutorials, 300);
+	};
 	return (
 		position !== null && (
 			<>
 				<div className={tooltipClasses.join(" ")} style={{ ...position }}>
 					<div className='tooltipContent'>
-						<button className='closeBtn'>
+						<button className='closeBtn' onClick={onClose}>
 							<CloseIcon />
 						</button>
 						<p

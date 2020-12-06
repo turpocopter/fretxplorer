@@ -13,9 +13,11 @@ const defaultTutorialsProgress = {
 	chords: { step: 0, done: false },
 	scales: { step: 0, done: false },
 	extras: {
-		shouldOpenTuner: false,
+		shouldOpenTunerChords: false,
+		shouldOpenTunerScales: false,
 		weirdAlteration: false,
 		navigateScaleModes: false,
+		parallelVsRelativeModes: false,
 	},
 };
 
@@ -26,7 +28,8 @@ const initialState = {
 	tuning: [...defaultTuning],
 	tuningPreset: "",
 	parallelModes: false, // modes have common root instead of common notes
-	tutorialsEnabled: true,
+	isNewUser: true,
+	tutorialsState: "enabled",
 	tutorialsProgress: {
 		...defaultTutorialsProgress,
 		extras: { ...defaultTutorialsProgress.extras },
@@ -119,7 +122,7 @@ const settingsReducer = (state = initialState, action) => {
 			const localNoteNaming = localStorage.getItem("fretxplorerNoteNaming");
 			const localLeftHanded = localStorage.getItem("fretxplorerLeftHanded");
 			const localTuning = localStorage.getItem("fretxplorerTuning");
-			const localTutorialsEnabled = localStorage.getItem(
+			const localTutorialsState = localStorage.getItem(
 				"fretxplorerTutorialsEnabled"
 			);
 			const localTutorialsProgress = localStorage.getItem(
@@ -133,65 +136,132 @@ const settingsReducer = (state = initialState, action) => {
 						? JSON.parse(localLeftHanded)
 						: state.leftHanded,
 				tuning: localTuning ? JSON.parse(localTuning) : state.tuning,
-				tutorialsEnabled:
-					localTutorialsEnabled !== null
-						? JSON.parse(localTutorialsEnabled)
-						: state.tutorialsEnabled,
+				isNewUser: localTutorialsState === null,
+				tutorialsState:
+					localTutorialsState !== null
+						? JSON.parse(localTutorialsState) === true
+							? "enabled"
+							: "disabled"
+						: state.tutorialsState,
 				tutorialsProgress: localTutorialsProgress
 					? JSON.parse(localTutorialsProgress)
 					: state.tutorialsProgress,
 			};
 		case actionTypes.INCREMENT_TUTORIAL_STEP:
+			const updatedProgressAfterIncrement = {
+				...state.tutorialsProgress,
+				[action.tutorial]: {
+					step: state.tutorialsProgress[action.tutorial].step + 1,
+					done: false,
+				},
+			};
+			localStorage.setItem(
+				"fretxplorerTutorialsProgress",
+				JSON.stringify(updatedProgressAfterIncrement)
+			);
 			return {
 				...state,
-				tutorialsProgress: {
-					...state.tutorialsProgress,
-					[action.tutorial]: {
-						step: state.tutorialsProgress[action.tutorial].step + 1,
-						done: false,
-					},
-				},
+				tutorialsProgress: updatedProgressAfterIncrement,
 			};
 		case actionTypes.DECREMENT_TUTORIAL_STEP:
+			const updatedProgressAfterDecrement = {
+				...state.tutorialsProgress,
+				[action.tutorial]: {
+					step: state.tutorialsProgress[action.tutorial].step - 1,
+					done: false,
+				},
+			};
+			localStorage.setItem(
+				"fretxplorerTutorialsProgress",
+				JSON.stringify(updatedProgressAfterDecrement)
+			);
 			return {
 				...state,
-				tutorialsProgress: {
-					...state.tutorialsProgress,
-					[action.tutorial]: {
-						step: state.tutorialsProgress[action.tutorial].step - 1,
-						done: false,
-					},
-				},
+				tutorialsProgress: updatedProgressAfterDecrement,
 			};
 		case actionTypes.JUMP_TO_TUTORIAL_STEP:
+			const updatedProgressAfterJump = {
+				...state.tutorialsProgress,
+				[action.tutorial]: {
+					step: action.step,
+					done: false,
+				},
+			};
+			localStorage.setItem(
+				"fretxplorerTutorialsProgress",
+				JSON.stringify(updatedProgressAfterJump)
+			);
 			return {
 				...state,
-				tutorialsProgress: {
-					...state.tutorialsProgress,
-					[action.tutorial]: {
-						step: action.step,
-						done: false,
-					},
-				},
+				tutorialsProgress: updatedProgressAfterJump,
 			};
 		case actionTypes.VALIDATE_EXTRA_TUTORIAL_STEP:
+			const updatedProgressAfterExtra = {
+				...state.tutorialsProgress,
+				extras: { ...state.tutorialsProgress.extras, [action.name]: true },
+			};
+			localStorage.setItem(
+				"fretxplorerTutorialsProgress",
+				JSON.stringify(updatedProgressAfterExtra)
+			);
 			return {
 				...state,
-				tutorialsProgress: {
-					...state.tutorialsProgress,
-					extras: { ...state.tutorialsProgress.extras, [action.name]: true },
-				},
+				tutorialsProgress: updatedProgressAfterExtra,
 			};
 		case actionTypes.FINISH_TUTORIAL:
+			const updatedProgressAfterFinish = {
+				...state.tutorialsProgress,
+				[action.tutorial]: {
+					step: state.tutorialsProgress[action.tutorial].step,
+					done: true,
+				},
+			};
+			localStorage.setItem(
+				"fretxplorerTutorialsProgress",
+				JSON.stringify(updatedProgressAfterFinish)
+			);
 			return {
 				...state,
-				tutorialsProgress: {
-					...state.tutorialsProgress,
-					[action.tutorial]: {
-						step: state.tutorialsProgress[action.tutorial].step,
-						done: true,
-					},
-				},
+				tutorialsProgress: updatedProgressAfterFinish,
+			};
+		case actionTypes.ENABLE_TUTORIALS:
+			localStorage.setItem("fretxplorerTutorialsEnabled", true);
+			return {
+				...state,
+				tutorialsState: "enabled",
+				isNewUser: false,
+			};
+		case actionTypes.CLOSE_TUTORIALS:
+			localStorage.setItem("fretxplorerTutorialsEnabled", false);
+			return {
+				...state,
+				tutorialsState: "closing",
+				isNewUser: false,
+			};
+		case actionTypes.DISABLE_TUTORIALS:
+			localStorage.setItem("fretxplorerTutorialsEnabled", false);
+			const updatedProgressAfterDisable = { ...defaultTutorialsProgress };
+			localStorage.setItem(
+				"fretxplorerTutorialsProgress",
+				JSON.stringify(updatedProgressAfterDisable)
+			);
+			return {
+				...state,
+				tutorialsState: "disabled",
+				tutorialsProgress: updatedProgressAfterDisable,
+				isNewUser: false,
+			};
+		case actionTypes.START_OVER_TUTORIALS:
+			const updatedProgressAfterStartOver = { ...defaultTutorialsProgress };
+			localStorage.setItem(
+				"fretxplorerTutorialsProgress",
+				JSON.stringify(updatedProgressAfterStartOver)
+			);
+			return {
+				...state,
+				tutorialsState: "enabled",
+				tutorialsProgress: updatedProgressAfterStartOver,
+				isNewUser: false,
 			};
 		default:
 			return state;

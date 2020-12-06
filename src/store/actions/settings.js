@@ -94,9 +94,33 @@ export const validateExtraTutorialStep = (name) => {
 	};
 };
 
+export const enableTutorials = () => {
+	return {
+		type: actionTypes.ENABLE_TUTORIALS,
+	};
+};
+
+export const closeTutorials = () => {
+	return {
+		type: actionTypes.CLOSE_TUTORIALS,
+	};
+};
+
+export const disableTutorials = () => {
+	return {
+		type: actionTypes.DISABLE_TUTORIALS,
+	};
+};
+
 export const finishTutorial = (tutorial) => {
 	return {
 		type: actionTypes.FINISH_TUTORIAL,
 		tutorial,
+	};
+};
+
+export const startOverTutorials = () => {
+	return {
+		type: actionTypes.START_OVER_TUTORIALS,
 	};
 };

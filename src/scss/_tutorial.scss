@@ -1,3 +1,102 @@
+.inviteBackdrop {
+	z-index: 999 !important;
+	&.open {
+		animation: fadeInBackdrop 1.2s ease-out forwards;
+		.invite {
+			animation: openInvite 1.2s ease-out forwards;
+		}
+	}
+	&.closed {
+		animation: fadeOutBackdrop 0.5s ease-out forwards;
+		.invite {
+			animation: closeInvite 0.5s ease-out forwards;
+		}
+	}
+	.invite {
+		position: fixed;
+		width: 300px;
+		background-color: $colorPrimary;
+		font-size: 1.1em;
+		padding: 0.9em 1em 1.2em;
+		color: white;
+		border-radius: 10px;
+		margin: auto;
+		text-align: justify;
+
+		@include media(">=sm") {
+			width: 420px;
+			font-size: 18px; /*1.05em;*/
+		}
+		@include media(">=desktop", "portrait") {
+			width: 600px;
+			font-size: 1.1em;
+		}
+		.main {
+			margin: 0;
+		}
+		.small {
+			font-size: 0.8em;
+			margin: 0.4em 0 0;
+		}
+		.inviteButtons {
+			text-align: center;
+			margin-top: 1.2em;
+			@include media(">=sm") {
+				font-size: 0.9em;
+			}
+			.btn {
+				font-weight: bold;
+				text-transform: uppercase;
+				border: none;
+				background-color: $colorPrimary;
+				font-size: 0.8em;
+				margin: 0em;
+				border-radius: 6px;
+				padding: 0.5em 0em;
+				width: 9em;
+				border: 2px solid white;
+				color: white;
+				line-height: 1.8;
+				transition: all 0.3s;
+				cursor: pointer;
+				outline: none;
+				&.noBtn {
+					background-color: white;
+					color: $colorSecondary;
+					&:hover {
+						background-color: $colorSecondary;
+						color: white;
+					}
+				}
+				&.yesBtn {
+					background-color: white;
+					color: $colorPrimary;
+					&:hover {
+						background-color: $colorPrimary;
+						color: white;
+					}
+				}
+				@include media(">=sm") {
+					font-size: 0.9em;
+				}
+				svg {
+					vertical-align: top !important;
+					font-size: 1.7em;
+				}
+				&:nth-child(2) {
+					margin-left: 0.8em;
+				}
+				&:hover {
+					color: $colorPrimary;
+					background-color: white;
+				}
+				&.hidden {
+					visibility: hidden;
+				}
+			}
+		}
+	}
+}
 .tooltipPopover {
 	z-index: 999;
 	position: fixed;
@@ -10,7 +109,9 @@
 	box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
 	margin: auto;
-
+	@include media("<m", "landscape") {
+		display: none !important;
+	}
 	&.open:not(.error) {
 		animation: openModal 0.25s ease-out forwards;
 	}
@@ -20,6 +121,10 @@
 	@include media(">=sm") {
 		width: 420px;
 		font-size: 18px; /*1.05em;*/
+	}
+	@include media(">=desktop", "portrait") {
+		width: 600px;
+		font-size: 1.1em;
 	}
 	.tooltipContent {
 		text-align: justify;
@@ -109,28 +214,33 @@
 	}
 	.tip {
 		position: absolute;
-		top: -21px;
-		left: 14px;
 		width: 0;
 		height: 0;
 		border-style: solid;
-		border-width: 0 12px 20.8px 12px;
-		border-color: transparent transparent $colorPrimary transparent;
+		&.bottom {
+			top: -21px;
+			left: 14px;
+			border-width: 0 12px 20.8px 12px;
+			border-color: transparent transparent $colorPrimary transparent;
+		}
 		&.right {
 			left: -21px;
 			top: 14px;
-			transform: rotate(-90deg);
+			border-width: 12px 20.8px 12px 0;
+			border-color: transparent $colorPrimary transparent transparent;
 		}
 		&.left {
 			left: auto;
 			right: -21px;
 			top: 14px;
-			transform: rotate(90deg);
+			border-width: 12px 0 12px 20.8px;
+			border-color: transparent transparent transparent $colorPrimary;
 		}
 		&.top {
 			top: auto;
 			bottom: -21px;
-			transform: rotate(180deg);
+			border-width: 20.8px 12px 0 12px;
+			border-color: $colorPrimary transparent transparent transparent;
 		}
 	}
 }
@@ -140,6 +250,82 @@
 	background-color: $colorSecondary;
 	animation: flash 0.4s 2 forwards;
 }
+.disableNotice {
+	background-color: $colorPrimary;
+	color: white;
+	font-size: 1.1em;
+	border-radius: 10px;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	width: 300px;
+	padding: 0.9em 1em 1.2em;
+	z-index: 999;
+	&.open {
+		animation: openNoticeSmall 0.5s ease-out forwards;
+	}
+	&.closed {
+		animation: closeNoticeSmall 0.2s ease-out forwards;
+	}
+	@include media(">=sm") {
+		width: 420px;
+		font-size: 18px;
+		&.open {
+			animation: openNoticeMedium 0.5s ease-out forwards;
+		}
+		&.closed {
+			animation: closeNoticeMedium 0.2s ease-out forwards;
+		}
+	}
+	@include media(">=desktop", "portrait") {
+		width: 600px;
+		font-size: 1.1em;
+		&.open {
+			animation: openNoticeLarge 0.5s ease-out forwards;
+		}
+		&.closed {
+			animation: closeNoticeLarge 0.2s ease-out forwards;
+		}
+	}
+	.main {
+		margin: 0;
+	}
+	.small {
+		font-size: 0.8em;
+		margin: 0.4em 0 0;
+	}
+}
+.rotateBackdrop {
+	display: none !important;
+
+	@include media("<m", "landscape") {
+		z-index: 999 !important;
+		display: flex !important;
+	}
+	.notice {
+		position: fixed;
+		width: 300px;
+		background-color: $colorPrimary;
+		font-size: 1.1em;
+		padding: 0.9em 1em 1.2em;
+		color: white;
+		border-radius: 10px;
+		margin: auto;
+		text-align: justify;
+
+		@include media(">=sm") {
+			width: 420px;
+			font-size: 18px; /*1.05em;*/
+		}
+		@include media(">=desktop", "portrait") {
+			width: 600px;
+			font-size: 1.1em;
+		}
+		.main {
+			margin: 0;
+		}
+	}
+}
 @keyframes flash {
 	0% {
 		opacity: 0;
@@ -148,6 +334,50 @@
 		opacity: 0.3;
 	}
 	100% {
+		opacity: 0;
+	}
+}
+@keyframes fadeInBackdrop {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeOutBackdrop {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+@keyframes openInvite {
+	0% {
+		opacity: 0;
+		transform: translateY(-30px);
+	}
+	80% {
+		opacity: 0;
+		transform: translateY(-30px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@keyframes closeInvite {
+	from {
+		opacity: 1;
+	}
+	to {
 		opacity: 0;
 	}
 }
@@ -165,5 +395,62 @@
 	}
 	to {
 		opacity: 0;
+	}
+}
+@keyframes openNoticeSmall {
+	0% {
+		right: -300px;
+	}
+	60% {
+		right: -300px;
+	}
+	100% {
+		right: 20px;
+	}
+}
+@keyframes closeNoticeSmall {
+	from {
+		right: 20px;
+	}
+	to {
+		right: -300px;
+	}
+}
+@keyframes openNoticeMedium {
+	0% {
+		right: -420px;
+	}
+	60% {
+		right: -420px;
+	}
+	100% {
+		right: 20px;
+	}
+}
+@keyframes closeNoticeMedium {
+	from {
+		right: 20px;
+	}
+	to {
+		right: -420px;
+	}
+}
+@keyframes openNoticeLarge {
+	0% {
+		right: -600px;
+	}
+	60% {
+		right: -600px;
+	}
+	100% {
+		right: 20px;
+	}
+}
+@keyframes closeNoticeLarge {
+	from {
+		right: 20px;
+	}
+	to {
+		right: -600px;
 	}
 }

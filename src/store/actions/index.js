@@ -36,4 +36,8 @@ export {
 	jumpToTutorialStep,
 	validateExtraTutorialStep,
 	finishTutorial,
+	enableTutorials,
+	closeTutorials,
+	disableTutorials,
+	startOverTutorials,
 } from "./settings";

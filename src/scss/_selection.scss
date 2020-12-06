@@ -91,7 +91,8 @@
 				margin: 0;
 				width: 218px;
 				@include media(">=sm", "portrait") {
-					margin-top: 4px;
+					margin-top: 20px;
+					width: 335px;
 				}
 				@include media(">=tablet") {
 					margin-top: 4px;

@@ -22,9 +22,7 @@ const ScalePicker = () => {
 	const parallelModes = useSelector((state) => state.settings.parallelModes);
 	const selected = useSelector((state) => state.notePicker.selected);
 	const namingConvention = useSelector((state) => state.settings.noteNaming);
-	const tutorialEnabled = useSelector(
-		(state) => state.settings.tutorialsEnabled
-	);
+	const tutorialsState = useSelector((state) => state.settings.tutorialsState);
 	const tutorialDone = useSelector(
 		(state) => state.settings.tutorialsProgress.scales.done
 	);
@@ -133,7 +131,13 @@ const ScalePicker = () => {
 					<Fretboard />
 				</div>
 			</div>
-			{tutorialEnabled && !tutorialDone && <Tutorial tutorialName='scales' />}
+			{(tutorialsState === "enabled" || tutorialsState === "closing") && (
+				<Tutorial
+					tutorialName='scales'
+					mainTutorialDone={tutorialDone}
+					isClosing={tutorialsState === "closing"}
+				/>
+			)}
 		</>
 	);
 };

@@ -16,9 +16,7 @@ const ChordPicker = () => {
 	const dispatch = useDispatch();
 	const chordName = useSelector((state) => state.notePicker.chordName);
 	const showIntervals = useSelector((state) => state.settings.showIntervals);
-	const tutorialEnabled = useSelector(
-		(state) => state.settings.tutorialsEnabled
-	);
+	const tutorialsState = useSelector((state) => state.settings.tutorialsState);
 	const tutorialDone = useSelector(
 		(state) => state.settings.tutorialsProgress.chords.done
 	);
@@ -71,10 +69,11 @@ const ChordPicker = () => {
 					<Fretboard />
 				</div>
 			</div>
-			{tutorialEnabled && (
-				/*!tutorialDone &&*/ <Tutorial
+			{(tutorialsState === "enabled" || tutorialsState === "closing") && (
+				<Tutorial
 					tutorialName='chords'
 					mainTutorialDone={tutorialDone}
+					isClosing={tutorialsState === "closing"}
 				/>
 			)}
 		</>

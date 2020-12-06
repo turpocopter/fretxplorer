@@ -26,13 +26,18 @@ export const computePosition = (domElt, boxSettings, tipSettings) => {
 	if (window.innerWidth >= 590) {
 		popoverWidth = 420;
 	}
+	if (window.innerWidth >= 1024 && window.innerHeight >= window.innerWidth) {
+		popoverWidth = 600;
+	}
 	const adaptHorizontalPosition = () => {
 		let left = "auto",
 			right = "auto",
 			tip = 0;
 		switch (boxSettings.x.side) {
 			case "right":
-				right = eltBoundingRect.right - window.innerWidth;
+				left = eltBoundingRect.right - popoverWidth;
+				if (boxSettings.x.hasOwnProperty("offset"))
+					left -= boxSettings.x.offset;
 				break;
 			case "center":
 				left = eltBoundingRect.left;
@@ -43,6 +48,8 @@ export const computePosition = (domElt, boxSettings, tipSettings) => {
 				break;
 			default:
 				left = eltBoundingRect.left;
+				if (boxSettings.x.hasOwnProperty("offset"))
+					left += boxSettings.x.offset;
 		}
 
 		// centrer sur mobile
@@ -62,7 +69,7 @@ export const computePosition = (domElt, boxSettings, tipSettings) => {
 				tip = Math.max(tip, tipBasePos);
 				break;
 			case "right":
-				tip = eltBoundingRect.right - left - 12;
+				tip = popoverWidth - 12;
 				if (tipSettings.x.hasOwnProperty("offset")) tip -= tipSettings.x.offset;
 				break;
 			case "center":
