@@ -240,7 +240,7 @@ export const extrasTutorial = ({
 				},
 			},
 		},
-		paralleleVsRelativeModes: {
+		parallelVsRelativeModes: {
 			condition: () =>
 				tutorialName === "scales" &&
 				tutorialStep >= 5 &&
