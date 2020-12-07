@@ -96,7 +96,7 @@ export const chordsTutorial = ({
 			main: () =>
 				"Awesome, you just built a functional chord! But <strong>optionally</strong>, you can add more notes!",
 			small: () =>
-				"Use the last two lists to add a 7th note to your chord, or any sort of extension or alteration. Again, this is <strong>totally optional</strong>.",
+				"Use the last two lists to add a 7th note to your chord, and/or any sort of extension or alteration. Again, this is <strong>totally optional</strong>.",
 			selector: () => ".seventhForm .MuiInputBase-root",
 			boxSettings: {
 				x: {
